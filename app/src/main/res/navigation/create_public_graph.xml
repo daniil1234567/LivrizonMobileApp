@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_public_graph"
+    app:startDestination="@id/appendMembersFragment">
+
+    <fragment
+        android:id="@+id/appendMembersFragment"
+        android:name="com.app.livrizon.fragments.profile.AppendMembersFragment"
+        android:label="fragment_append_members"
+        tools:layout="@layout/fragment_append_members" />
+    <fragment
+        android:id="@+id/createPublicFragment"
+        android:name="com.app.livrizon.fragments.CreatePublicFragment"
+        android:label="fragment_create_public"
+        tools:layout="@layout/fragment_create_public" >
+        <action
+            android:id="@+id/action_createPublicFragment_to_appendMembersFragment"
+            app:destination="@id/appendMembersFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"  />
+    </fragment>
+</navigation>

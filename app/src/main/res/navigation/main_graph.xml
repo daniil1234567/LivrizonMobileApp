@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/containerFragment">
+
+    <fragment
+        android:id="@+id/messengerFragment"
+        android:name="com.app.livrizon.fragments.chat.MessengerFragment"
+        android:label="fragment_messenger"
+        tools:layout="@layout/fragment_messenger" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.app.livrizon.fragments.category.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_likeBottomSheet"
+            app:destination="@id/likeBottomSheet"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_pageShimmer"
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/containerFragment"
+        android:name="com.app.livrizon.fragments.ContainerFragment"
+        android:label="fragment_container"
+        tools:layout="@layout/fragment_container" >
+        <action
+            android:id="@+id/action_containerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_containerFragment_to_messengerFragment"
+            app:destination="@id/messengerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_containerFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_containerFragment_to_pageShimmer"
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_containerFragment_to_appendBottomSheet"
+            app:destination="@id/appendBottomSheet"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.app.livrizon.fragments.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_netWorkingFragment"
+            app:destination="@id/netWorkingFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_categoryFragment_to_pageShimmer"
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_categoryFragment_to_searchProfileFragment"
+            app:destination="@id/searchProfileFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/likeBottomSheet"
+        android:name="com.app.livrizon.bottom_sheet.LikeBottomSheet"
+        android:label="fragment_like_bottom_sheet"
+        tools:layout="@layout/fragment_like_bottom_sheet" >
+        <action
+            android:id="@+id/action_likeBottomSheet_to_pageShimmer"
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/netWorkingFragment"
+        android:name="com.app.livrizon.fragments.category.NetWorkingFragment"
+        android:label="fragment_net_working"
+        tools:layout="@layout/fragment_net_working" >
+        <action
+            android:id="@+id/action_netWorkingFragment_to_pageShimmer"
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageShimmer"
+        android:name="com.app.livrizon.fragments.wall.ShimmerWallFragment"
+        android:label="fragment_page_shimmer"
+        tools:layout="@layout/fragment_shimmer_wall" >
+        <action
+            android:id="@+id/action_pageShimmer_to_deleteWallFragment"
+            app:destination="@id/deleteWallFragment"/>
+        <action
+            android:id="@+id/action_pageShimmer_to_wallFragment"
+            app:destination="@id/wallFragment"/>
+        <action
+            android:id="@+id/action_pageShimmer_to_restrictWallFragment"
+            app:destination="@id/restrictWallFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/connectionFragment"
+        android:name="com.app.livrizon.fragments.profile.ConnectionFragment"
+        android:label="fragment_my_connection"
+        tools:layout="@layout/fragment_connection" >
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/appendBottomSheet"
+        android:name="com.app.livrizon.bottom_sheet.AppendBottomSheet"
+        android:label="bottom_sheet_append_publication"
+        tools:layout="@layout/bottom_sheet_append_publication" >
+        <action
+            android:id="@+id/action_appendBottomSheet_to_createPostFragment"
+            app:destination="@id/createPostFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_appendBottomSheet_to_createArticleFragment"
+            app:destination="@id/createArticleFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </dialog>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.app.livrizon.fragments.publication.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
+    <fragment
+        android:id="@+id/createArticleFragment"
+        android:name="com.app.livrizon.fragments.publication.CreateArticleFragment"
+        android:label="fragment_create_article"
+        tools:layout="@layout/fragment_create_article" />
+    <fragment
+        android:id="@+id/deleteWallFragment"
+        android:name="com.app.livrizon.fragments.wall.DeleteWallFragment"
+        android:label="DeleteWallFragment" />
+    <fragment
+        android:id="@+id/wallFragment"
+        android:name="com.app.livrizon.fragments.wall.WallFragment"
+        android:label="WallFragment" />
+    <fragment
+        android:id="@+id/restrictWallFragment"
+        android:name="com.app.livrizon.fragments.wall.RestrictWallFragment"
+        android:label="RestrictWallFragment" />
+    <fragment
+        android:id="@+id/subFragment"
+        android:name="com.app.livrizon.fragments.profile.SubFragment"
+        android:label="SubFragment" >
+        <action
+            android:id="@+id/action_subFragment_to_pageShimmer"
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchProfileFragment"
+        android:name="com.app.livrizon.fragments.profile.SearchProfileFragment"
+        android:label="SearchProfileFragment" >
+        <action
+            android:id="@+id/action_searchProfileFragment_to_pageShimmer"
+            app:destination="@id/pageShimmer" />
+    </fragment>
+</navigation>

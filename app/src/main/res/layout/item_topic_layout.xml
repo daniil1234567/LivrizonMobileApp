@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/body"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/white_r20with_s"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="19dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="19dp"
+    android:paddingBottom="10dp"
+    android:textColor="@color/black"
+    android:textSize="12sp">
+
+    <ImageView
+        android:id="@+id/ic_choose"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_name"
+        app:layout_constraintStart_toEndOf="@+id/ed_name"
+        app:layout_constraintTop_toTopOf="@+id/ed_name"
+        app:srcCompat="@drawable/ic_done" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Политика"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/ic_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_name"
+        app:layout_constraintStart_toEndOf="@+id/ed_name"
+        app:layout_constraintTop_toTopOf="@+id/ed_name"
+        app:srcCompat="@drawable/ic_plus" />
+</LinearLayout>

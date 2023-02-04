@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/avatar_d36.xml" value="0.1895" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/avatar_r18.xml" value="0.1895" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/bottom_text_field.xml" value="0.2075" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/bottom_text_field_r10_with_s.xml" value="0.1225" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/button.xml" value="0.2045" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/button_black_r10_without_s.xml" value="0.193" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/button_black_r8_without_s.xml" value="0.193" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/ic_arrow.xml" value="0.193" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_button.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_button_r15.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_button_r15_without_s.xml" value="0.2045" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_button_r8.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_button_r8_without_s.xml" value="0.2045" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_r12.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/light_r18.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/single_text_field_r10.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/single_text_field_r17_without_s.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/single_text_field_r18.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/sircle.xml" value="0.2075" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/stroke.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/text_field_bottom_r10_with_s.xml" value="0.1895" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/text_field_single_r10_with_s.xml" value="0.1225" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/text_field_single_r17_without_s.xml" value="0.1225" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/text_field_single_r18_without_s.xml" value="0.193" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/text_field_single_r8_withot_s.xml" value="0.2045" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/text_field_top_r10_with_s.xml" value="0.1225" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/drawable/white_button.xml" value="0.211" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/activity_create_publication.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/activity_secondary.xml" value="0.264" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/activity_start.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/append_bottom_sheet.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_account_title.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_append_bottom_sheer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_authentication.xml" value="0.264" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_authorization.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_category.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_chat.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_confirm.xml" value="0.152" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_container.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_context.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_create_password.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_create_post.xml" value="0.6" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_enter.xml" value="0.264" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_home.xml" value="0.2825520833333333" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_my_accounts.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_new.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_new_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_post.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_post_list.xml" value="0.2" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_recomendation.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_recommendation.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_splash.xml" value="0.2" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_connections.xml" value="0.264" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_connections_blank.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_information.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_relation.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_relations.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_search.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_sub.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_user_title.xml" value="0.264" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/fragment_wall.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_avatar_layout.xml" value="0.5561993047508691" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_history_layout.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_mutual_layout.xml" value="1.2" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_mutual_user_layout.xml" value="1.2" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_post_layout.xml" value="0.4" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_profile_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_user_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/item_userprofile_layout.xml" value="0.8800000000000001" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/layout/test.xml" value="0.264" />
+        <entry key="..\:/Users/danii/AndroidStudioProjects/Livrizon/app/src/main/res/menu/bottom_navigation.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="EntryPointsManager">
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="androidx.room.Insert" />
+      <item index="1" class="java.lang.String" itemvalue="androidx.room.Query" />
+    </list>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

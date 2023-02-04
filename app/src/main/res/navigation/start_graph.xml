@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/start_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.app.livrizon.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_enterFragment"
+            app:destination="@id/enterFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_splashFragment_to_myAccountsFragment"
+            app:destination="@id/myAccountsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.app.livrizon.fragments.authentication.LoginFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_registrationFragment_to_confirmCodeFragment"
+            app:destination="@id/confirmCodeFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmCodeFragment"
+        android:name="com.app.livrizon.fragments.authentication.ConfirmCodeFragment"
+        android:label="fragment_confirm"
+        tools:layout="@layout/fragment_confirm_code">
+        <action
+            android:id="@+id/action_confirmCodeFragment_to_registrationPasswordFragment"
+            app:destination="@id/registrationPasswordFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_confirmCodeFragment_to_confirmAccountFragment"
+            app:destination="@id/confirmAccountFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationPasswordFragment"
+        android:name="com.app.livrizon.fragments.authentication.RegistrationPasswordFragment"
+        android:label="fragment_create_password"
+        tools:layout="@layout/fragment_registration_password">
+        <action
+            android:id="@+id/action_registrationPasswordFragment_to_registrationMainInformationFragment"
+            app:destination="@id/registrationMainInformationFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_registrationPasswordFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationMainInformationFragment"
+        android:name="com.app.livrizon.fragments.authentication.RegistrationMainInformationFragment"
+        android:label="fragment_user_information"
+        tools:layout="@layout/fragment_registration_main_information">
+        <action
+            android:id="@+id/action_registrationMainInformationFragment_to_registrationTitleFragment"
+            app:destination="@id/registrationTitleFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationTitleFragment"
+        android:name="com.app.livrizon.fragments.authentication.RegistrationTitleFragment"
+        android:label="fragment_profile_title"
+        tools:layout="@layout/fragment_registration_title">
+        <action
+            android:id="@+id/action_titleFragment_to_registrationTopicsFragment"
+            app:destination="@id/registrationTopicsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.app.livrizon.fragments.authentication.AuthenticationFragment"
+        android:label="fragment_authentication"
+        tools:layout="@layout/fragment_authentication">
+        <action
+            android:id="@+id/action_authenticationFragment_to_confirmUsernameFragment"
+            app:destination="@id/confirmUsernameFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterFragment"
+        android:name="com.app.livrizon.fragments.authentication.EnterFragment"
+        android:label="fragment_enter"
+        tools:layout="@layout/fragment_enter">
+        <action
+            android:id="@+id/action_enterFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_enterFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAccountsFragment"
+        android:name="com.app.livrizon.fragments.authentication.AccountsFragment"
+        android:label="fragment_my_accounts"
+        tools:layout="@layout/fragment_accounts">
+        <action
+            android:id="@+id/action_myAccountsFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_myAccountsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"  />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmAccountFragment"
+        android:name="com.app.livrizon.fragments.authentication.ConfirmAccountFragment"
+        android:label="fragment_confirm_profile"
+        tools:layout="@layout/fragment_confirm_account">
+        <action
+            android:id="@+id/action_confirmAccountFragment_to_confirmPasswordFragment"
+            app:destination="@id/confirmPasswordFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_confirmAccountFragment_to_confirmCodeFragment"
+            app:destination="@id/confirmCodeFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmPasswordFragment"
+        android:name="com.app.livrizon.fragments.authentication.ConfirmPasswordFragment"
+        android:label="fragment_confirm_password"
+        tools:layout="@layout/fragment_confirm_password">
+        <action
+            android:id="@+id/action_confirmPasswordFragment_to_registrationPasswordFragment"
+            app:destination="@id/registrationPasswordFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmNameFragment"
+        android:name="com.app.livrizon.fragments.authentication.ConfirmNameFragment"
+        android:label="fragment_confirm_name"
+        tools:layout="@layout/fragment_confirm_name">
+        <action
+            android:id="@+id/action_confirmNameFragment_to_confirmAccountFragment"
+            app:destination="@id/confirmAccountFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmUsernameFragment"
+        android:name="com.app.livrizon.fragments.authentication.ConfirmUsernameFragment"
+        android:label="fragment_confirm_username"
+        tools:layout="@layout/fragment_confirm_username">
+        <action
+            android:id="@+id/action_confirmUsernameFragment_to_confirmNameFragment"
+            app:destination="@id/confirmNameFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationTopicsFragment"
+        android:name="com.app.livrizon.fragments.authentication.RegistrationTopicsFragment"
+        android:label="fragment_registration_topics"
+        tools:layout="@layout/fragment_registration_topics">
+        <action
+            android:id="@+id/action_registrationTopicsFragment_to_registrationAccountRecommendationFragment"
+            app:destination="@id/registrationAccountRecommendationFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationAccountRecommendationFragment"
+        android:name="com.app.livrizon.fragments.authentication.RegistrationRecommendationFragment"
+        android:label="fragment_registration_account_recommendation"
+        tools:layout="@layout/fragment_registration_recommendation" />
+</navigation>
