@@ -4,6 +4,8 @@ import android.view.View
 import com.app.livrizon.R
 import com.app.livrizon.databinding.FragmentEnterBinding
 import com.app.livrizon.fragments.CustomFragment
+import com.app.livrizon.function.loadImage
+import com.squareup.picasso.Picasso
 
 class EnterFragment : CustomFragment() {
     lateinit var binding: FragmentEnterBinding

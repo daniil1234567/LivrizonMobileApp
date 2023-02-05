@@ -3,7 +3,6 @@ package com.app.livrizon.request
 import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.init.*
 import com.app.livrizon.model.profile.Profile
-import com.app.livrizon.model.profile.Recommendation
 import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.publication.Message
 import com.app.livrizon.model.publication.Post
@@ -19,11 +18,12 @@ object InitRequest : InitService {
         }, InitProfileSearch::class.java)
     }
 
-    override suspend fun profileRecommendation(): Array<Recommendation> {
+    override suspend fun profiles(selection: Selection, my_sub: Boolean?): Array<Profile> {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_profile_recommendation)
+            url(HttpRoutes.initProfile(selection))
+            parameter(Parameters.my_sub, my_sub)
             headers.append(Parameters.auth, token.jwt)
-        }, Array<Recommendation>::class.java)
+        }, Array<Profile>::class.java)
     }
 
     override suspend fun sub(

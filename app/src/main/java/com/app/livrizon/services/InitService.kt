@@ -6,7 +6,6 @@ import com.app.livrizon.model.init.InitMessenger
 import com.app.livrizon.model.init.InitNews
 import com.app.livrizon.model.init.InitProfileSearch
 import com.app.livrizon.model.profile.Profile
-import com.app.livrizon.model.profile.Recommendation
 import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.publication.Message
 import com.app.livrizon.model.publication.Post
@@ -15,7 +14,7 @@ import com.app.livrizon.values.Selection
 
 interface InitService {
     suspend fun profileSearch(): InitProfileSearch
-    suspend fun profileRecommendation():Array<Recommendation>
+    suspend fun profiles(selection: Selection,my_syb:Boolean?):Array<Profile>
     suspend fun sub(selection: Selection, profile_id: Int,filter: Filter?): Array<Subscribe>
     suspend fun messages(profile_id: Int, message_id: Int?): Array<Message>
     suspend fun chats(): Array<Chat>

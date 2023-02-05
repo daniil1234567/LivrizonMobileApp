@@ -22,7 +22,6 @@ import androidx.fragment.app.FragmentActivity
 import com.app.livrizon.R
 import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.activities.SecondaryActivity
-import com.app.livrizon.activities.StartActivity
 import com.app.livrizon.model.publication.Post
 import com.app.livrizon.model.type.PublicationType
 import com.app.livrizon.request.HttpListener
@@ -33,8 +32,7 @@ import com.app.livrizon.values.HttpRoutes
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.connection
 import com.app.livrizon.values.gson
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.squareup.picasso.Picasso
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.json.*
@@ -112,24 +110,24 @@ fun loadAvatar(
     textView: TextView?,
     imageView: ImageView,
     url: String?,
-    quality: Int = 3,
+    quality: Int = 5,
 ) {
-    //if (url != null) {
-    //    imageView.visibility = View.VISIBLE
-    //    textView?.visibility = View.GONE
-    //    loadImage(context, imageView, url, quality)
-    //} else {
-    //    imageView.visibility = View.GONE
-    //    textView?.visibility = View.VISIBLE
-    //    if(name!=null) textView!!.text = name[0].uppercaseChar().toString()
-    //}
+    if (url != null) {
+        imageView.visibility = View.VISIBLE
+        textView?.visibility = View.GONE
+        loadImage(context, imageView, url, quality)
+    } else {
+        imageView.visibility = View.GONE
+        textView?.visibility = View.VISIBLE
+        if (name != null) textView!!.text = name[0].uppercaseChar().toString()
+    }
 }
 
-fun loadImage(context: Context, imageView: ImageView, url: String, quality: Int = 3) {
-    Glide.with(context)
-        .load(HttpRoutes.image(url, quality))
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-        .into(imageView)
+fun loadImage(context: Context, imageView: ImageView, path: String, quality: Int = 5) {
+    Picasso.get().load(HttpRoutes.image(path, quality)).into(imageView);
+    //Glide.with(context)
+    //    .load(HttpRoutes.image(path, quality))
+    //    .into(imageView)
 }
 
 fun <T> List<T>.last(): T? {

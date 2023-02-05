@@ -266,7 +266,7 @@ class ChatFragment : CustomFragment() {
 
         })
 
-        object : ScrollListener(requireContext(), recyclerView) {
+        object : ScrollListener(requireContext()) {
             override fun onScrollStateChanged(newState: Int) {
                 if (newState > 0) openArrowDown()
                 else closeArrowDown()

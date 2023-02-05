@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.app.livrizon.adapter.RecyclerViewAdapterBase
 import com.app.livrizon.adapter.ViewPagerAdapter
 import com.app.livrizon.request.HttpListener
+import com.app.livrizon.request.ScrollListener
 import com.app.livrizon.request.WebSocketListener
 import com.app.livrizon.util.TextListener
 import com.google.android.material.tabs.TabLayout
@@ -26,6 +27,7 @@ abstract class CustomFragment : Fragment() {
     lateinit var httpListener: HttpListener
     var webSocketListener: WebSocketListener? = null
     lateinit var textListener: TextListener
+    lateinit var scrollListener:ScrollListener
     lateinit var navController: NavController
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerViewAdapter: RecyclerViewAdapterBase

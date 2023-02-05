@@ -8,7 +8,7 @@ import com.app.livrizon.databinding.FragmentRegistrationRecommendationBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.homeRequest
 import com.app.livrizon.impl.Base
-import com.app.livrizon.model.profile.Recommendation
+import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.ProfileRequest
@@ -19,14 +19,14 @@ import kotlinx.android.synthetic.main.item_profile_layout.view.*
 
 class RegistrationRecommendationFragment : CustomFragment() {
     lateinit var binding: FragmentRegistrationRecommendationBinding
-    lateinit var profiles: Array<Recommendation>
+    lateinit var profiles: Array<Profile>
     override fun getBindingRoot(): View {
         return binding.root
     }
 
     override fun initVariable() {
         binding = FragmentRegistrationRecommendationBinding.inflate(layoutInflater)
-        profiles = requireArguments().getSerializable(Parameters.profile) as Array<Recommendation>
+        profiles = requireArguments().getSerializable(Parameters.profile) as Array<Profile>
         recyclerView = binding.rvProfile
     }
 
@@ -44,34 +44,32 @@ class RegistrationRecommendationFragment : CustomFragment() {
                 current: Base,
                 next: Base?
             ) {
-                val profile = list[position] as Recommendation
+                val profile = list[position] as Profile
                 with(holder.itemView) {
                     if (profile.my_sub) {
                         tv_button.text = "Отписаться"
-                        tv_button.setTextColor(resources.getColor(R.color.grey))
+                        tv_button.setTextColor(resources.getColor(R.color.white))
                         btn_action.setBackgroundResource(R.drawable.button_black_r8_without_s)
                     } else {
                         tv_button.text = "Подписаться"
-                        tv_button.setTextColor(resources.getColor(R.color.black))
+                        tv_button.setTextColor(resources.getColor(R.color.grey))
                         holder.itemView.btn_action.setBackgroundResource(R.drawable.button_light_r8_without_s)
                     }
                 }
             }
 
             override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                current as Recommendation
-                val my_sub=current.my_sub
+                current as Profile
+                val my_sub = current.my_sub
                 object : HttpListener(requireContext()) {
                     override suspend fun body(): Response {
-                        return ProfileRequest.sub(
-                            current.profile_id
-                        )
+                        return ProfileRequest.sub(current.profile_id)
                     }
 
                     override fun onSuccess(item: Any?) {
                         current.my_sub = !my_sub
                         with(holder.itemView) {
-                            if (my_sub) {
+                            if (current.my_sub) {
                                 tv_button.text = "Отписаться"
                                 tv_button.setTextColor(resources.getColor(R.color.white))
                                 btn_action.setBackgroundResource(R.drawable.button_black_r8_without_s)

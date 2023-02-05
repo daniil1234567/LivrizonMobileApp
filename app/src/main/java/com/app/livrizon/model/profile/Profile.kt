@@ -9,13 +9,14 @@ open class Profile(
     val title: String? = null,
     val followers: Int,
     val city: String? = null,
+    var my_sub: Boolean,
     confirm: Boolean,
     role: Role,
     profile_id: Int,
     avatar: String? = null,
     name: String,
-    status: Int
-) : Owner(confirm, role, profile_id, avatar, name, status),Base {
+    status: Int,
+) : Owner(confirm, role, profile_id, avatar, name, status), Base {
     override fun id(): Int {
         return profile_id
     }

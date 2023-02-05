@@ -1,6 +1,7 @@
 package com.app.livrizon.fragments.profile
 
 import android.view.View
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.adapter.CustomViewHolder
@@ -59,6 +60,11 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
                     val scroll = ProfileSearchScroll(it, 1, null)
                     webSocketListener!!.outputMessage(scroll)
                 }
+            }
+        }
+        scrollListener = object : ScrollListener(requireContext(), 8) {
+            override suspend fun onScrollToEnd(speed: Int) {
+                log(speed)
             }
         }
     }
@@ -129,6 +135,7 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
     override fun init() {
         recyclerView.adapter = recyclerViewAdapter
         visitRecyclerView.adapter = visitAdapter
+        scrollListener.addScrollListener(recyclerView)
         httpListener.request()
     }
 }

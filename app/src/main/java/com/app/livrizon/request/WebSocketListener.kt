@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 
 open class WebSocketListener(
     val context: Context,
-    var path: String,
+    private var path: String,
 ) {
     private val params: MutableList<Pair<String, Any>> = mutableListOf()
     fun addParam(name: String, value: Any?): WebSocketListener {

@@ -11,6 +11,7 @@ object Parameters {
     const val username="username"
     const val sub="sub"
     const val key ="key"
+    const val my_sub ="my_sub"
     const val role ="role"
     const val selection ="selection"
     const val favorite ="favorite"

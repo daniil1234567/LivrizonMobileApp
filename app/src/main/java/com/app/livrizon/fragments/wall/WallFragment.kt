@@ -204,7 +204,7 @@ class WallFragment : CustomFragment() {
         with(wall) {
             with(profile) {
                 binding.tvName.text = name
-                loadAvatar(requireContext(), name, binding.tvImage, binding.imgAvatar, avatar, 2)
+                loadAvatar(requireContext(), name, binding.tvImage, binding.imgAvatar, avatar, 4)
                 if (confirm) binding.imgConfirm.visibility = View.VISIBLE
                 else binding.imgConfirm.visibility = View.GONE
             }

@@ -26,6 +26,6 @@ class DeleteWallFragment : CustomFragment() {
             Status.not_active -> "Аккаунт был удален по пожеланию его владельца"
             else -> "Аккаунт был заблоирован"
         }
-        loadAvatar(requireContext(), null, null, binding.imgAvatar, Parameters.deleted, 2)
+        loadAvatar(requireContext(), null, null, binding.imgAvatar, Parameters.deleted, 4)
     }
 }

@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 abstract class ScrollListener(
     val context: Context,
-    val recyclerView: RecyclerView,
     val offset: Int = 15
 ) {
     var last: Int? = null
@@ -35,12 +34,13 @@ abstract class ScrollListener(
     open suspend fun onScrolled(speed: Int, offset: Int, unique: Boolean) {
 
     }
+    open suspend fun onScrollToEnd(speed: Int){
 
+    }
     open fun onScrollStateChanged(newState: Int) {
 
     }
-
-    init {
+    fun addScrollListener(recyclerView: RecyclerView){
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 onScrollStateChanged(newState)
@@ -64,7 +64,10 @@ abstract class ScrollListener(
                             else adapter.list.last().id()
                             val currentOffset = if (speed < 0) fPosition else size - lPosition
                             val unique = nLast != last
-                            if (currentOffset < offset) last = nLast
+                            if (currentOffset < offset) {
+                                last = nLast
+                                if (unique) onScrollToEnd(speed)
+                            }
                             onScrolled(
                                 speed,
                                 currentOffset,

@@ -12,6 +12,7 @@ import com.app.livrizon.R
 import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.databinding.FragmentSplashBinding
 import com.app.livrizon.function.connection
+import com.app.livrizon.function.loadImage
 import com.app.livrizon.model.authorization.Authentication
 import com.app.livrizon.model.authorization.Jwt
 import com.app.livrizon.model.profile.Account

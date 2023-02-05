@@ -10,7 +10,7 @@ import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.homeRequest
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.edit.topic.TopicEdit
-import com.app.livrizon.model.profile.Recommendation
+import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.topics.GroupTopics
@@ -19,6 +19,7 @@ import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.Selection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ class RegistrationTopicsFragment : CustomFragment() {
     override fun initAdapter() {
         recyclerViewAdapter = object : GroupTopicAdapter(requireContext()) {
             override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                if (current.id()!=null){
+                if (current.id() != null) {
                     if (topics.find { it.topic_id == current.id() } == null) topics.add(
                         TopicEdit(
                             current.id()!!,
@@ -129,19 +130,22 @@ class RegistrationTopicsFragment : CustomFragment() {
     override fun initButtons() {
         binding.btnNext.setOnClickListener {
             if (topics.size > 0) httpListener.request()
-            else homeRequest.request()
+            else profileRecommendationRequest.request()
         }
     }
 
     override fun request() {
         homeRequest = homeRequest(requireActivity())
         profileRecommendationRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Recommendation> {
-                return InitRequest.profileRecommendation()
+            override suspend fun body(): Array<Profile> {
+                return InitRequest.profiles(
+                    if (topics.size > 0) Selection.recommendation else Selection.popular,
+                    false
+                )
             }
 
             override fun onSuccess(item: Any?) {
-                item as Array<Subscribe>
+                item as Array<Profile>
                 if (item.size > 0)
                     navController.navigate(R.id.action_registrationTopicsFragment_to_registrationAccountRecommendationFragment,
                         Bundle().apply {

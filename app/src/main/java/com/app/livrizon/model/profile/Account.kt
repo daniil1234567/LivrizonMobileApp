@@ -9,10 +9,11 @@ class Account(
     title: String? = null,
     followers: Int,
     city: String? = null,
+    my_sub: Boolean,
     confirm: Boolean,
     role: Role,
     profile_id: Int,
     avatar: String? = null,
     name: String,
-    status: Int
-) : Profile(last, title, followers, city, confirm, role, profile_id, avatar, name, status)
+    status: Int,
+) : Profile(last, title, followers, city, my_sub, confirm, role, profile_id, avatar, name, status)
