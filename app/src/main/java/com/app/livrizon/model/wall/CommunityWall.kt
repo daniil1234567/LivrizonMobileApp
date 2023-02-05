@@ -9,13 +9,14 @@ import com.app.livrizon.model.wall.statistic.CommunityWallStatistic
 
 class CommunityWall(
     val pin: Post? = null,
+    wallpaper: String? = null,
     body: WallBody,
-    mutual: Array<ProfileBase>?=null,
+    mutual: Array<ProfileBase>? = null,
     profile: WallProfile,
     override val statistic: CommunityWallStatistic? = null,
-    override val list: Array<Post>?=null,
+    override val list: Array<Post>? = null,
     override val relation: PublicWallRelation
-) : Wall(body, mutual, profile), PageWallImpl {
+) : Wall(wallpaper, body, mutual, profile), PageWallImpl {
     override fun pin(): Post? {
         return pin
     }

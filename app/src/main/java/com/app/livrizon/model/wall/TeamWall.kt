@@ -8,10 +8,11 @@ import com.app.livrizon.model.wall.relation.TeamWallRelation
 import com.app.livrizon.model.wall.statistic.TeamWallStatistic
 
 class TeamWall(
+    wallpaper: String? = null,
     body: WallBody,
     mutual: Array<ProfileBase>? = null,
     profile: WallProfile,
     override val statistic: TeamWallStatistic? = null,
     override val list: Array<Member>? = null,
     override val relation: TeamWallRelation
-) : Wall(body, mutual, profile)
+) : Wall(wallpaper,body, mutual, profile)

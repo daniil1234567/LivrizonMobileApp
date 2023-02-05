@@ -77,7 +77,7 @@ class MessengerFragment : MessengerFragmentBase() {
     }
 
     override fun request() {
-        httpListener=object : HttpListener(requireContext()) {
+        httpListener = object : HttpListener(requireContext()) {
             override suspend fun body(): InitMessenger {
                 return InitRequest.messenger()
             }
@@ -92,7 +92,6 @@ class MessengerFragment : MessengerFragmentBase() {
     }
 
     override fun initVariable() {
-
         binding = FragmentMessengerBinding.inflate(layoutInflater)
         recyclerView = binding.rvChats
         visitRecyclerView = binding.rvRecent

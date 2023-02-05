@@ -11,6 +11,7 @@ import com.app.livrizon.databinding.FragmentWallBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.fragments.list.PostListFragment
 import com.app.livrizon.function.loadAvatar
+import com.app.livrizon.function.loadImage
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.Tab
 import com.app.livrizon.model.response.Response
@@ -202,6 +203,7 @@ class WallFragment : CustomFragment() {
 
     override fun init() {
         with(wall) {
+            if (wallpaper != null) loadImage(binding.imgWallpaper, wallpaper, 2)
             with(profile) {
                 binding.tvName.text = name
                 loadAvatar(requireContext(), name, binding.tvImage, binding.imgAvatar, avatar, 4)

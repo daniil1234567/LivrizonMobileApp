@@ -115,7 +115,7 @@ fun loadAvatar(
     if (url != null) {
         imageView.visibility = View.VISIBLE
         textView?.visibility = View.GONE
-        loadImage(context, imageView, url, quality)
+        loadImage(imageView, url, quality)
     } else {
         imageView.visibility = View.GONE
         textView?.visibility = View.VISIBLE
@@ -123,7 +123,7 @@ fun loadAvatar(
     }
 }
 
-fun loadImage(context: Context, imageView: ImageView, path: String, quality: Int = 5) {
+fun loadImage(imageView: ImageView, path: String, quality: Int = 5) {
     Picasso.get().load(HttpRoutes.image(path, quality)).into(imageView);
     //Glide.with(context)
     //    .load(HttpRoutes.image(path, quality))

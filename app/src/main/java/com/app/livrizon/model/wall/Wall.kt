@@ -6,6 +6,7 @@ import com.app.livrizon.model.wall.body.WallBody
 import com.app.livrizon.model.wall.statistic.WallStatistic
 
 abstract class Wall(
+    val wallpaper: String? = null,
     val body: WallBody,
     val mutual: Array<ProfileBase>? = null,
     profile: WallProfile

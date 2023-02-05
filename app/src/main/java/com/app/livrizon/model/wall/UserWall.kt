@@ -10,13 +10,14 @@ import com.app.livrizon.model.wall.statistic.AccountWallStatistic
 class UserWall(
     val pin: Post? = null,
     val recruiter: ProfileBase? = null,
+    wallpaper: String? = null,
     body: WallBody,
     mutual: Array<ProfileBase>? = null,
     profile: WallProfile,
     override val statistic: AccountWallStatistic? = null,
     override val list: Array<Post>? = null,
     override val relation: AccountWallRelation
-) : Wall(body, mutual, profile), PageWallImpl {
+) : Wall(wallpaper,body, mutual, profile), PageWallImpl {
     override fun pin(): Post? {
         return pin
     }

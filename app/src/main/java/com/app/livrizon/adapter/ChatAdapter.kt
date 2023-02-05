@@ -24,13 +24,13 @@ open class ChatAdapter(context: Context) : RecyclerViewAdapterBase(context) {
             with(chat) {
                 with(profile) {
                     img_confirm.visibility = View.GONE
-                    if (profile_id == (token as AccessToken).id) {
+                    if (equals() == (token as AccessToken).id) {
                         loadAvatar(
                             context,
                             profile.name,
                             holder.itemView.tv_image,
                             holder.itemView.img_avatar,
-                            Parameters.favorite
+                            Parameters.favorite, 1
                         )
                         tv_name.text = context.getString(R.string.Favorite)
                     } else {
@@ -41,7 +41,7 @@ open class ChatAdapter(context: Context) : RecyclerViewAdapterBase(context) {
                             profile.name,
                             holder.itemView.tv_image,
                             holder.itemView.img_avatar,
-                            profile.avatar
+                            profile.avatar,5
                         )
                         tv_name.text = name
                     }
