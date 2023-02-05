@@ -23,7 +23,7 @@ object HttpRoutes {
     const val init_chats = "$BASE_URL/init/chats"
     const val init_append = "$BASE_URL/init/append"
     const val init_profile_search = "$BASE_URL/init/profile/search"
-    const val hide_visit = "$BASE_URL/hide_visit"
+
     const val page = "$BASE_URL/page"
     const val post_like = "$BASE_URL/post_like"
     const val team = "$BASE_URL/team"
@@ -33,6 +33,9 @@ object HttpRoutes {
         return "$BASE_URL/init/profile/$selection"
     }
 
+    fun visit(profile_id: Int):String {
+        return "$BASE_URL/visit/$profile_id"
+    }
     fun sub(profile_id: Int): String {
         return "$BASE_URL/sub/$profile_id"
     }

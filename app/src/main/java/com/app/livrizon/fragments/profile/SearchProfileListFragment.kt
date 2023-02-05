@@ -80,7 +80,7 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
 
                     override fun onSuccess(item: Any?) {
                         visitAdapter.removeItem {
-                            it.id() == current.profile_id
+                            it.equals() == current.equals()
                         }
                     }
                 }.request()

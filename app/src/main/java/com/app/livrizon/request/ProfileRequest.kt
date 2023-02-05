@@ -56,8 +56,7 @@ object ProfileRequest : ProfileService {
 
     override suspend fun hideRecent(profile_id: Int):Response {
         return httpClient.delete{
-            url(HttpRoutes.hide_visit)
-            parameter(Parameters.id, profile_id)
+            url(HttpRoutes.visit(profile_id))
             headers.append(Parameters.auth, token.jwt)
         }
     }
