@@ -4,7 +4,7 @@ import com.app.livrizon.security.Role
 
 class ChatProfile (
     val last: Long? = null,
-    val title: String? = null,
+    val followers: Int? = null,
     confirm: Boolean,
     role: Role,
     profile_id: Int,

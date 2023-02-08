@@ -19,7 +19,6 @@ import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.*
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.chat.option.Forward
-import com.app.livrizon.model.chat.statistic.ChatStatistic
 import com.app.livrizon.model.edit.publication.SaveMessage
 import com.app.livrizon.model.init.InitChat
 import com.app.livrizon.model.profile.ChatProfile
@@ -46,16 +45,57 @@ class ChatFragment : CustomFragment() {
     lateinit var profile: ChatProfile
     lateinit var attachmentAdapter: AttachmentAdapter
     lateinit var attachmentRecyclerView: RecyclerView
-    lateinit var statistic: ChatStatistic
+    var unread = 0
     var forward: Forward? = null
     var last: Message? = null
     var ids = mutableListOf<Int>()
-    val viewModel: ViewModel by activityViewModels()
-    val offset = 15
     override fun getBindingRoot(): View {
         return binding.root
     }
 
+    fun openArrowDown() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(200)
+            if (unread != 0) {
+                binding.crUnread.visibility = View.VISIBLE
+                binding.tvUnread.text = unread.toString()
+            } else binding.tvUnread.visibility = View.GONE
+            if (!binding.containerDown.isVisible) {
+                binding.containerDown.visibility = View.VISIBLE
+                binding.containerDown.translationY = 200f.toDp(requireContext())
+                binding.containerDown.animate().translationY(0f).duration = 200
+            }
+        }
+
+    }
+
+    fun closeArrowDown() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(200)
+            if (binding.containerDown.isVisible) {
+                binding.containerDown.translationY = 0f
+                binding.containerDown.animate().translationY(200f.toDp(requireContext()))
+                    .withEndAction {
+                        binding.containerDown.visibility = View.GONE
+                    }.duration = 200
+            }
+        }
+    }
+
+    private fun initList(message_id: Int? = null) {
+        object : HttpListener(webSocketListener!!.context) {
+            override suspend fun body(): Array<Message> {
+                return InitRequest.messages(profile.profile_id, message_id)
+            }
+
+            override fun onSuccess(item: Any?) {
+                val init = item as Array<Message>
+                recyclerViewAdapter.initList(*init)
+                recyclerView.scrollToPosition(recyclerViewAdapter.itemCount - 1)
+                closeArrowDown()
+            }
+        }.request()
+    }
 
     override fun initAdapter() {
         attachmentAdapter = object : AttachmentAdapter(requireContext()) {
@@ -63,25 +103,24 @@ class ChatFragment : CustomFragment() {
         }
         recyclerViewAdapter = object : MessageAdapter(requireContext(), profile.role) {
             override fun onBodyLongClick(holder: CustomViewHolder, current: Base, position: Int) {
-                if (forward == null && holder.id != PublicationBase.mutual) {
-                    if (viewModel.action.value != true) viewModel.action.value = true
-                    super.onBodyShortClick(holder, current, position)
+                if (forward == null && holder.id != PublicationBase.mutual && viewModel.action.value != true) {
+                    viewModel.action.value = true
+                    onBodyShortClick(holder, current, position)
                 }
             }
 
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
-                val message = list[position] as Message
                 with(holder.itemView) {
-                    with(message) {
+                    with(current as Message) {
                         if (holder.id != PublicationBase.mutual) {
                             if (viewModel.action.value == true) {
                                 choose = !choose
                                 if (choose) {
-                                    ids.add(message.publication_id)
+                                    ids.add(publication_id)
                                     animateTvCount(true)
                                     img_choose.visibility = View.VISIBLE
                                 } else {
-                                    ids.remove(message.publication_id)
+                                    ids.remove(publication_id)
                                     animateTvCount(false)
                                     if (ids.size == 0) {
                                         Handler().postDelayed({
@@ -155,53 +194,8 @@ class ChatFragment : CustomFragment() {
         }
     }
 
-    fun openArrowDown() {
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(200)
-            if (statistic.unread != 0) {
-                binding.crUnread.visibility = View.VISIBLE
-                binding.tvUnread.text = statistic.unread.toString()
-            } else binding.tvUnread.visibility = View.GONE
-            log(binding.containerDown.isVisible)
-            if (!binding.containerDown.isVisible) {
-                binding.containerDown.visibility = View.VISIBLE
-                binding.containerDown.translationY = 200f.toDp(requireContext())
-                binding.containerDown.animate().translationY(0f).duration = 200
-            }
-        }
-
-    }
-
-    fun closeArrowDown() {
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(200)
-            if (binding.containerDown.isVisible) {
-                binding.containerDown.translationY = 0f
-                binding.containerDown.animate().translationY(200f.toDp(requireContext()))
-                    .withEndAction {
-                        binding.containerDown.visibility = View.GONE
-                    }.duration = 200
-            }
-        }
-    }
-
-    fun initList(message_id: Int? = null) {
-        object : HttpListener(webSocketListener!!.context) {
-            override suspend fun body(): Array<Message> {
-                return InitRequest.messages(profile.profile_id, message_id)
-            }
-
-            override fun onSuccess(item: Any?) {
-                val init = item as Array<Message>
-                recyclerViewAdapter.initList(*init)
-                recyclerView.scrollToPosition(recyclerViewAdapter.itemCount - 1)
-                closeArrowDown()
-            }
-        }.request()
-    }
-
     override fun initListener() {
-        viewModel.action.observe(requireActivity()) {
+        viewModel.action.observe(this) {
             if (it != null) {
                 if (it) {
                     animateBtnClose(true)
@@ -258,15 +252,20 @@ class ChatFragment : CustomFragment() {
                         recyclerView.smoothScrollToPosition(
                             recyclerViewAdapter.itemCount - 1
                         )
+                        unread = 0
                         closeArrowDown()
-                    } else openArrowDown()
+                    } else {
+                        unread++
+                        openArrowDown()
+                    }
+                    recyclerViewAdapter.addListToBottom(*messages)
                 } else if (from == (token as AccessToken).id) initList()
                 else openArrowDown()
             }
 
         })
 
-        object : ScrollListener(requireContext()) {
+        scrollListener = object : ScrollListener(requireContext()) {
             override fun onScrollStateChanged(newState: Int) {
                 if (newState > 0) openArrowDown()
                 else closeArrowDown()
@@ -282,8 +281,8 @@ class ChatFragment : CustomFragment() {
                 val message = recyclerViewAdapter.list[position] as Message
                 if (!message.statistic.seen && message.from.profile_id != (token as AccessToken).id) {
                     message.statistic.seen = true
-                    statistic.unread--
-                    EventRequest.seen(profile.profile_id, message.id())
+                    unread--
+                    PublicationRequest.seen(profile.profile_id, message.id())
                 }
             }
         }
@@ -303,29 +302,55 @@ class ChatFragment : CustomFragment() {
 
 
     override fun request() {
-        object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): InitChat {
                 return InitRequest.chat(profile.profile_id)
             }
 
             override fun onSuccess(item: Any?) {
                 item as InitChat
-                statistic = item.statistic
                 recyclerViewAdapter.initList(*item.messages)
-                val size = recyclerViewAdapter.itemCount
-                if (size > 0) recyclerView.scrollToPosition(recyclerViewAdapter.toPosition(statistic.last))
+                recyclerView.scrollToPosition(
+                    if (item.statistic.attendance != null) recyclerViewAdapter.toPosition(item.statistic.attendance)
+                    else recyclerViewAdapter.itemCount
+                )
             }
 
-        }.request()
+        }
     }
 
     override fun initVariable() {
         binding = FragmentChatBinding.inflate(layoutInflater)
+        offset = 15
         recyclerView = binding.rvMessage
         attachmentRecyclerView = binding.rvAttachment
         forward = requireArguments().getSerializable(Parameters.repost) as Forward?
         last = requireArguments().getSerializable(Parameters.message) as Message?
         profile = requireArguments().getSerializable(Parameters.profile) as ChatProfile
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initSecondary() {
+        val now = System.currentTimeMillis()
+        if (profile.last != null) {
+            if (now - profile.last!! < 5 * minute) binding.tvSecondary.text =
+                getString(R.string.onlin)
+            else if (now - profile.last!! < 10 * minute) binding.tvSecondary.text =
+                "в сети недавно"
+            else if (now - profile.last!! < 0.5 * hour) binding.tvSecondary.text =
+                "в сети ${(now - profile.last!!) / minute} минут назад"
+            else if (now - profile.last!! < 2 * hour) binding.tvSecondary.text =
+                "в сети час назад"
+            else if (now - profile.last!! < day) binding.tvSecondary.text =
+                "сегодня в ${profile.last!!.toDate("HH:mm")}"
+            else if (now - profile.last!! < 2 * day) binding.tvSecondary.text =
+                "вчера в ${profile.last!!.toDate("HH:mm")}"
+            else if (now - profile.last!! < week) binding.tvSecondary.text =
+                "в сети ${(now - profile.last!!) / day} дней назад"
+            else if (now - profile.last!! < year) binding.tvSecondary.text =
+                "в сети ${profile.last!!.toDate("dd.MM")}"
+            else if (now - profile.last!! < year) binding.tvSecondary.text = "давно"
+        } else binding.tvSecondary.text = "${profile.followers} участника"
     }
 
     @SuppressLint("SetTextI18n")
@@ -352,30 +377,16 @@ class ChatFragment : CustomFragment() {
             if (profile.confirm) binding.imgConfirm.visibility = View.VISIBLE
             else binding.imgConfirm.visibility = View.GONE
             loadAvatar(
-                requireContext(), profile.name, binding.tvImage, binding.imgAvatar, profile.avatar
+                requireContext(),
+                profile.name,
+                binding.tvImage,
+                binding.imgAvatar,
+                profile.avatar
             )
             binding.tvName.text = profile.name
-            val now = System.currentTimeMillis()
-            if (profile.last != null) {
-                if (now - profile.last!! < 5 * minute) binding.tvSecondary.text =
-                    getString(R.string.onlin)
-                else if (now - profile.last!! < 10 * minute) binding.tvSecondary.text =
-                    "в сети недавно"
-                else if (now - profile.last!! < 0.5 * hour) binding.tvSecondary.text =
-                    "в сети ${(now - profile.last!!) / minute} минут назад"
-                else if (now - profile.last!! < 2 * hour) binding.tvSecondary.text =
-                    "в сети час назад"
-                else if (now - profile.last!! < day) binding.tvSecondary.text =
-                    "сегодня в ${profile.last!!.toDate("HH:mm")}"
-                else if (now - profile.last!! < 2 * day) binding.tvSecondary.text =
-                    "вчера в ${profile.last!!.toDate("HH:mm")}"
-                else if (now - profile.last!! < week) binding.tvSecondary.text =
-                    "в сети ${(now - profile.last!!) / day} дней назад"
-                else if (now - profile.last!! < year) binding.tvSecondary.text =
-                    "в сети ${profile.last!!.toDate("dd.MM")}"
-                else if (now - profile.last!! < year) binding.tvSecondary.text = "давно"
-            } else binding.tvSecondary.text = "${statistic.followers} участника"
+
         }
+        scrollListener.addScrollListener(recyclerView)
     }
 
     override fun initButtons() {

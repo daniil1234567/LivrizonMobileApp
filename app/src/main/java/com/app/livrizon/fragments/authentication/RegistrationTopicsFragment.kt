@@ -11,7 +11,6 @@ import com.app.livrizon.function.homeRequest
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.edit.topic.TopicEdit
 import com.app.livrizon.model.profile.Profile
-import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.topics.GroupTopics
 import com.app.livrizon.model.topics.Topic
@@ -26,8 +25,10 @@ import kotlinx.coroutines.launch
 
 class RegistrationTopicsFragment : CustomFragment() {
     lateinit var binding: FragmentRegistrationTopicsBinding
-    lateinit var profileRecommendationRequest: HttpListener
+    lateinit var profileRequest: HttpListener
     lateinit var homeRequest: HttpListener
+    lateinit var topicRequest: HttpListener
+    var selection: Selection? = null
     var topics = mutableListOf<TopicEdit>()
     override fun getBindingRoot(): View {
         return binding.root
@@ -129,17 +130,19 @@ class RegistrationTopicsFragment : CustomFragment() {
 
     override fun initButtons() {
         binding.btnNext.setOnClickListener {
-            if (topics.size > 0) httpListener.request()
-            else profileRecommendationRequest.request()
+            if (topics.size > 0) topicRequest.request()
+            else profileRequest.request()
         }
     }
 
     override fun request() {
         homeRequest = homeRequest(requireActivity())
-        profileRecommendationRequest = object : HttpListener(requireContext()) {
+        profileRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Array<Profile> {
+                selection =
+                    if (topics.size > 0 && selection == null) Selection.recommendation else Selection.popular
                 return InitRequest.profiles(
-                    if (topics.size > 0) Selection.recommendation else Selection.popular,
+                    selection!!,
                     false
                 )
             }
@@ -152,16 +155,19 @@ class RegistrationTopicsFragment : CustomFragment() {
                             putSerializable(Parameters.profile, item)
                         }
                     )
-                else homeRequest.request()
+                else if (selection == Selection.recommendation) {
+                    selection = Selection.popular
+                    profileRequest.request()
+                } else homeRequest.request()
             }
         }
-        httpListener = object : HttpListener(requireContext()) {
+        topicRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Response {
                 return ProfileRequest.topics(topics.toTypedArray())
             }
 
             override fun onSuccess(item: Any?) {
-                profileRecommendationRequest.request()
+                profileRequest.request()
             }
         }
     }

@@ -12,7 +12,6 @@ import com.app.livrizon.R
 import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.databinding.FragmentSplashBinding
 import com.app.livrizon.function.connection
-import com.app.livrizon.function.loadImage
 import com.app.livrizon.model.authorization.Authentication
 import com.app.livrizon.model.authorization.Jwt
 import com.app.livrizon.model.profile.Account
@@ -33,6 +32,7 @@ import kotlinx.coroutines.launch
 
 class SplashFragment : CustomFragment() {
     lateinit var binding: FragmentSplashBinding
+    lateinit var authenticationRequest:HttpListener
     lateinit var myAccountsRequest: HttpListener
     lateinit var homeRequest: HttpListener
     var currentAuthentication: Authentication? = null
@@ -83,7 +83,7 @@ class SplashFragment : CustomFragment() {
                 requireActivity().finish()
             }
         }
-        httpListener = object : HttpListener(requireContext()) {
+        authenticationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.authentication(currentAuthentication!!)
             }
@@ -114,7 +114,7 @@ class SplashFragment : CustomFragment() {
             if (currentUsername != null) {
                 currentAuthentication =
                     SqlRequest.getAccount(currentUsername!!)
-                httpListener.request()
+                authenticationRequest.request()
             } else if (myAccounts != null) myAccountsRequest.request()
             else {
                 Handler(Looper.getMainLooper()).post {

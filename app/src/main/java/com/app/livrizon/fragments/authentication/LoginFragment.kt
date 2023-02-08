@@ -22,6 +22,7 @@ class LoginFragment : CustomFragment() {
     lateinit var usernameLayout: LinearLayout
     lateinit var phonePref: LinearLayout
     lateinit var login: Login
+    lateinit var loginRequest: HttpListener
     var registration = ContactType.phone
     override fun getBindingRoot(): View {
         return binding.root
@@ -72,7 +73,7 @@ class LoginFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        loginRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.login(login)
             }
@@ -92,7 +93,7 @@ class LoginFragment : CustomFragment() {
                         binding.edUsername.text.toString(),
                 registration
             )
-            httpListener.request()
+            loginRequest.request()
         }
     }
 

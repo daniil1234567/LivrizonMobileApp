@@ -34,50 +34,55 @@ abstract class ScrollListener(
     open suspend fun onScrolled(speed: Int, offset: Int, unique: Boolean) {
 
     }
-    open suspend fun onScrollToEnd(speed: Int){
+
+    open suspend fun onScrollToEnd(speed: Int) {
 
     }
+
     open fun onScrollStateChanged(newState: Int) {
 
     }
-    fun addScrollListener(recyclerView: RecyclerView){
+
+    fun addScrollListener(recyclerView: RecyclerView) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 onScrollStateChanged(newState)
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val adapter=recyclerView.adapter!! as RecyclerViewAdapterBase
+                val adapter = recyclerView.adapter!! as RecyclerViewAdapterBase
                 val fPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 val lPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 val size = adapter.itemCount
                 val speed = if (dx == 0) dy else dx
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        for (i in fPosition..lPosition) {
-                            onView(i)
-                        }
-                        if (speed != 0) {
-                            val nLast = if (speed < 0) adapter.list.first().id()
-                            else adapter.list.last().id()
-                            val currentOffset = if (speed < 0) fPosition else size - lPosition
-                            val unique = nLast != last
-                            if (currentOffset < offset) {
-                                last = nLast
-                                if (unique) onScrollToEnd(speed)
+                if (lPosition > -1) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            for (i in fPosition..lPosition) {
+                                onView(i)
                             }
-                            onScrolled(
-                                speed,
-                                currentOffset,
-                                unique
-                            )
+                            if (speed != 0) {
+                                val nLast = if (speed < 0) adapter.list.first().id()
+                                else adapter.list.last().id()
+                                val currentOffset = if (speed < 0) fPosition else size - lPosition
+                                val unique = nLast != last
+                                if (currentOffset < offset) {
+                                    last = nLast
+                                    if (unique) onScrollToEnd(speed)
+                                }
+                                onScrolled(
+                                    speed,
+                                    currentOffset,
+                                    unique
+                                )
+                            }
+                        } catch (e: ClosedReceiveChannelException) {
+                            onError(e.toString())
+                        } catch (e: Exception) {
+                            onError(e.toString())
                         }
-                    } catch (e: ClosedReceiveChannelException) {
-                        onError(e.toString())
-                    } catch (e: Exception) {
-                        onError(e.toString())
                     }
                 }
             }

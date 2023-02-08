@@ -34,7 +34,8 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
         val current = list[position]
         val next = if (position < list.size - 1) list[list.size - 1] else null
         with(holder.itemView) {
-            setBody(holder, position,previous, current,next)
+            initBody(holder, position, previous, current, next)
+            setBody(holder, position, previous, current, next)
             setOnClickListener {
                 log("short click $position")
                 onBodyShortClick(holder, current, position)
@@ -82,6 +83,16 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
 
     }
 
+    protected open fun initBody(
+        holder: CustomViewHolder,
+        position: Int,
+        previous: Base?,
+        current: Base,
+        next: Base?
+    ) {
+
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun initList(vararg items: Base) {
         this.list = items.toMutableList()
@@ -99,26 +110,13 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
         notifyDataSetChanged()
     }
 
-    fun toPosition(last: Int?): Int {
-        if (itemCount == 0) return 0
-        return min(
-            itemCount - 1,
-            (getPosition(last)
-                ?: if (last == null || last > list[0].id()!!) itemCount else 0) + 3
-        )
-    }
-
-    private fun getPosition(last: Int?): Int? {
-        if (last == null) return list.size
-        if (list.size == 0) return 0
-        else {
-            for (i in 1 until list.size - 1) {
-                val previous = list[i - 1].id()!!
-                val next = list[i + 1].id()!!
-                if (last in (previous + 1)..next) return i + 1
-            }
-            return null
+    fun toPosition(id: Int): Int {
+        for (i in list.indices) {
+            val previous = if (i > 0) list[i - 1] else null
+            val next = if (i < list.size - 1) list[i + 1] else null
+            if ((previous == null || id >= previous.id()!!) && (next == null || id < next.id()!!)) return i
         }
+        return list.size - 1
     }
 
     fun removePosition(position: Int) {

@@ -20,6 +20,7 @@ import com.app.livrizon.values.token
 class ConfirmCodeFragment : CustomFragment() {
     lateinit var binding: FragmentConfirmCodeBinding
     lateinit var accountRequest: HttpListener
+    lateinit var confirmRequest: HttpListener
     var code = 0
     override fun getBindingRoot(): View {
         return binding.root
@@ -46,7 +47,7 @@ class ConfirmCodeFragment : CustomFragment() {
             }
         }
 
-        httpListener = object : HttpListener(requireContext()) {
+        confirmRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.confirm(code)
             }
@@ -72,7 +73,7 @@ class ConfirmCodeFragment : CustomFragment() {
             override fun onInputEnd(s: String) {
                 if (s.length == 4) {
                     code = s.toInt()
-                    httpListener.request()
+                    confirmRequest.request()
                 }
             }
 

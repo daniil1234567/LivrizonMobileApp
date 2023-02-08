@@ -75,7 +75,7 @@ class SubFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Array<Subscribe> {
                 return InitRequest.sub(selection, profileId, filter)
             }
@@ -83,7 +83,6 @@ class SubFragment : CustomFragment() {
             override fun onSuccess(item: Any?) {
                 item as Array<Subscribe>
                 recyclerViewAdapter.addListToBottom(*item)
-                if (item.size > 0) webSocketListener!!.connect()
             }
         }
     }
@@ -92,6 +91,5 @@ class SubFragment : CustomFragment() {
         navController = findNavController()
         recyclerView.adapter = recyclerViewAdapter
         binding.tvToolbat.text = title
-        httpListener.request()
     }
 }

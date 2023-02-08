@@ -4,12 +4,12 @@ import com.app.livrizon.model.edit.topic.TopicEdit
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.response.WallResponse
 import com.app.livrizon.model.wall.option.WallInformation
-import com.app.livrizon.services.ProfileService
+import com.app.livrizon.services.ProfileRequestImpl
 import com.app.livrizon.values.*
 import com.app.livrizon.values.Parameters
 import io.ktor.client.request.*
 
-object ProfileRequest : ProfileService {
+object ProfileRequest : ProfileRequestImpl {
     override suspend fun sub(profile_id: Int): Response {
         return httpClient.put {
             url(HttpRoutes.sub(profile_id))

@@ -25,10 +25,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.item_profile_layout.view.*
 
 class SearchProfileFragment : CustomFragment(), RecyclerViewAdapterImpl {
-    val viewModel: ViewModel by activityViewModels()
     lateinit var binding: FragmentProfileSearchBinding
-    lateinit var tabs: Array<Tab>
-
 
     override fun getBindingRoot(): View {
         return binding.root

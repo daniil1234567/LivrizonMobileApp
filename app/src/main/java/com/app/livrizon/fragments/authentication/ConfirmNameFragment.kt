@@ -19,12 +19,13 @@ class ConfirmNameFragment : CustomFragment() {
     lateinit var username: String
     lateinit var confirmName: ConfirmName
     lateinit var accountRequest: HttpListener
+    lateinit var confirmRequest: HttpListener
     override fun getBindingRoot(): View {
         return binding.root
     }
 
     override fun request() {
-        accountRequest = object : HttpListener(requireContext()) {
+        confirmRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Profile {
                 return AuthorizationRequest.account()
             }
@@ -38,7 +39,7 @@ class ConfirmNameFragment : CustomFragment() {
                 )
             }
         }
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.confirmName(confirmName)
             }
@@ -59,7 +60,7 @@ class ConfirmNameFragment : CustomFragment() {
     override fun initButtons() {
         binding.btnNext.setOnClickListener {
             confirmName = ConfirmName(username, binding.edName.text.toString())
-            httpListener.request()
+            confirmRequest.request()
         }
     }
 }

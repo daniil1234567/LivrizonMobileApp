@@ -6,11 +6,18 @@ import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.publication.Message
 import com.app.livrizon.model.publication.Post
-import com.app.livrizon.services.InitService
+import com.app.livrizon.services.InitRequestImpl
 import com.app.livrizon.values.*
 import io.ktor.client.request.*
 
-object InitRequest : InitService {
+object InitRequest : InitRequestImpl {
+    override suspend fun services(): ServiceInit {
+        return gson.fromJson(httpClient.get<String> {
+            url(HttpRoutes.init_services)
+            headers.append(Parameters.auth, token.jwt)
+        }, ServiceInit::class.java)
+    }
+
     override suspend fun profileSearch(): InitProfileSearch {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.init_profile_search)
@@ -70,7 +77,6 @@ object InitRequest : InitService {
     override suspend fun chat(profile_id: Int): InitChat {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.initChat(profile_id))
-            parameter(Parameters.id, profile_id)
             headers.append(Parameters.auth, token.jwt)
         }, InitChat::class.java)
     }

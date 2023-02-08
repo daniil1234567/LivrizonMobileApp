@@ -5,12 +5,15 @@ import androidx.navigation.fragment.findNavController
 import com.app.livrizon.adapter.ViewPagerAdapter
 import com.app.livrizon.databinding.FragmentHomeBinding
 import com.app.livrizon.fragments.CustomFragment
+import com.app.livrizon.fragments.list.PostListFragment
 import com.app.livrizon.model.Tab
+import com.app.livrizon.model.publication.Post
+import com.app.livrizon.values.Parameters
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : CustomFragment() {
     private lateinit var binding: FragmentHomeBinding
-    lateinit var tabs: Array<Tab>
+    lateinit var posts: Array<Post>
     override fun getBindingRoot(): View {
         return binding.root
     }
@@ -24,6 +27,7 @@ class HomeFragment : CustomFragment() {
         navController = findNavController()
         viewPager2 = binding.viewPager2
         tabLayout = binding.tabPublications
+        posts = requireArguments().getSerializable(Parameters.posts) as Array<Post>
     }
 
     override fun initAdapter() {
@@ -32,17 +36,13 @@ class HomeFragment : CustomFragment() {
 
     override fun initTabLayout() {
         tabs = arrayOf(
-            //Tab(
-            //    1,
-            //    PostListFragment(
-            //        requireArguments().getSerializable(Parameters.posts) as Array<Post>,
-            //        WALL,
-            //        this
-            //    ),
-            //    "Моя лента"
-            //),
-            //Tab(2, PostListFragment(null, POSTS_POPULAR, this), "Популярное"),
-            //Tab(3, PostListFragment(null, POSTS_NEW, this), "Свежее")
+            Tab(
+                1,
+                PostListFragment(posts),
+                "Моя лента"
+            ),
+            Tab(2, PostListFragment(posts), "Популярное"),
+            Tab(3, PostListFragment(posts), "Свежее")
         )
         viewPagerAdapter.serList(*tabs)
         viewPager2.adapter = viewPagerAdapter

@@ -2,14 +2,21 @@ package com.app.livrizon.request
 
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.edit.publication.SavePost
-import com.app.livrizon.services.PublicationService
+import com.app.livrizon.services.PublicationRequestImpl
 import com.app.livrizon.values.*
 import com.app.livrizon.values.Parameters
 import io.ktor.client.request.*
 import io.ktor.http.*
 
-object PublicationRequest : PublicationService {
-
+object PublicationRequest : PublicationRequestImpl {
+    override suspend fun seen(from: Int, publication_id: Int):Response {
+        return httpClient.post {
+            url(HttpRoutes.seen)
+            parameter(Parameters.id, publication_id)
+            parameter(Parameters.from, from)
+            headers.append(Parameters.auth, token.jwt)
+        }
+    }
     override suspend fun like(
         type: HttpMethod,
         post_id: Int

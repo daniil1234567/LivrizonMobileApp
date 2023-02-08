@@ -25,6 +25,7 @@ class RegistrationMainInformationFragment : CustomFragment() {
     var save = AccountSave()
     lateinit var binding: FragmentRegistrationMainInformationBinding
     lateinit var datePicker: DatePickerDialog.OnDateSetListener
+    lateinit var registrationRequest: HttpListener
     private var calendar = Calendar.getInstance()
     override fun getBindingRoot(): View {
         return binding.root
@@ -42,7 +43,7 @@ class RegistrationMainInformationFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        registrationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.registration(save)
             }
@@ -72,7 +73,7 @@ class RegistrationMainInformationFragment : CustomFragment() {
             save.role = Role.user
             save.name = binding.edName.text.toString()
             save.birthday = calendar.time.time.toDate("yyyy-MM-dd")
-            httpListener.request()
+            registrationRequest.request()
         }
     }
 

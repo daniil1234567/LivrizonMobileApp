@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 
 class AccountsFragment : CustomFragment() {
     private lateinit var binding: FragmentAccountsBinding
+    lateinit var authenticationRequest: HttpListener
     lateinit var homeRequest: HttpListener
     lateinit var accounts: Array<Account>
     lateinit var authentication: Authentication
@@ -58,7 +59,7 @@ class AccountsFragment : CustomFragment() {
                 val account = list[position] as Account
                 CoroutineScope(Dispatchers.IO).launch {
                     authentication = SqlRequest.getAccount(account.username)
-                    httpListener.request()
+                    authenticationRequest.request()
                 }
             }
         }
@@ -75,7 +76,7 @@ class AccountsFragment : CustomFragment() {
 
     override fun request() {
         homeRequest = homeRequest(requireActivity())
-        httpListener = object : HttpListener(requireContext()) {
+        authenticationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.authentication(authentication)
             }

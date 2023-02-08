@@ -8,12 +8,12 @@ import com.app.livrizon.model.authorization.Jwt
 import com.app.livrizon.model.edit.profile.save.AccountInformationSave
 import com.app.livrizon.request.AuthorizationRequest
 import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.token
 
 class RegistrationTitleFragment : CustomFragment() {
     lateinit var binding: FragmentRegistrationTitleBinding
+    lateinit var informationRequest: HttpListener
     var save = AccountInformationSave()
     override fun getBindingRoot(): View {
         return binding.root
@@ -24,7 +24,7 @@ class RegistrationTitleFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        informationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.information(save)
             }
@@ -41,7 +41,7 @@ class RegistrationTitleFragment : CustomFragment() {
         binding.btnNext.setOnClickListener {
             if (binding.edTitle.text.isNotEmpty()) {
                 save.title = binding.edTitle.text.toString()
-                httpListener.request()
+                informationRequest.request()
             } else navController.navigate(R.id.action_titleFragment_to_registrationTopicsFragment)
         }
     }

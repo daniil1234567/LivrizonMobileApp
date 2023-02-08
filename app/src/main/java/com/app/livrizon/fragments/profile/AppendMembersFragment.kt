@@ -11,6 +11,7 @@ import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.ProfileAdapter
 import com.app.livrizon.databinding.FragmentAppendMembersBinding
 import com.app.livrizon.fragments.CustomFragment
+import com.app.livrizon.function.log
 import com.app.livrizon.function.toDp
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.chat.Chat
@@ -18,6 +19,7 @@ import com.app.livrizon.model.edit.profile.save.TeamSave
 import com.app.livrizon.model.profile.Append
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.ProfileBase
+import com.app.livrizon.model.response.Response
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.request.TeamRequest
@@ -31,7 +33,6 @@ class AppendMembersFragment : CustomFragment() {
     lateinit var binding: FragmentAppendMembersBinding
     lateinit var chooseRecyclerView: RecyclerView
     lateinit var chooseAdapter: ProfileAdapter
-    val viewModel: ViewModel by activityViewModels()
 
     override fun getBindingRoot(): View {
         return binding.root
@@ -91,8 +92,8 @@ class AppendMembersFragment : CustomFragment() {
                 current: Base,
                 next: Base?
             ) {
-                val append = list[position] as Append
-                with(append) {
+                previous as Append?
+                with(current as Append) {
                     with(holder.itemView) {
                         viewModel.choose.observe(requireActivity()) {
                             if (it == id()) {
@@ -107,8 +108,7 @@ class AppendMembersFragment : CustomFragment() {
                             tv_header.visibility = View.VISIBLE
                             tv_header.text = context.getString(R.string.Important)
                         } else if (important) tv_header.visibility = View.GONE
-                        else {
-                            val previous = list[position - 1] as Append
+                        else if (previous != null) {
                             if (previous.important != important || previous.name[0] != name[0]) {
                                 tv_header.visibility = View.VISIBLE
                                 tv_header.text = name[0].toString()
@@ -123,18 +123,19 @@ class AppendMembersFragment : CustomFragment() {
 
     override fun initButtons() {
         binding.btnCreate.setOnClickListener {
+            log(save.members, save)
             object : HttpListener(requireContext()) {
-                override suspend fun body(): Chat {
+                override suspend fun body(): Response {
                     return TeamRequest.saveTeam(save)
                 }
 
                 override fun onSuccess(item: Any?) {
-                    item as Chat
-                    requireContext().startActivity(
-                        Intent(context, ChatActivity::class.java)
-                            .putExtra(Parameters.profile, item.profile)
-                            .putExtra(Parameters.message, item.message)
-                    )
+                    //item as Chat
+                    //requireContext().startActivity(
+                    //    Intent(context, ChatActivity::class.java)
+                    //        .putExtra(Parameters.profile, item.profile)
+                    //        .putExtra(Parameters.message, item.message)
+                    //)
                     requireActivity().finish()
                 }
             }.request()
@@ -142,7 +143,7 @@ class AppendMembersFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Array<Profile> {
                 return InitRequest.append()
             }
@@ -165,9 +166,6 @@ class AppendMembersFragment : CustomFragment() {
         chooseRecyclerView = binding.rvChoose
     }
 
-    override fun transition() {
-        httpListener.request()
-    }
 
     override fun init() {
         recyclerView.adapter = recyclerViewAdapter

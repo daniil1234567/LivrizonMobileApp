@@ -77,7 +77,7 @@ class MessengerFragment : MessengerFragmentBase() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): InitMessenger {
                 return InitRequest.messenger()
             }
@@ -100,7 +100,6 @@ class MessengerFragment : MessengerFragmentBase() {
     override fun init() {
         recyclerView.adapter = recyclerViewAdapter
         visitRecyclerView.adapter = visitAdapter
-        httpListener.request()
     }
 
 

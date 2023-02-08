@@ -25,7 +25,7 @@ class InformationFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): WallInformation {
                 return ProfileRequest.information(profileId)
             }
@@ -49,6 +49,5 @@ class InformationFragment : CustomFragment() {
 
     override fun init() {
         recyclerView.adapter = recyclerViewAdapter
-        httpListener.request()
     }
 }

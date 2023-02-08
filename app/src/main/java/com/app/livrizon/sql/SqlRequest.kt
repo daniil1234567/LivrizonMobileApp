@@ -3,10 +3,10 @@ package com.app.livrizon.sql
 import android.content.ContentValues
 import com.app.livrizon.function.query
 import com.app.livrizon.model.authorization.Authentication
-import com.app.livrizon.services.SqlService
+import com.app.livrizon.services.SqlRequestImpl
 import com.app.livrizon.values.*
 
-object SqlRequest : SqlService {
+object SqlRequest : SqlRequestImpl {
     override fun saveAccount(account: Authentication) {
         val values = ContentValues().apply {
             put(DbItem.Column.username, account.username)

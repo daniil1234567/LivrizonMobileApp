@@ -5,6 +5,7 @@ import android.view.View
 import com.app.livrizon.R
 import com.app.livrizon.function.minuteToMillisecond
 import com.app.livrizon.function.loadAvatar
+import com.app.livrizon.impl.Base
 import com.app.livrizon.impl.ProfileImpl
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.ProfileBase
@@ -22,8 +23,13 @@ abstract class ProfileAdapter(context: Context) : RecyclerViewAdapterBase(contex
         }
     }
 
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
+    override fun initBody(
+        holder: CustomViewHolder,
+        position: Int,
+        previous: Base?,
+        current: Base,
+        next: Base?
+    ) {
         val profile = list[position] as ProfileBase
         val name: String
         with(holder.itemView) {

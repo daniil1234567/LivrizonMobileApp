@@ -10,7 +10,7 @@ import com.app.livrizon.model.profile.Account
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.response.Response
 
-interface AuthorizationService {
+interface AuthorizationRequestImpl {
     suspend fun account(): Profile
     suspend fun information(save: AccountInformationSave): Jwt
     suspend fun login(login: Login): Jwt

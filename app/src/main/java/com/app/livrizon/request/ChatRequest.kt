@@ -1,12 +1,19 @@
 package com.app.livrizon.request
 
+import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.edit.publication.SaveMessage
-import com.app.livrizon.services.ChatService
+import com.app.livrizon.services.ChatRequestImpl
 import com.app.livrizon.values.*
 import io.ktor.client.request.*
 
-object ChatRequest : ChatService {
+object ChatRequest : ChatRequestImpl {
+    override suspend fun chat(profile_id: Int): Chat {
+        return gson.fromJson(httpClient.get<String> {
+            url(HttpRoutes.previewChat(profile_id))
+            headers.append(Parameters.auth, token.jwt)
+        }, Chat::class.java)
+    }
     override suspend fun deleteMessages(profile_id: Int, ids: MutableList<Int>): Response {
         return httpClient.delete {
             url(HttpRoutes.messages(profile_id))

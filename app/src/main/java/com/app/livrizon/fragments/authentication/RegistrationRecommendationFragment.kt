@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.item_profile_layout.view.*
 class RegistrationRecommendationFragment : CustomFragment() {
     lateinit var binding: FragmentRegistrationRecommendationBinding
     lateinit var profiles: Array<Profile>
+    lateinit var homeRequest:HttpListener
     override fun getBindingRoot(): View {
         return binding.root
     }
@@ -31,7 +32,7 @@ class RegistrationRecommendationFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = homeRequest(requireActivity())
+        homeRequest = homeRequest(requireActivity())
 
     }
 
@@ -92,7 +93,7 @@ class RegistrationRecommendationFragment : CustomFragment() {
 
     override fun initButtons() {
         binding.btnNext.setOnClickListener {
-            httpListener.request()
+            homeRequest.request()
         }
     }
 }

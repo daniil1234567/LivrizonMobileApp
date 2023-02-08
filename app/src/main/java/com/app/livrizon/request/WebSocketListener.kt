@@ -50,7 +50,7 @@ open class WebSocketListener(
     fun connect() {
         log("loading websocket $path")
         CoroutineScope(Dispatchers.IO).launch {
-            //try {
+            try {
                 webSocketClient = createWebSocketClient()
                 webSocketClient!!.webSocket(
                     method = HttpMethod.Get,
@@ -83,11 +83,11 @@ open class WebSocketListener(
                         init = true
                     }
                 }
-            //} catch (e: ClosedReceiveChannelException) {
-            //    onError("$path ${e.message}")
-            //} catch (e: Exception) {
-            //    onError("$path ${e.message}")
-            //}
+            } catch (e: ClosedReceiveChannelException) {
+                onError("$path ${e.message}")
+            } catch (e: Exception) {
+                onError("$path ${e.message}")
+            }
 
         }
 

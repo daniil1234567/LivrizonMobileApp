@@ -8,11 +8,11 @@ class TeamSave : java.io.Serializable {
     var title: String? = null
     var crop: Crop? = null
     var description: String? = null
-    val members= mutableListOf<Int>()
-    var edit: Int = Level.it_sub
-    var append: Int = Level.it_sub
+    val members = mutableListOf<Int>()
+    var edit: Int = Level.my_sub
+    var append: Int = Level.my_sub
     var invite: Int = Level.usual
-    var write: Int = Level.it_sub
+    var write: Int = Level.my_sub
     var statistic_visibility: Int = Level.usual
     var sub_visibility: Int = Level.usual
     var access: Int = Level.usual

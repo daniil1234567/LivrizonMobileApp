@@ -55,7 +55,7 @@ abstract class MessengerFragmentBase : CustomFragment() {
                 if (chat != null) {
                     object : HttpListener(requireContext()) {
                         override suspend fun body(): Chat {
-                            return PreviewRequest.chat(chat.equals())
+                            return ChatRequest.chat(chat.equals())
                         }
 
                         override fun onSuccess(item: Any?) {
@@ -71,7 +71,7 @@ abstract class MessengerFragmentBase : CustomFragment() {
                             }
                             newList.sortByDescending {
                                 it as Chat
-                                it.statistic.attached
+                                it.relation.attached
                             }
                             setList(*newList.toTypedArray())
                         }
@@ -94,7 +94,7 @@ abstract class MessengerFragmentBase : CustomFragment() {
 
             override fun replaceItem(item: Base) {
                 item as Chat
-                if ((list.last() as Chat?)?.statistic?.attached != true) {
+                if ((list.last() as Chat?)?.relation?.attached != true) {
                     val newList = mutableListOf<Base>()
                     newList.addAll(list)
                     newList.removeIf {
@@ -103,7 +103,7 @@ abstract class MessengerFragmentBase : CustomFragment() {
                     newList.add(item)
                     newList.sortByDescending {
                         it as Chat
-                        it.statistic.attached
+                        it.relation.attached
                     }
                     setList(*newList.toTypedArray())
                 }

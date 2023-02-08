@@ -13,7 +13,6 @@ import com.app.livrizon.model.Tab
 class ConnectionFragment : CustomFragment() {
     lateinit var binding: FragmentConnectionBinding
     lateinit var possibleAdapter: ViewPagerAdapter
-    val tabs = mutableListOf<Tab>()
 
     override fun getBindingRoot(): View {
         return binding.root

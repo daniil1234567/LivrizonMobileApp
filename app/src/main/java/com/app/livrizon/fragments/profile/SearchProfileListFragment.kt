@@ -1,7 +1,6 @@
 package com.app.livrizon.fragments.profile
 
 import android.view.View
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.adapter.CustomViewHolder
@@ -27,9 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapterImpl) :
-    CustomFragment() {
-    val viewModel: ViewModel by activityViewModels()
+class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapterImpl) : CustomFragment() {
     lateinit var binding: FragmentProfileSearchListBinding
     lateinit var visitRecyclerView: RecyclerView
     lateinit var visitAdapter: ProfileAdapter
@@ -118,7 +115,7 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): InitProfileSearch {
                 return InitRequest.profileSearch()
             }
@@ -127,7 +124,6 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
                 item as InitProfileSearch
                 visitAdapter.initList(*item.visits)
                 recyclerViewAdapter.initList(*item.profiles)
-                webSocketListener!!.connect()
             }
         }
     }
@@ -136,6 +132,5 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
         recyclerView.adapter = recyclerViewAdapter
         visitRecyclerView.adapter = visitAdapter
         scrollListener.addScrollListener(recyclerView)
-        httpListener.request()
     }
 }

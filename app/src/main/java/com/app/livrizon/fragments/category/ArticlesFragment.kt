@@ -22,23 +22,23 @@ class ArticlesFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener=object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): InitNews {
                 return InitRequest.news()
             }
 
             override fun onSuccess(item: Any?) {
                 val initNews = item as InitNews
-                val articles:MutableList<Base> = initNews.articles.toMutableList()
+                val articles: MutableList<Base> = initNews.articles.toMutableList()
                 if (articles.size > 5) articles.addAll(5, initNews.authors.toList())
                 else articles.addAll(initNews.authors.toList())
                 recyclerViewAdapter.initList(*articles.toTypedArray());
             }
         }
     }
+
     override fun init() {
         recyclerView.adapter = recyclerViewAdapter
-        httpListener.request()
     }
 
     override fun initVariable() {

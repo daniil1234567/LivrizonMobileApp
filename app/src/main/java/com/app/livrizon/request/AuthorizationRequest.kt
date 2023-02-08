@@ -6,11 +6,11 @@ import com.app.livrizon.model.edit.profile.save.AccountSave
 import com.app.livrizon.model.profile.Account
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.response.Response
-import com.app.livrizon.services.AuthorizationService
+import com.app.livrizon.services.AuthorizationRequestImpl
 import com.app.livrizon.values.*
 import io.ktor.client.request.*
 
-object AuthorizationRequest : AuthorizationService {
+object AuthorizationRequest : AuthorizationRequestImpl {
     override suspend fun account(): Profile {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.account)

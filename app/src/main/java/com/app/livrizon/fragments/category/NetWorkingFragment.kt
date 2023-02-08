@@ -15,7 +15,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class NetWorkingFragment : CustomFragment(),RecyclerViewAdapterImpl {
     lateinit var binding: FragmentNetWorkingBinding
-    private lateinit var tabs: Array<Tab>
     override fun getBindingRoot(): View {
         return binding.root
     }

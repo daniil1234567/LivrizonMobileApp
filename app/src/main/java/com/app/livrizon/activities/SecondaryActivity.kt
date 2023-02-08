@@ -38,7 +38,6 @@ class SecondaryActivity : AppCompatActivity() {
                 //    }
                 //    R.id.profileListWithToolbarFragment
                 //}
-                NETWORKING -> R.id.netWorkingFragment
                 //ARTICLES -> R.id.articlesFragment
                 MESSENGER -> R.id.messengerFragment
                 CHAT -> R.id.chatFragment
@@ -59,8 +58,6 @@ class SecondaryActivity : AppCompatActivity() {
         const val CHAT = 2
         const val SUBSCRIPTIONS = 3
         const val CONNECTIONS = 4
-        const val NETWORKING = 5
-        const val ARTICLES = 6
         const val CREATE_PUBLIC = 7
         const val POSSIBLE_ACCOUNTS = 8
         const val PROFILES_RECOMMENDATION = 9

@@ -29,7 +29,7 @@ class ShimmerWallFragment : CustomFragment() {
     }
 
     override fun request() {
-        httpListener = object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): WallResponse {
                 return ProfileRequest.wall(profileId)
             }
@@ -60,8 +60,5 @@ class ShimmerWallFragment : CustomFragment() {
         }
     }
 
-    override fun init() {
-        httpListener.request()
-    }
 
 }

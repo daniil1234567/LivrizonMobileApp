@@ -11,7 +11,6 @@ import com.app.livrizon.model.authorization.Jwt
 import com.app.livrizon.request.AuthorizationRequest
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.security.token.ConfirmToken
 import com.app.livrizon.security.token.RestoreToken
 import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
@@ -21,6 +20,7 @@ import com.app.livrizon.values.token
 class ConfirmPasswordFragment : CustomFragment() {
     lateinit var binding: FragmentConfirmPasswordBinding
     lateinit var homeRequest: HttpListener
+    lateinit var confirmRequest: HttpListener
     lateinit var password: String
     override fun getBindingRoot(): View {
         return binding.root
@@ -32,7 +32,7 @@ class ConfirmPasswordFragment : CustomFragment() {
 
     override fun request() {
         homeRequest = homeRequest(requireActivity())
-        httpListener = object : HttpListener(requireContext()) {
+        confirmRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 val token = token as RestoreToken
                 return AuthorizationRequest.authentication(Authentication(token.username, password))
@@ -55,7 +55,7 @@ class ConfirmPasswordFragment : CustomFragment() {
         }
         binding.btnContinue.setOnClickListener {
             password = binding.edPassword.text.toString()
-            httpListener.request()
+            confirmRequest.request()
         }
     }
 

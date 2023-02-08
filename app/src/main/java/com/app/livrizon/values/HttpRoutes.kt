@@ -23,6 +23,7 @@ object HttpRoutes {
     const val init_chats = "$BASE_URL/init/chats"
     const val init_append = "$BASE_URL/init/append"
     const val init_profile_search = "$BASE_URL/init/profile/search"
+    const val init_services = "$BASE_URL/init/services"
 
     const val page = "$BASE_URL/page"
     const val post_like = "$BASE_URL/post_like"

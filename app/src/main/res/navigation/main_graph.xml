@@ -73,9 +73,9 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.app.livrizon.fragments.category.CategoryFragment"
+        android:name="com.app.livrizon.fragments.category.ServiceFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_service" >
         <action
             android:id="@+id/action_categoryFragment_to_netWorkingFragment"
             app:destination="@id/netWorkingFragment"

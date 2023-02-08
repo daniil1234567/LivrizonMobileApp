@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.app.livrizon.adapter.RecyclerViewAdapterBase
 import com.app.livrizon.adapter.ViewPagerAdapter
+import com.app.livrizon.model.Tab
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.ScrollListener
 import com.app.livrizon.request.WebSocketListener
 import com.app.livrizon.util.TextListener
+import com.app.livrizon.view_model.ViewModel
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,17 +27,20 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class CustomFragment : Fragment() {
-    lateinit var httpListener: HttpListener
+    val viewModel: ViewModel by activityViewModels()
+    var initRequest: HttpListener? = null
     var webSocketListener: WebSocketListener? = null
     lateinit var textListener: TextListener
-    lateinit var scrollListener:ScrollListener
+    lateinit var scrollListener: ScrollListener
     lateinit var navController: NavController
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerViewAdapter: RecyclerViewAdapterBase
+    lateinit var tabs: Array<Tab>
     lateinit var viewPager2: ViewPager2
     lateinit var tabLayout: TabLayout
     lateinit var viewPagerAdapter: ViewPagerAdapter
     lateinit var launcher: ActivityResultLauncher<Intent>
+    var offset = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navController = findNavController()
@@ -46,11 +52,8 @@ abstract class CustomFragment : Fragment() {
         initListener()
         request()
         init()
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(50)
-            transition()
-        }
-        //webSocketListener?.connect()
+        initRequest?.request()
+        webSocketListener?.connect()
     }
 
     override fun onDestroy() {
@@ -76,10 +79,6 @@ abstract class CustomFragment : Fragment() {
     }
 
     protected abstract fun initVariable()
-
-    protected open fun transition() {
-
-    }
 
     protected open fun initAdapter() {
 
