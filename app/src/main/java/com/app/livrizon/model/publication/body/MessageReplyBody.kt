@@ -9,4 +9,4 @@ class MessageReplyBody(
     val poll: Boolean,
     val link: Boolean,
     body_id: Int
-) : PublicationBodyImpl(body_id)
+) : PublicationBodyBase(body_id)

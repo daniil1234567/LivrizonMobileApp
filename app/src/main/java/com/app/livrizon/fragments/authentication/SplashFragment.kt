@@ -26,14 +26,12 @@ import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.account_pref
 import com.app.livrizon.values.connection
 import com.app.livrizon.values.token
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class SplashFragment : CustomFragment() {
     lateinit var binding: FragmentSplashBinding
-    lateinit var authenticationRequest:HttpListener
+    lateinit var authenticationRequest: HttpListener
     lateinit var myAccountsRequest: HttpListener
     lateinit var homeRequest: HttpListener
     var currentAuthentication: Authentication? = null
@@ -52,7 +50,7 @@ class SplashFragment : CustomFragment() {
 
     override fun request() {
         myAccountsRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Account> {
+            override suspend fun body(block: CoroutineScope): Array<Account> {
                 return AuthorizationRequest.getMyAccounts(myAccounts!!.toTypedArray());
             }
 
@@ -70,7 +68,7 @@ class SplashFragment : CustomFragment() {
             }
         }
         homeRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Post> {
+            override suspend fun body(block: CoroutineScope): Array<Post> {
                 return InitRequest.home()
             }
 
@@ -85,7 +83,7 @@ class SplashFragment : CustomFragment() {
             }
         }
         authenticationRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.authentication(currentAuthentication!!)
             }
 
@@ -109,7 +107,29 @@ class SplashFragment : CustomFragment() {
         currentUsername = account_pref.getString(Parameters.username, null)
     }
 
+    lateinit var g: CoroutineScope
+
     override fun init() {
+        //CoroutineScope(Dispatchers.IO).launch {
+        //    g = this
+        //    val time = measureTimeMillis {
+        //        val a = async {
+        //            log(1, 1)
+        //            delay(3000)
+        //            log(1, 2)
+        //            1
+        //        }
+        //        val b = async {
+        //            log(2, 1)
+        //            delay(3000)
+        //            log(2, 2)
+        //            2
+        //        }
+        //        log(a.await())
+        //    }
+        //    log(time)
+//
+        //}
         CoroutineScope(Dispatchers.IO).launch {
             myAccounts = SqlRequest.getMyAccounts()
             if (currentUsername != null) {

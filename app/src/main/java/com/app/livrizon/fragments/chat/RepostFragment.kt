@@ -10,6 +10,7 @@ import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.values.Parameters
+import kotlinx.coroutines.CoroutineScope
 
 class RepostFragment : MessengerFragmentBase() {
     lateinit var binding: FragmentRepsotBinding
@@ -38,7 +39,7 @@ class RepostFragment : MessengerFragmentBase() {
 
     override fun request() {
         object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Chat> {
+            override suspend fun body(block: CoroutineScope): Array<Chat> {
                 return InitRequest.chats()
             }
 

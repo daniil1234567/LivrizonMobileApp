@@ -7,7 +7,6 @@ import com.app.livrizon.adapter.MoveImpl
 import com.app.livrizon.adapter.ViewPagerAdapter
 import com.app.livrizon.databinding.FragmentProfileSearchBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.fragments.list.ProfileListFragment
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.Tab
 import com.app.livrizon.util.TextListener

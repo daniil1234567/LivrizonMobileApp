@@ -16,6 +16,7 @@ import com.app.livrizon.request.*
 import com.app.livrizon.values.*
 import kotlinx.android.synthetic.main.fragment_enter.*
 import kotlinx.android.synthetic.main.item_profile_layout.view.*
+import kotlinx.coroutines.CoroutineScope
 
 class SubFragment : CustomFragment() {
     lateinit var binding: FragmentSubBinding
@@ -76,7 +77,7 @@ class SubFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Subscribe> {
+            override suspend fun body(block: CoroutineScope): Array<Subscribe> {
                 return InitRequest.sub(selection, profileId, filter)
             }
 

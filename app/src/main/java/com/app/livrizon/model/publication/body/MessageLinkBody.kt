@@ -5,4 +5,4 @@ class MessageLinkBody(
     val link: Link,
     val links: List<String>,
     body_id: Int
-): PublicationBodyImpl(body_id)
+): PublicationBodyBase(body_id)

@@ -10,6 +10,7 @@ import com.app.livrizon.model.wall.option.WallInformation
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.values.Parameters
+import kotlinx.coroutines.CoroutineScope
 
 class InformationFragment : CustomFragment() {
     var profileId = 0
@@ -26,7 +27,7 @@ class InformationFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): WallInformation {
+            override suspend fun body(block: CoroutineScope): WallInformation {
                 return ProfileRequest.information(profileId)
             }
 

@@ -8,7 +8,7 @@ class PostReplyBody(
     val domain: String? = null,
     val url: String? = null,
     body_id: Int
-): PublicationBodyImpl(body_id),LinkImpl {
+): PublicationBodyBase(body_id),LinkImpl {
     override fun domain(): String? {
         return domain
     }

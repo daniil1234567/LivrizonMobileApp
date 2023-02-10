@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.item_append_profile_layout.view.tv_image
 import kotlinx.android.synthetic.main.item_profile_layout.view.*
 import kotlinx.android.synthetic.main.item_profile_layout.view.img_avatar
 import kotlinx.android.synthetic.main.item_profile_layout.view.tv_name
+import kotlinx.coroutines.CoroutineScope
 
 abstract class ProfileAdapter(context: Context) : RecyclerViewAdapterBase(context) {
     override fun getLayout(viewType: Int): Int {
@@ -79,7 +80,7 @@ abstract class ProfileAdapter(context: Context) : RecyclerViewAdapterBase(contex
         current as Profile
         if (current.my_sub != 1 && current.role!=Role.team) {
             object : HttpListener(context) {
-                override suspend fun body(): Response {
+                override suspend fun body(block: CoroutineScope): Response {
                     return ProfileRequest.sub(current.profile_id)
                 }
 

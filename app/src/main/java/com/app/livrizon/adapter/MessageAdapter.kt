@@ -60,7 +60,7 @@ abstract class MessageAdapter(context: Context, val role: Role) : RecyclerViewAd
                     container_header.visibility = View.GONE
                     tv_time.text = date.toDate("HH:mm")
                     if (from.profile_id == (token as AccessToken).id) {
-                        if (statistic.seen) ic_view.setImageResource(R.drawable.ic_twice_check)
+                        if (relation.seen) ic_view.setImageResource(R.drawable.ic_twice_check)
                         else ic_view.setImageResource(R.drawable.ic_single_check)
                     } else {
                         if (role == Role.team) {

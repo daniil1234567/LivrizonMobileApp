@@ -15,6 +15,7 @@ import com.app.livrizon.security.token.RestoreToken
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.token
 import kotlinx.android.synthetic.main.item_profile_layout.view.*
+import kotlinx.coroutines.CoroutineScope
 
 class ConfirmAccountFragment : CustomFragment() {
     lateinit var binding: FragmentConfirmAccountBinding
@@ -26,7 +27,7 @@ class ConfirmAccountFragment : CustomFragment() {
 
     override fun request() {
         confirmAccountRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Response {
+            override suspend fun body(block: CoroutineScope): Response {
                 return AuthorizationRequest.confirmAccount()
             }
 

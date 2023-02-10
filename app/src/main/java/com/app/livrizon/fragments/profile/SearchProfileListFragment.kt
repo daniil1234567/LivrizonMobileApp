@@ -76,7 +76,7 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
             override fun onButtonClick(holder: CustomViewHolder, current: Base) {
                 current as Visit
                 object : HttpListener(requireContext()) {
-                    override suspend fun body(): Response {
+                    override suspend fun body(block: CoroutineScope): Response {
                         return ProfileRequest.hideRecent(current.profile_id)
                     }
 
@@ -103,7 +103,7 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): InitProfileSearch {
+            override suspend fun body(block: CoroutineScope): InitProfileSearch {
                 return InitRequest.profileSearch()
             }
 

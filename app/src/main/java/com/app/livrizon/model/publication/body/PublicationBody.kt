@@ -10,4 +10,4 @@ class PublicationBody (
     val link: Link? = null,
     val photos: List<Media>? = null,
     body_id: Int
-): PublicationBodyImpl(body_id)
+): PublicationBodyBase(body_id)

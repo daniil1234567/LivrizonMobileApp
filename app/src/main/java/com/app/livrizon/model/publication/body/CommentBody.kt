@@ -13,4 +13,4 @@ class CommentBody(
     from: ProfileBase,
     date: Long,
     status: Int,
-) : PreviewCommentBody(description, publication_id, type, from, date, status)
+) : PostCommentBody(description, publication_id, type, from, date, status)

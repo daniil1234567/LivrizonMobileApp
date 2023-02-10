@@ -1,4 +1,4 @@
-package com.app.livrizon.fragments.list
+package com.app.livrizon.fragments.profile
 
 import android.view.View
 import com.app.livrizon.adapter.CustomViewHolder

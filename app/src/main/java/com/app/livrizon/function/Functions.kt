@@ -1,6 +1,5 @@
 package com.app.livrizon.function
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -45,6 +44,7 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.features.websocket.*
+import kotlinx.coroutines.CoroutineScope
 
 fun setFullScreen(window: Window) {
     WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -138,7 +138,7 @@ fun <T> List<T>.first(): T? {
 }
 fun wallRequest(fragment: CustomFragment,profile_id: Int):HttpListener{
     return object : HttpListener(fragment.requireContext()) {
-        override suspend fun body(): WallResponse {
+        override suspend fun body(block: CoroutineScope): WallResponse {
             return ProfileRequest.wall(profile_id)
         }
 
@@ -169,7 +169,7 @@ fun wallRequest(fragment: CustomFragment,profile_id: Int):HttpListener{
 }
 fun homeRequest(fragment: CustomFragment): HttpListener {
     return object : HttpListener(fragment.requireContext()) {
-        override suspend fun body(): Array<Post> {
+        override suspend fun body(block: CoroutineScope): Array<Post> {
             return InitRequest.home()
         }
 

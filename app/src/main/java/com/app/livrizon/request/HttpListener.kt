@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 abstract class HttpListener(val context: Context) {
     var action = 0
-    protected abstract suspend fun body(): Any?
+    protected abstract suspend fun body(block: CoroutineScope): Any?
     protected open fun onLoading() {
         log("loading http")
     }
@@ -35,7 +35,7 @@ abstract class HttpListener(val context: Context) {
         onLoading()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = body()
+                val result = body(this)
                 Handler(Looper.getMainLooper()).post {
                     onSuccess(result)
                 }

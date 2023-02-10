@@ -20,6 +20,7 @@ import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.account_pref
 import com.app.livrizon.values.token
+import kotlinx.coroutines.CoroutineScope
 
 class RegistrationMainInformationFragment : CustomFragment() {
     var save = AccountSave()
@@ -44,7 +45,7 @@ class RegistrationMainInformationFragment : CustomFragment() {
 
     override fun request() {
         registrationRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.registration(save)
             }
 

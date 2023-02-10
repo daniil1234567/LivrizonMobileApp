@@ -1,6 +1,6 @@
 package com.app.livrizon.model.wall.statistic
 
-class AccountWallStatistic(
+open class AccountWallStatistic(
     val connections: Int? = null,
     val subscriptions: Int? = null,
     val articles: Int,

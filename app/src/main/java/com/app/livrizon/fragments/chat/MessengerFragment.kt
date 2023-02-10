@@ -19,6 +19,7 @@ import com.app.livrizon.request.InitRequest
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.token
+import kotlinx.coroutines.CoroutineScope
 
 class MessengerFragment : MessengerFragmentBase() {
     lateinit var binding: FragmentMessengerBinding
@@ -43,7 +44,7 @@ class MessengerFragment : MessengerFragmentBase() {
                         if (it != null) {
                             val chat = (recyclerViewAdapter.list[it] as Chat)
                             chat.statistic.unread = unread!!
-                            if (chat.id() != (token as AccessToken).id) chat.message?.statistic?.seen =
+                            if (chat.id() != (token as AccessToken).id) chat.message?.relation?.seen =
                                 true
                             recyclerViewAdapter.notifyItemChanged(it)
                         }
@@ -86,7 +87,7 @@ class MessengerFragment : MessengerFragmentBase() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): InitMessenger {
+            override suspend fun body(block: CoroutineScope): InitMessenger {
                 return InitRequest.messenger()
             }
 

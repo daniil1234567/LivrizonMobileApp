@@ -1,4 +1,4 @@
-package com.app.livrizon.fragments.list
+package com.app.livrizon.fragments.publication
 
 import android.view.View
 import com.app.livrizon.adapter.PostAdapter

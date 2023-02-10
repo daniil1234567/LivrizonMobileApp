@@ -21,6 +21,7 @@ import com.app.livrizon.request.InitRequest
 import com.app.livrizon.request.TeamRequest
 import com.app.livrizon.values.Parameters
 import kotlinx.android.synthetic.main.item_append_profile_layout.view.*
+import kotlinx.coroutines.CoroutineScope
 
 class AppendMembersFragment : CustomFragment() {
     lateinit var observer: Observer<Boolean?>
@@ -128,7 +129,7 @@ class AppendMembersFragment : CustomFragment() {
         binding.btnCreate.setOnClickListener {
             log(save.members, save)
             object : HttpListener(requireContext()) {
-                override suspend fun body(): Response {
+                override suspend fun body(block: CoroutineScope): Response {
                     return TeamRequest.saveTeam(save)
                 }
 
@@ -147,7 +148,7 @@ class AppendMembersFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Profile> {
+            override suspend fun body(block: CoroutineScope): Array<Profile> {
                 return InitRequest.append()
             }
 

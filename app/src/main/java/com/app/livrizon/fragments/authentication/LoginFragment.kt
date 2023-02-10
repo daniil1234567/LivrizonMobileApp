@@ -16,6 +16,7 @@ import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.TemporaryToken
 import com.app.livrizon.values.token
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.CoroutineScope
 
 class LoginFragment : CustomFragment() {
     lateinit var binding: FragmentLoginBinding
@@ -74,7 +75,7 @@ class LoginFragment : CustomFragment() {
 
     override fun request() {
         loginRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.login(login)
             }
 

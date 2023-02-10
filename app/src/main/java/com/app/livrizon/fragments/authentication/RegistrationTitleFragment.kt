@@ -10,6 +10,7 @@ import com.app.livrizon.request.AuthorizationRequest
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.token
+import kotlinx.coroutines.CoroutineScope
 
 class RegistrationTitleFragment : CustomFragment() {
     lateinit var binding: FragmentRegistrationTitleBinding
@@ -25,7 +26,7 @@ class RegistrationTitleFragment : CustomFragment() {
 
     override fun request() {
         informationRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.information(save)
             }
 

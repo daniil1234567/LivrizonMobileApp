@@ -18,7 +18,7 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
     var list: MutableList<Base> = mutableListOf()
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].layout()
+        return list[position].layout();
     }
 
     abstract fun getLayout(viewType: Int): Int
@@ -43,8 +43,8 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
                 onBodyLongClick(holder, current, position)
                 true
             }
-            if(btn_action!=null) {
-                setButton(holder,current)
+            if (btn_action != null) {
+                setButton(holder, current)
                 btn_action.setOnClickListener {
                     onButtonClick(holder, current)
                 }

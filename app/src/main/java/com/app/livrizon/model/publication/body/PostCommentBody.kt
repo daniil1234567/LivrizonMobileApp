@@ -1,9 +1,11 @@
-package com.app.livrizon.model.publication
+package com.app.livrizon.model.publication.body
 
 import com.app.livrizon.model.profile.ProfileBase
+import com.app.livrizon.model.publication.PublicationBase
 import com.app.livrizon.model.type.PublicationType
 
-class Repost(
+open class PostCommentBody(
+    val description:String,
     publication_id: Int,
     type: PublicationType,
     from: ProfileBase,

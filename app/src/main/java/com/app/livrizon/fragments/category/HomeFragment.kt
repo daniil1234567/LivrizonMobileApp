@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.livrizon.adapter.ViewPagerAdapter
 import com.app.livrizon.databinding.FragmentHomeBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.fragments.list.PostListFragment
+import com.app.livrizon.fragments.publication.PostListFragment
 import com.app.livrizon.model.Tab
 import com.app.livrizon.model.publication.Post
 import com.app.livrizon.values.Parameters

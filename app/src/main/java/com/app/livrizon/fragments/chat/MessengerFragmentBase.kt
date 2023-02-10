@@ -12,6 +12,7 @@ import com.app.livrizon.model.type.event.EventType
 import com.app.livrizon.request.*
 import com.app.livrizon.values.WebsocketsRoute
 import com.app.livrizon.values.gson
+import kotlinx.coroutines.CoroutineScope
 
 abstract class MessengerFragmentBase : CustomFragment() {
 
@@ -54,7 +55,7 @@ abstract class MessengerFragmentBase : CustomFragment() {
                 } as Chat?
                 if (chat != null) {
                     object : HttpListener(requireContext()) {
-                        override suspend fun body(): Chat {
+                        override suspend fun body(block: CoroutineScope): Chat {
                             return ChatRequest.chat(chat.equals())
                         }
 

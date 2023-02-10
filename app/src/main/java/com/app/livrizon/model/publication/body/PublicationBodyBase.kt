@@ -2,7 +2,7 @@ package com.app.livrizon.model.publication.body
 
 import com.app.livrizon.model.file.Photo
 
-abstract class PublicationBodyImpl(
+abstract class PublicationBodyBase(
     val body_id: Int,
 ) : java.io.Serializable {
     open fun getText(): String? {

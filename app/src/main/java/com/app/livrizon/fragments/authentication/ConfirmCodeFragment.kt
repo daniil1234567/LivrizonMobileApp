@@ -16,6 +16,7 @@ import com.app.livrizon.security.token.RestoreToken
 import com.app.livrizon.util.TextListener
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.token
+import kotlinx.coroutines.CoroutineScope
 
 class ConfirmCodeFragment : CustomFragment() {
     lateinit var binding: FragmentConfirmCodeBinding
@@ -33,7 +34,7 @@ class ConfirmCodeFragment : CustomFragment() {
 
     override fun request() {
         accountRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Profile {
+            override suspend fun body(block: CoroutineScope): Profile {
                 return AuthorizationRequest.account()
             }
 
@@ -48,7 +49,7 @@ class ConfirmCodeFragment : CustomFragment() {
         }
 
         confirmRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.confirm(code)
             }
 

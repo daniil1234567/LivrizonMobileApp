@@ -4,6 +4,7 @@ import com.app.livrizon.impl.Base
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.publication.body.CommentBody
 import com.app.livrizon.model.publication.statistic.CommentStatistic
+import com.app.livrizon.model.publication.statistic.PublicationStatisticBase
 import com.app.livrizon.model.type.PublicationType
 
 class Comment(

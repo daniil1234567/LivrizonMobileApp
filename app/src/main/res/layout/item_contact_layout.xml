@@ -12,13 +12,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        app:cardBackgroundColor="@color/middle"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/light"
             android:gravity="center"
             android:orientation="vertical">
 

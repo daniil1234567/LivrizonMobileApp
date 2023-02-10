@@ -14,6 +14,7 @@ import com.app.livrizon.security.Role
 import com.app.livrizon.security.Status
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.gson
+import kotlinx.coroutines.CoroutineScope
 
 class ShimmerWallFragment : CustomFragment() {
     lateinit var binding: FragmentShimmerWallBinding
@@ -30,7 +31,7 @@ class ShimmerWallFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): WallResponse {
+            override suspend fun body(block: CoroutineScope): WallResponse {
                 return ProfileRequest.wall(profileId)
             }
 

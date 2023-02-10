@@ -265,8 +265,8 @@ class ChatFragment : CustomFragment() {
 
             override suspend fun onView(position: Int) {
                 val message = recyclerViewAdapter.list[position] as Message
-                if (!message.statistic.seen && message.from.profile_id != (token as AccessToken).id) {
-                    message.statistic.seen = true
+                if (!message.relation.seen && message.from.profile_id != (token as AccessToken).id) {
+                    message.relation.seen = true
                     unread--
                     PublicationRequest.seen(profile.profile_id, message.id())
                 }
@@ -290,7 +290,7 @@ class ChatFragment : CustomFragment() {
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
             val message_id = this@ChatFragment.message_id
-            override suspend fun body(): InitChat {
+            override suspend fun body(block: CoroutineScope): InitChat {
                 return InitRequest.chat(profile.profile_id)
             }
 
@@ -381,7 +381,7 @@ class ChatFragment : CustomFragment() {
         binding.btnDelete.setOnClickListener {
             val ids = this.ids
             object : HttpListener(requireContext()) {
-                override suspend fun body(): Response {
+                override suspend fun body(block: CoroutineScope): Response {
                     return ChatRequest.deleteMessages(profile.profile_id, ids)
                 }
             }.request()
@@ -416,7 +416,7 @@ class ChatFragment : CustomFragment() {
         binding.btnSend.setOnClickListener {
             val message = SaveMessage(true, null, null, forward, binding.edMessage.text.toString())
             object : HttpListener(requireContext()) {
-                override suspend fun body() {
+                override suspend fun body(block: CoroutineScope) {
                     ChatRequest.sendMessage(
                         profile.profile_id,
                         message,

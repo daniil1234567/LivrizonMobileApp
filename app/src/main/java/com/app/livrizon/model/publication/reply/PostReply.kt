@@ -3,13 +3,15 @@ package com.app.livrizon.model.publication.reply
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.publication.PublicationBase
 import com.app.livrizon.model.publication.body.PostReplyBody
+import com.app.livrizon.model.publication.relation.PublicationRelationBase
 import com.app.livrizon.model.type.PublicationType
 
-class PostReply (
+class PostReply(
     val body: PostReplyBody,
+    val relation: PublicationRelationBase? = null,
     publication_id: Int,
     type: PublicationType,
     from: ProfileBase,
     date: Long,
     status: Int
-): PublicationBase(publication_id, type, from, date, status)
+) : PublicationBase(publication_id, type, from, date, status)

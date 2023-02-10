@@ -4,8 +4,7 @@ import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.init.*
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.Subscribe
-import com.app.livrizon.model.publication.Message
-import com.app.livrizon.model.publication.Post
+import com.app.livrizon.model.publication.*
 import com.app.livrizon.services.InitRequestImpl
 import com.app.livrizon.values.*
 import io.ktor.client.request.*
@@ -81,14 +80,17 @@ object InitRequest : InitRequestImpl {
         }, InitMessenger::class.java)
     }
 
-
-    override suspend fun news(): InitNews {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_news)
-            headers.append(Parameters.auth, token.jwt)
-        }, InitNews::class.java)
+    override suspend fun articles(): Array<Article> {
+        TODO("Not yet implemented")
     }
 
+    override suspend fun authors(): Array<Author> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun popular(): Popular? {
+        TODO("Not yet implemented")
+    }
     override suspend fun home(): Array<Post> {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.init_home)

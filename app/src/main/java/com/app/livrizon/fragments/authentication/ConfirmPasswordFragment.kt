@@ -16,6 +16,7 @@ import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.account_pref
 import com.app.livrizon.values.token
+import kotlinx.coroutines.CoroutineScope
 
 class ConfirmPasswordFragment : CustomFragment() {
     lateinit var binding: FragmentConfirmPasswordBinding
@@ -33,7 +34,7 @@ class ConfirmPasswordFragment : CustomFragment() {
     override fun request() {
         homeRequest = homeRequest(this)
         confirmRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 val token = token as RestoreToken
                 return AuthorizationRequest.authentication(Authentication(token.username, password))
             }

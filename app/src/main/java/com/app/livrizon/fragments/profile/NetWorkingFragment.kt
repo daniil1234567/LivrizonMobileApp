@@ -1,15 +1,14 @@
-package com.app.livrizon.fragments.category
+package com.app.livrizon.fragments.profile
 
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R
-import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.MoveImpl
 import com.app.livrizon.adapter.ViewPagerAdapter
 import com.app.livrizon.databinding.FragmentNetWorkingBinding
 import com.app.livrizon.model.Tab
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.fragments.list.ProfileListFragment
+import com.app.livrizon.fragments.profile.ProfileListFragment
 import com.app.livrizon.impl.Base
 import com.google.android.material.tabs.TabLayoutMediator
 

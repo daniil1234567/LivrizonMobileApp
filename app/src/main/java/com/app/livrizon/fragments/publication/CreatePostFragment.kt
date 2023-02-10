@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.app.livrizon.databinding.FragmentCreatePostBinding
 import com.app.livrizon.request.HttpListener
+import kotlinx.coroutines.CoroutineScope
 
 class CreatePostFragment : Fragment() {
     lateinit var binding: FragmentCreatePostBinding
@@ -26,7 +27,7 @@ class CreatePostFragment : Fragment() {
     private fun init() {
         binding.btnDone.setOnClickListener {
             object : HttpListener(requireContext()) {
-                override suspend fun body() {
+                override suspend fun body(block: CoroutineScope) {
                     //PublicationRequest.savePost(
                     //    SavePost(
                     //        comment = true,

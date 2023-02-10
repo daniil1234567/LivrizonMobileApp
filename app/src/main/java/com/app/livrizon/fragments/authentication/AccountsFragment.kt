@@ -71,7 +71,7 @@ class AccountsFragment : CustomFragment() {
     override fun request() {
         homeRequest = homeRequest(this)
         authenticationRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.authentication(authentication)
             }
 

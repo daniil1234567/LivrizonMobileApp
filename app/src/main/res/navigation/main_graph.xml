@@ -85,12 +85,23 @@
             app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_categoryFragment_to_searchProfileFragment"
-            app:destination="@id/searchProfileFragment" />
+            app:destination="@id/searchProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"  />
+        <action
+            android:id="@+id/action_categoryFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"  />
     </fragment>
 
     <fragment
         android:id="@+id/netWorkingFragment"
-        android:name="com.app.livrizon.fragments.category.NetWorkingFragment"
+        android:name="com.app.livrizon.fragments.profile.NetWorkingFragment"
         android:label="fragment_net_working"
         tools:layout="@layout/fragment_net_working" >
         <action
@@ -191,4 +202,8 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="com.app.livrizon.fragments.publication.ArticlesFragment"
+        android:label="ArticlesFragment" />
 </navigation>

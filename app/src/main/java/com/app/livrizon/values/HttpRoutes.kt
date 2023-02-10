@@ -18,7 +18,6 @@ object HttpRoutes {
     const val accounts = "$BASE_URL/accounts"
     const val seen = "$BASE_URL/seen"
     const val interests = "$BASE_URL/interests"
-    const val init_news = "$BASE_URL/init/init_news"
     const val init_messenger = "$BASE_URL/init/messenger"
     const val init_chats = "$BASE_URL/init/chats"
     const val init_append = "$BASE_URL/init/append"

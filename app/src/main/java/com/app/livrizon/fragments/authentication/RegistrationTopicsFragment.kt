@@ -138,7 +138,7 @@ class RegistrationTopicsFragment : CustomFragment() {
     override fun request() {
         homeRequest = homeRequest(this)
         profileRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Array<Profile> {
+            override suspend fun body(block: CoroutineScope): Array<Profile> {
                 selection =
                     if (topics.size > 0 && selection == null) Selection.recommendation else Selection.popular
                 return InitRequest.profiles(
@@ -162,7 +162,7 @@ class RegistrationTopicsFragment : CustomFragment() {
             }
         }
         topicRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Response {
+            override suspend fun body(block: CoroutineScope): Response {
                 return ProfileRequest.topics(topics.toTypedArray())
             }
 

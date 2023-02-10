@@ -13,6 +13,7 @@ import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.token
+import kotlinx.coroutines.CoroutineScope
 
 class RegistrationPasswordFragment : CustomFragment() {
     lateinit var binding: FragmentRegistrationPasswordBinding
@@ -30,7 +31,7 @@ class RegistrationPasswordFragment : CustomFragment() {
     override fun request() {
         homeRequest = homeRequest(this)
         updatePasswordRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): Jwt {
+            override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.updatePassword(password)
             }
 

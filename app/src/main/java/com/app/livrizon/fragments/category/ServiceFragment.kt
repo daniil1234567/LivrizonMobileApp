@@ -1,9 +1,12 @@
 package com.app.livrizon.fragments.category
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.R
+import com.app.livrizon.activities.ServiceActivity
+import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.MoveImpl
 import com.app.livrizon.adapter.RecommendationAdapter
 import com.app.livrizon.adapter.ServiceAdapter
@@ -16,6 +19,7 @@ import com.app.livrizon.model.service.Service
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.values.Parameters
+import kotlinx.coroutines.CoroutineScope
 
 class ServiceFragment : CustomFragment(), MoveImpl {
     lateinit var binding: FragmentServiceBinding
@@ -30,6 +34,7 @@ class ServiceFragment : CustomFragment(), MoveImpl {
             putInt(Parameters.profile_id, current.equals())
         })
     }
+
     override fun initAdapter() {
         recyclerViewAdapter = object : RecommendationAdapter(requireContext(), this) {
             override fun moveToWall(current: Base) {
@@ -37,13 +42,18 @@ class ServiceFragment : CustomFragment(), MoveImpl {
             }
         }
         serviceAdapter = object : ServiceAdapter(requireContext()) {
-
+            override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
+                current as Service
+                startActivity(Intent(context, ServiceActivity::class.java).apply {
+                    putExtra(Parameters.key, current.service_id)
+                })
+            }
         }
     }
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(): ServiceInit {
+            override suspend fun body(block: CoroutineScope): ServiceInit {
                 return InitRequest.services()
             }
 
@@ -78,25 +88,25 @@ class ServiceFragment : CustomFragment(), MoveImpl {
     override fun init() {
         serviceAdapter.initList(
             Service(
-                networking, R.drawable.img_networking,
+                ServiceActivity.networking, R.drawable.img_networking,
                 requireContext().getString(R.string.Networking)
             ), Service(
-                resumes, R.drawable.img_find_worker,
+                ServiceActivity.resumes, R.drawable.img_find_worker,
                 requireContext().getString(R.string.Find_worker)
             ), Service(
-                vacancies,
+                ServiceActivity.vacancies,
                 R.drawable.img_find_vacancy,
                 requireContext().getString(R.string.Find_vacancy)
             ), Service(
-                articles,
+                ServiceActivity.articles,
                 R.drawable.img_articles,
                 requireContext().getString(R.string.News)
             ), Service(
-                polls,
+                ServiceActivity.polls,
                 R.drawable.img_polls,
                 requireContext().getString(R.string.Polls)
             ), Service(
-                statistic,
+                ServiceActivity.statistic,
                 R.drawable.img_profile_statistics,
                 requireContext().getString(R.string.ProfileStatistics)
             )
@@ -117,12 +127,4 @@ class ServiceFragment : CustomFragment(), MoveImpl {
         }
     }
 
-    companion object {
-        const val networking = 0
-        const val articles = 1
-        const val resumes = 2
-        const val vacancies = 3
-        const val polls = 4
-        const val statistic = 5
-    }
 }

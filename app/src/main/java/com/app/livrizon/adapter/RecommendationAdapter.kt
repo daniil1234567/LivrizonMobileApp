@@ -29,7 +29,7 @@ abstract class RecommendationAdapter(context: Context, val fragment: Fragment) :
                 Tab(
                     i / 3 + 1,
                     ProfileList(
-                        recommendation.recommendation.slice(0 until min(i + 3, size)).toTypedArray(),
+                        recommendation.recommendation.slice(i until min(i + 3, size)).toTypedArray(),
                         this
                     ),
                     null

@@ -9,7 +9,7 @@ import com.app.livrizon.activities.SubActivity
 import com.app.livrizon.adapter.*
 import com.app.livrizon.databinding.FragmentWallBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.fragments.list.PostListFragment
+import com.app.livrizon.fragments.publication.PostListFragment
 import com.app.livrizon.function.loadAvatar
 import com.app.livrizon.function.loadImage
 import com.app.livrizon.function.wallRequest
@@ -28,6 +28,7 @@ import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.*
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.item_profile_base_layout.view.*
+import kotlinx.coroutines.CoroutineScope
 
 class WallFragment : CustomFragment() {
     lateinit var binding: FragmentWallBinding
@@ -58,7 +59,7 @@ class WallFragment : CustomFragment() {
         wallRequest = wallRequest(this, wall.profile.profile_id)
         subscribeRequest = object : HttpListener(requireContext()) {
             var subscribe = wall.relation.my_sub
-            override suspend fun body(): Response {
+            override suspend fun body(block: CoroutineScope): Response {
                 return ProfileRequest.sub(wall.profile.profile_id)
             }
 
