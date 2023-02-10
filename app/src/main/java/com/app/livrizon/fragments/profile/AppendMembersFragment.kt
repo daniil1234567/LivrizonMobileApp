@@ -1,12 +1,9 @@
 package com.app.livrizon.fragments.profile
 
-import android.content.Intent
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.R
-import com.app.livrizon.activities.ChatActivity
 import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.ProfileAdapter
 import com.app.livrizon.databinding.FragmentAppendMembersBinding
@@ -14,7 +11,6 @@ import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.log
 import com.app.livrizon.function.toDp
 import com.app.livrizon.impl.Base
-import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.edit.profile.save.TeamSave
 import com.app.livrizon.model.profile.Append
 import com.app.livrizon.model.profile.Profile
@@ -24,7 +20,6 @@ import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.request.TeamRequest
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.view_model.ViewModel
 import kotlinx.android.synthetic.main.item_append_profile_layout.view.*
 
 class AppendMembersFragment : CustomFragment() {
@@ -62,11 +57,16 @@ class AppendMembersFragment : CustomFragment() {
 
     override fun initAdapter() {
         chooseAdapter = object : ProfileAdapter(requireContext()) {
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                val profile = list[position] as ProfileBase
-                removePosition(position)
+            override fun setButton(holder: CustomViewHolder, current: Base) {
+
+            }
+            override fun onButtonClick(holder: CustomViewHolder, current: Base) {
+                current as ProfileBase
+                removeItem {
+                    it.equals() == current.equals()
+                }
                 viewModel.choose.value = recyclerViewAdapter.list.find {
-                    it.id() == profile.id()
+                    it.id() == current.id()
                 }?.id() ?: 0
             }
         }
@@ -85,6 +85,9 @@ class AppendMembersFragment : CustomFragment() {
                 viewModel.choose.value = append.id()
             }
 
+            override fun setButton(holder: CustomViewHolder, current: Base) {
+
+            }
             override fun setBody(
                 holder: CustomViewHolder,
                 position: Int,

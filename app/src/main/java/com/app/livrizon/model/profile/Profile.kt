@@ -7,16 +7,16 @@ import com.app.livrizon.security.Role
 open class Profile(
     val last: Long? = null,
     val title: String? = null,
-    val followers: Int,
+    val followers: Int? = null,
     val city: String? = null,
-    var my_sub: Boolean,
-    confirm: Boolean,
-    role: Role,
+    var my_sub: Int,
     profile_id: Int,
     avatar: String? = null,
     name: String,
+    confirm: Boolean,
+    role: Role,
     status: Int,
-) : Owner(confirm, role, profile_id, avatar, name, status), Base {
+) : ProfileBase(profile_id, avatar, name, confirm, role, status), Base {
     override fun id(): Int {
         return profile_id
     }

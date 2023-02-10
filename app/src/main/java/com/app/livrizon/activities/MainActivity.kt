@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         posts = intent.getSerializableExtra(Parameters.posts) as Array<Post>
         with(token as AccessToken){
             loadAvatar(
-                this@MainActivity,
                 this.name,
                 binding.tvImage,
                 binding.imgAvatar,

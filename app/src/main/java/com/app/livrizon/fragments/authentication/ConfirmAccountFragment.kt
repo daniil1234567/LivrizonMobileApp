@@ -48,7 +48,7 @@ class ConfirmAccountFragment : CustomFragment() {
                 holder.itemView.tv_button.text = getString(R.string.Confirm)
             }
 
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
+            override fun onButtonClick(holder: CustomViewHolder, current: Base) {
                 val token = token as RestoreToken
                 if (token.confirm)
                     navController.navigate(R.id.action_confirmAccountFragment_to_confirmPasswordFragment)

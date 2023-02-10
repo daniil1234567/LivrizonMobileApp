@@ -16,13 +16,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_likeBottomSheet"
-            app:destination="@id/likeBottomSheet"
-            app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left"
-            app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right" />
-        <action
             android:id="@+id/action_homeFragment_to_pageShimmer"
             app:destination="@id/pageShimmer"
             app:enterAnim="@anim/from_right"
@@ -94,19 +87,6 @@
             android:id="@+id/action_categoryFragment_to_searchProfileFragment"
             app:destination="@id/searchProfileFragment" />
     </fragment>
-    <dialog
-        android:id="@+id/likeBottomSheet"
-        android:name="com.app.livrizon.bottom_sheet.LikeBottomSheet"
-        android:label="fragment_like_bottom_sheet"
-        tools:layout="@layout/fragment_like_bottom_sheet" >
-        <action
-            android:id="@+id/action_likeBottomSheet_to_pageShimmer"
-            app:destination="@id/pageShimmer"
-            app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left"
-            app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right" />
-    </dialog>
 
     <fragment
         android:id="@+id/netWorkingFragment"
@@ -205,6 +185,10 @@
         android:label="SearchProfileFragment" >
         <action
             android:id="@+id/action_searchProfileFragment_to_pageShimmer"
-            app:destination="@id/pageShimmer" />
+            app:destination="@id/pageShimmer"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
 </navigation>

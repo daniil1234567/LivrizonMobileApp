@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_append_members" />
     <fragment
         android:id="@+id/createPublicFragment"
-        android:name="com.app.livrizon.fragments.CreatePublicFragment"
+        android:name="com.app.livrizon.fragments.profile.CreatePublicFragment"
         android:label="fragment_create_public"
         tools:layout="@layout/fragment_create_public" >
         <action

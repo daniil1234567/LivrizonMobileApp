@@ -12,11 +12,11 @@ import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.fragments.list.PostListFragment
 import com.app.livrizon.function.loadAvatar
 import com.app.livrizon.function.loadImage
+import com.app.livrizon.function.wallRequest
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.Tab
 import com.app.livrizon.model.response.Response
-import com.app.livrizon.model.wall.PageWallImpl
-import com.app.livrizon.model.wall.Wall
+import com.app.livrizon.model.wall.*
 import com.app.livrizon.model.wall.body.WallBody
 import com.app.livrizon.model.wall.option.Button
 import com.app.livrizon.model.wall.option.Detail
@@ -25,11 +25,9 @@ import com.app.livrizon.model.wall.statistic.*
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.values.Filter
-import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.Selection
-import com.app.livrizon.values.token
+import com.app.livrizon.values.*
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.item_profile_base_layout.view.*
 
 class WallFragment : CustomFragment() {
     lateinit var binding: FragmentWallBinding
@@ -41,8 +39,9 @@ class WallFragment : CustomFragment() {
     lateinit var buttonRecyclerView: RecyclerView
     lateinit var wall: Wall
     lateinit var subscribeRequest: HttpListener
+    lateinit var wallRequest: HttpListener
     private var myPage = false
-    private var btn_action = 0
+    private var btnAction = 0
 
     companion object {
         const val subscriptions = 1
@@ -56,17 +55,18 @@ class WallFragment : CustomFragment() {
     }
 
     override fun initListener() {
+        wallRequest = wallRequest(this, wall.profile.profile_id)
         subscribeRequest = object : HttpListener(requireContext()) {
-            val subscribe = wall.relation.my_sub
+            var subscribe = wall.relation.my_sub
             override suspend fun body(): Response {
                 return ProfileRequest.sub(wall.profile.profile_id)
             }
 
             override fun onSuccess(item: Any?) {
-                subscribe != subscribe
+                subscribe = !subscribe
                 wall.relation.my_sub = subscribe
                 buttonAdapter.list.clear()
-                initButtons()
+                wallRequest.request()
             }
         }
     }
@@ -146,19 +146,24 @@ class WallFragment : CustomFragment() {
         }
     }
 
-    override fun setButtons() {
+    override fun initButtons() {
         with(wall.relation) {
             with(binding.btnAction) {
-                this@WallFragment.btn_action = if (myPage) {
+                this@WallFragment.btnAction = if (myPage) {
                     text = "Редактировать"
                     1
                 } else if (!my_sub) {
                     text = "Подписаться"
-                    if (write) buttonAdapter.list.add(Button(Button.chat, R.drawable.ic_chat))
+                    if (write || chat) buttonAdapter.list.add(
+                        Button(
+                            Button.chat,
+                            R.drawable.ic_chat
+                        )
+                    )
                     2
                 } else if (write || chat) {
                     text = "Сообщения"
-                    buttonAdapter.list.add(Button(Button.subscribe, R.drawable.ic_single_check))
+                    buttonAdapter.list.add(Button(Button.subscribe, R.drawable.ic_subscribe))
                     4
                 } else {
                     text = "Отписаться"
@@ -166,15 +171,13 @@ class WallFragment : CustomFragment() {
                 }
             }
         }
-    }
-
-    override fun initButtons() {
         binding.btnAction.setOnClickListener {
-            when (btn_action) {
+            when (btnAction) {
                 2, 3 -> subscribeRequest.request()
             }
         }
     }
+
 
     private fun initBody(body: WallBody) {
         with(body) {
@@ -202,11 +205,12 @@ class WallFragment : CustomFragment() {
     }
 
     override fun init() {
+        recyclerView.adapter = recyclerViewAdapter
         with(wall) {
             if (wallpaper != null) loadImage(binding.imgWallpaper, wallpaper, 2)
             with(profile) {
                 binding.tvName.text = name
-                loadAvatar(requireContext(), name, binding.tvImage, binding.imgAvatar, avatar, 4)
+                loadAvatar(name, binding.tvImage, binding.imgAvatar, avatar, 4)
                 if (confirm) binding.imgConfirm.visibility = View.VISIBLE
                 else binding.imgConfirm.visibility = View.GONE
             }
@@ -232,7 +236,7 @@ class WallFragment : CustomFragment() {
                 )
             }
             if (mutual != null && mutual.isNotEmpty()) {
-                recyclerViewAdapter.setList(*mutual)
+                recyclerViewAdapter.initList(*mutual)
                 binding.containerMutual.visibility = View.VISIBLE
             } else binding.containerMutual.visibility = View.GONE
 
@@ -251,7 +255,11 @@ class WallFragment : CustomFragment() {
     }
 
     override fun initAdapter() {
-        recyclerViewAdapter = object : ProfileAdapter(requireContext()) {}
+        recyclerViewAdapter = object : ProfileAdapter(requireContext()) {
+            override fun setButton(holder: CustomViewHolder, current: Base) {
+                holder.itemView.crd_action.visibility=View.GONE
+            }
+        }
         statisticAdapter = object : StatisticAdapter(requireContext()) {
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
                 val statistic = list[position] as Statistic

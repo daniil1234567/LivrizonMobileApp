@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.R
@@ -31,7 +30,6 @@ import com.app.livrizon.model.websocket.MessageWebSocket
 import com.app.livrizon.request.*
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.*
-import com.app.livrizon.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.item_my_message_repost_layout.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -45,6 +43,7 @@ class ChatFragment : CustomFragment() {
     lateinit var profile: ChatProfile
     lateinit var attachmentAdapter: AttachmentAdapter
     lateinit var attachmentRecyclerView: RecyclerView
+    var message_id: Int? = null
     var unread = 0
     var forward: Forward? = null
     var last: Message? = null
@@ -80,21 +79,6 @@ class ChatFragment : CustomFragment() {
                     }.duration = 200
             }
         }
-    }
-
-    private fun initList(message_id: Int? = null) {
-        object : HttpListener(webSocketListener!!.context) {
-            override suspend fun body(): Array<Message> {
-                return InitRequest.messages(profile.profile_id, message_id)
-            }
-
-            override fun onSuccess(item: Any?) {
-                val init = item as Array<Message>
-                recyclerViewAdapter.initList(*init)
-                recyclerView.scrollToPosition(recyclerViewAdapter.itemCount - 1)
-                closeArrowDown()
-            }
-        }.request()
     }
 
     override fun initAdapter() {
@@ -259,8 +243,10 @@ class ChatFragment : CustomFragment() {
                         openArrowDown()
                     }
                     recyclerViewAdapter.addListToBottom(*messages)
-                } else if (from == (token as AccessToken).id) initList()
-                else openArrowDown()
+                } else if (from == (token as AccessToken).id) {
+                    message_id = null
+                    initRequest!!.request()
+                } else openArrowDown()
             }
 
         })
@@ -303,6 +289,7 @@ class ChatFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
+            val message_id = this@ChatFragment.message_id
             override suspend fun body(): InitChat {
                 return InitRequest.chat(profile.profile_id)
             }
@@ -311,7 +298,7 @@ class ChatFragment : CustomFragment() {
                 item as InitChat
                 recyclerViewAdapter.initList(*item.messages)
                 recyclerView.scrollToPosition(
-                    if (item.statistic.attendance != null) recyclerViewAdapter.toPosition(item.statistic.attendance)
+                    if (message_id != null) recyclerViewAdapter.toPosition(message_id)
                     else recyclerViewAdapter.itemCount
                 )
             }
@@ -365,7 +352,6 @@ class ChatFragment : CustomFragment() {
         if (profile.profile_id == (token as AccessToken).id) {
             binding.imgConfirm.visibility = View.GONE
             loadAvatar(
-                requireContext(),
                 profile.name,
                 binding.tvImage,
                 binding.imgAvatar,
@@ -377,7 +363,6 @@ class ChatFragment : CustomFragment() {
             if (profile.confirm) binding.imgConfirm.visibility = View.VISIBLE
             else binding.imgConfirm.visibility = View.GONE
             loadAvatar(
-                requireContext(),
                 profile.name,
                 binding.tvImage,
                 binding.imgAvatar,

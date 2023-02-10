@@ -30,7 +30,7 @@ class AuthenticationFragment : CustomFragment() {
     }
 
     override fun request() {
-        homeRequest = homeRequest(requireActivity())
+        homeRequest = homeRequest(this)
         authenticationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.authentication(authentication)

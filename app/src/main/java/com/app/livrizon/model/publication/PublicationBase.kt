@@ -1,16 +1,16 @@
 package com.app.livrizon.model.publication
 
-import com.app.livrizon.model.publication.body.PublicationBodyImpl
+import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.type.PublicationType
 
+
 abstract class PublicationBase(
-    publication_id: Int,
-    type: PublicationType,
-    date: Long,
-) : PublicationBaseImpl(publication_id, type, date) {
-
-    abstract val body: PublicationBodyImpl?
-
+    val publication_id: Int,
+    val type: PublicationType,
+    val from: ProfileBase,
+    val date: Long,
+    val status: Int,
+) : java.io.Serializable {
     companion object {
         const val mutual = 1
         const val popular = 2

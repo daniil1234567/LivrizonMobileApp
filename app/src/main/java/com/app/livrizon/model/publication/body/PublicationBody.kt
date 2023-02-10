@@ -1,9 +1,6 @@
 package com.app.livrizon.model.publication.body
 
 import com.app.livrizon.model.file.Media
-import com.app.livrizon.model.publication.option.Address
-import com.app.livrizon.model.publication.option.Link
-import com.app.livrizon.model.publication.option.Poll
 
 class PublicationBody (
     val title: String? = null,

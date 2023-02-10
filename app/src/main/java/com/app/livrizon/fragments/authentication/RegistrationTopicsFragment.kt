@@ -36,7 +36,7 @@ class RegistrationTopicsFragment : CustomFragment() {
 
     override fun initAdapter() {
         recyclerViewAdapter = object : GroupTopicAdapter(requireContext()) {
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
+            override fun onButtonClick(holder: CustomViewHolder, current: Base) {
                 if (current.id() != null) {
                     if (topics.find { it.topic_id == current.id() } == null) topics.add(
                         TopicEdit(
@@ -136,7 +136,7 @@ class RegistrationTopicsFragment : CustomFragment() {
     }
 
     override fun request() {
-        homeRequest = homeRequest(requireActivity())
+        homeRequest = homeRequest(this)
         profileRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Array<Profile> {
                 selection =

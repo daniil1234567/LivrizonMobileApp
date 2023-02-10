@@ -45,20 +45,14 @@ class AccountsFragment : CustomFragment() {
 
     override fun initAdapter() {
         recyclerViewAdapter = object : ProfileAdapter(requireContext()) {
-            override fun setBody(
-                holder: CustomViewHolder,
-                position: Int,
-                previous: Base?,
-                current: Base,
-                next: Base?
-            ) {
+            override fun setButton(holder: CustomViewHolder, current: Base) {
                 holder.itemView.tv_button.text = getString(R.string.Enter)
             }
 
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                val account = list[position] as Account
+            override fun onButtonClick(holder: CustomViewHolder, current: Base) {
+                current as Account
                 CoroutineScope(Dispatchers.IO).launch {
-                    authentication = SqlRequest.getAccount(account.username)
+                    authentication = SqlRequest.getAccount(current.username)
                     authenticationRequest.request()
                 }
             }
@@ -75,7 +69,7 @@ class AccountsFragment : CustomFragment() {
     }
 
     override fun request() {
-        homeRequest = homeRequest(requireActivity())
+        homeRequest = homeRequest(this)
         authenticationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.authentication(authentication)

@@ -31,7 +31,7 @@ class ConfirmPasswordFragment : CustomFragment() {
     }
 
     override fun request() {
-        homeRequest = homeRequest(requireActivity())
+        homeRequest = homeRequest(this)
         confirmRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 val token = token as RestoreToken

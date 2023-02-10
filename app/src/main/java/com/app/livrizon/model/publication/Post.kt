@@ -10,13 +10,15 @@ import com.app.livrizon.model.type.PublicationType
 class Post(
     val reply: PostReply? = null,
     val repost: Repost? = null,
+    val body: PublicationBody,
     val statistic: PostStatistic,
+    val comment: PreviewComment? = null,
     publication_id: Int,
     type: PublicationType,
+    from: ProfileBase,
     date: Long,
-    override val from: ProfileBase,
-    override val body: PublicationBody,
-) : PublicationBase(publication_id, type, date), Base {
+    status: Int,
+) : PublicationBase(publication_id, type, from, date, status), Base {
     override fun id(): Int {
         return publication_id
     }

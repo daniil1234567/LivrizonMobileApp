@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Color
+import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
@@ -22,10 +22,16 @@ import androidx.fragment.app.FragmentActivity
 import com.app.livrizon.R
 import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.activities.SecondaryActivity
+import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.model.publication.Post
+import com.app.livrizon.model.response.WallResponse
 import com.app.livrizon.model.type.PublicationType
+import com.app.livrizon.model.wall.*
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
+import com.app.livrizon.request.ProfileRequest
+import com.app.livrizon.security.Role
+import com.app.livrizon.security.Status
 import com.app.livrizon.sql.DbHelper
 import com.app.livrizon.sql.DbItem
 import com.app.livrizon.values.HttpRoutes
@@ -88,16 +94,6 @@ fun lightButton(
     button.text = text
 }
 
-fun blackButton(
-    context: Context,
-    button: TextView,
-    text: String = context.getString(R.string.Subscribe)
-) {
-    button.setBackgroundResource(R.drawable.button_black_r8_without_s)
-    button.setTextColor(Color.WHITE)
-    button.text = text
-}
-
 fun lightStatusBar(window: Window, isLight: Boolean = true) {
     val wic = WindowInsetsControllerCompat(window, window.decorView)
     wic.isAppearanceLightStatusBars = isLight
@@ -105,7 +101,6 @@ fun lightStatusBar(window: Window, isLight: Boolean = true) {
 
 
 fun loadAvatar(
-    context: Context,
     name: String?,
     textView: TextView?,
     imageView: ImageView,
@@ -141,9 +136,39 @@ fun <T> List<T>.first(): T? {
         return null
     return this[0]
 }
+fun wallRequest(fragment: CustomFragment,profile_id: Int):HttpListener{
+    return object : HttpListener(fragment.requireContext()) {
+        override suspend fun body(): WallResponse {
+            return ProfileRequest.wall(profile_id)
+        }
 
-fun homeRequest(activity: Activity): HttpListener {
-    return object : HttpListener(activity) {
+        override fun onSuccess(item: Any?) {
+            item as WallResponse
+            val bundle = Bundle().apply {
+                putSerializable(
+                    Parameters.posts, gson.fromJson(
+                        item.body,
+                        if (item.status!= Status.active)
+                            DeleteWall::class.java
+                        else if (item.role == Role.user) UserWall::class.java
+                        else if (item.role == Role.company) CompanyWall::class.java
+                        else if (item.role == Role.community) CommunityWall::class.java
+                        else TeamWall::class.java
+                    )
+                )
+            }
+            fragment.navController.popBackStack()
+            fragment.navController.navigate(
+                if (item.status!= Status.active) R.id.deleteWallFragment
+                else if (!item.available) R.id.restrictWallFragment
+                else R.id.wallFragment, bundle
+            )
+
+        }
+    }
+}
+fun homeRequest(fragment: CustomFragment): HttpListener {
+    return object : HttpListener(fragment.requireContext()) {
         override suspend fun body(): Array<Post> {
             return InitRequest.home()
         }
@@ -153,7 +178,7 @@ fun homeRequest(activity: Activity): HttpListener {
             context.startActivity(Intent(context, MainActivity::class.java).apply {
                 putExtra(Parameters.posts, item)
             })
-            activity.finish()
+            fragment.requireActivity().finish()
         }
     }
 }

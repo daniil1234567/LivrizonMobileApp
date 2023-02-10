@@ -2,8 +2,8 @@ package com.app.livrizon.fragments.list
 
 import android.view.View
 import com.app.livrizon.adapter.CustomViewHolder
+import com.app.livrizon.adapter.MoveImpl
 import com.app.livrizon.adapter.ProfileAdapter
-import com.app.livrizon.adapter.RecyclerViewAdapterImpl
 import com.app.livrizon.databinding.FragmentListBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.impl.Base
@@ -11,7 +11,7 @@ import com.app.livrizon.impl.Base
 class ProfileListFragment(
     val init: Array<Base>? = null,
     val webSocketPath: String? = null,
-    val recyclerViewAdapterImpl: RecyclerViewAdapterImpl
+    val move: MoveImpl
 ) : CustomFragment() {
     lateinit var binding: FragmentListBinding
     lateinit var visitAdapter: ProfileAdapter
@@ -22,34 +22,12 @@ class ProfileListFragment(
     override fun initAdapter() {
         visitAdapter = object : ProfileAdapter(requireContext()) {
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapterImpl.onBodyShortClick(holder, current, position)
-            }
-
-            override fun onBodyLongClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapter.onBodyLongClick(holder, current, position)
+                move.moveToWall(current)
             }
         }
         recyclerViewAdapter = object : ProfileAdapter(requireContext()) {
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapterImpl.onBodyShortClick(holder, current, position)
-            }
-
-            override fun onBodyLongClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapter.onBodyLongClick(holder, current, position)
-            }
-
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapterImpl.onButtonClick(holder, current, position)
-            }
-
-            override fun setBody(
-                holder: CustomViewHolder,
-                position: Int,
-                previous: Base?,
-                current: Base,
-                next: Base?
-            ) {
-                recyclerViewAdapterImpl.setBody(holder, position, previous, current, next)
+                move.moveToWall(current)
             }
         }
     }

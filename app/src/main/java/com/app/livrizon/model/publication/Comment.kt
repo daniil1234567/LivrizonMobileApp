@@ -7,13 +7,14 @@ import com.app.livrizon.model.publication.statistic.CommentStatistic
 import com.app.livrizon.model.type.PublicationType
 
 class Comment(
+    val body: CommentBody,
     val statistic: CommentStatistic,
     publication_id: Int,
     type: PublicationType,
+    from: ProfileBase,
     date: Long,
-    override val from: ProfileBase,
-    override val body: CommentBody,
-) : PublicationBase(publication_id,type,date), Base {
+    status: Int
+) : PublicationBase(publication_id, type, from, date, status), Base {
     override fun id(): Int {
         return publication_id
     }

@@ -1,17 +1,22 @@
 package com.app.livrizon.model.profile
 
 import com.app.livrizon.impl.ProfileImpl
+import com.app.livrizon.security.Role
 
 open class ProfileBase(
     val profile_id: Int,
     val avatar: String? = null,
     val name: String,
+    val confirm: Boolean,
+    val role: Role,
     val status: Int
 ) : ProfileImpl {
     constructor(profile: ProfileBase) : this(
         profile.profile_id,
         profile.avatar,
         profile.name,
+        profile.confirm,
+        profile.role,
         profile.status
     )
 

@@ -1,10 +1,11 @@
-package com.app.livrizon.fragments
+package com.app.livrizon.fragments.profile
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R
 import com.app.livrizon.databinding.FragmentCreatePublicBinding
+import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.model.edit.profile.save.TeamSave
 import com.app.livrizon.values.Parameters
 

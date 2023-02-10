@@ -4,10 +4,10 @@ import com.app.livrizon.security.Role
 
 class WallProfile(
     val last: Long,
-    confirm: Boolean,
-    role: Role,
     profile_id: Int,
     avatar: String? = null,
     name: String,
-    status: Int
-) : Owner(confirm, role, profile_id, avatar, name, status)
+    confirm: Boolean,
+    role: Role,
+    status: Int,
+) : ProfileBase(profile_id, avatar, name, confirm, role, status)

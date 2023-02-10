@@ -26,22 +26,22 @@ open class ChatAdapter(context: Context) : RecyclerViewAdapterBase(context) {
                     img_confirm.visibility = View.GONE
                     if (equals() == (token as AccessToken).id) {
                         loadAvatar(
-                            context,
                             profile.name,
                             holder.itemView.tv_image,
                             holder.itemView.img_avatar,
-                            Parameters.favorite, 1
+                            Parameters.favorite,
+                            1
                         )
                         tv_name.text = context.getString(R.string.Favorite)
                     } else {
                         if (profile.confirm) img_confirm.visibility = View.VISIBLE
                         else img_confirm.visibility = View.GONE
                         loadAvatar(
-                            context,
                             profile.name,
                             holder.itemView.tv_image,
                             holder.itemView.img_avatar,
-                            profile.avatar,5
+                            profile.avatar,
+                            5
                         )
                         tv_name.text = name
                     }

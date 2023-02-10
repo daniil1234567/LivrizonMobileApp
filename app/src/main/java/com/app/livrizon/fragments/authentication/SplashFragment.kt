@@ -1,4 +1,4 @@
-package com.app.livrizon.fragments
+package com.app.livrizon.fragments.authentication
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R
 import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.databinding.FragmentSplashBinding
+import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.connection
 import com.app.livrizon.model.authorization.Authentication
 import com.app.livrizon.model.authorization.Jwt

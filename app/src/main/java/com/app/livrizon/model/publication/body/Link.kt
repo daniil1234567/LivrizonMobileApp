@@ -1,4 +1,4 @@
-package com.app.livrizon.model.publication.option
+package com.app.livrizon.model.publication.body
 
 import com.app.livrizon.impl.LinkImpl
 import com.app.livrizon.model.file.Photo

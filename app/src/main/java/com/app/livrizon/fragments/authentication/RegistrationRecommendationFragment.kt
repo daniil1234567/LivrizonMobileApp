@@ -32,58 +32,11 @@ class RegistrationRecommendationFragment : CustomFragment() {
     }
 
     override fun request() {
-        homeRequest = homeRequest(requireActivity())
-
+        homeRequest = homeRequest(this)
     }
 
     override fun initAdapter() {
-        recyclerViewAdapter = object : ProfileAdapter(requireContext()) {
-            override fun setBody(
-                holder: CustomViewHolder,
-                position: Int,
-                previous: Base?,
-                current: Base,
-                next: Base?
-            ) {
-                val profile = list[position] as Profile
-                with(holder.itemView) {
-                    if (profile.my_sub) {
-                        tv_button.text = "Отписаться"
-                        tv_button.setTextColor(resources.getColor(R.color.white))
-                        btn_action.setBackgroundResource(R.drawable.button_black_r8_without_s)
-                    } else {
-                        tv_button.text = "Подписаться"
-                        tv_button.setTextColor(resources.getColor(R.color.grey))
-                        holder.itemView.btn_action.setBackgroundResource(R.drawable.button_light_r8_without_s)
-                    }
-                }
-            }
-
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                current as Profile
-                val my_sub = current.my_sub
-                object : HttpListener(requireContext()) {
-                    override suspend fun body(): Response {
-                        return ProfileRequest.sub(current.profile_id)
-                    }
-
-                    override fun onSuccess(item: Any?) {
-                        current.my_sub = !my_sub
-                        with(holder.itemView) {
-                            if (current.my_sub) {
-                                tv_button.text = "Отписаться"
-                                tv_button.setTextColor(resources.getColor(R.color.white))
-                                btn_action.setBackgroundResource(R.drawable.button_black_r8_without_s)
-                            } else {
-                                tv_button.text = "Подписаться"
-                                tv_button.setTextColor(resources.getColor(R.color.grey))
-                                holder.itemView.btn_action.setBackgroundResource(R.drawable.button_light_r8_without_s)
-                            }
-                        }
-                    }
-                }.request()
-            }
-        }
+        recyclerViewAdapter = object : ProfileAdapter(requireContext()) {}
     }
 
     override fun init() {

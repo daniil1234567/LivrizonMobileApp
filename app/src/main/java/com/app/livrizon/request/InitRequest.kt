@@ -53,6 +53,13 @@ object InitRequest : InitRequestImpl {
         }, Array<Message>::class.java)
     }
 
+    override suspend fun chat(profile_id: Int): InitChat {
+        return gson.fromJson(httpClient.get<String> {
+            url(HttpRoutes.initChat(profile_id))
+            headers.append(Parameters.auth, token.jwt)
+        }, InitChat::class.java)
+    }
+
     override suspend fun chats(): Array<Chat> {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.init_chats)
@@ -74,12 +81,6 @@ object InitRequest : InitRequestImpl {
         }, InitMessenger::class.java)
     }
 
-    override suspend fun chat(profile_id: Int): InitChat {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.initChat(profile_id))
-            headers.append(Parameters.auth, token.jwt)
-        }, InitChat::class.java)
-    }
 
     override suspend fun news(): InitNews {
         return gson.fromJson(httpClient.get<String> {

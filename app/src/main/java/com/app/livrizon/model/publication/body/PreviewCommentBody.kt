@@ -1,16 +1,14 @@
-package com.app.livrizon.model.publication.reply
+package com.app.livrizon.model.publication.body
 
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.publication.PublicationBase
-import com.app.livrizon.model.publication.body.MessageReplyBody
 import com.app.livrizon.model.type.PublicationType
 
-class MessageReply(
-    val repost: Boolean,
-    val body: MessageReplyBody,
+open class PreviewCommentBody(
+    val description:String,
     publication_id: Int,
     type: PublicationType,
     from: ProfileBase,
     date: Long,
-    status: Int,
+    status: Int
 ) : PublicationBase(publication_id, type, from, date, status)

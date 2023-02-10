@@ -42,6 +42,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/crd_action"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_margin="1dp"
@@ -62,6 +63,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/img_action"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     app:srcCompat="@drawable/ic_close" />

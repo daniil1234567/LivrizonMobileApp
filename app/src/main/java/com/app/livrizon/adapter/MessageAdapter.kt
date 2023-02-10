@@ -67,7 +67,6 @@ abstract class MessageAdapter(context: Context, val role: Role) : RecyclerViewAd
                             tv_name.visibility = View.VISIBLE
                             card_avatar.visibility = View.VISIBLE
                             loadAvatar(
-                                context,
                                 from.name,
                                 holder.itemView.tv_image,
                                 holder.itemView.img_avatar,
@@ -91,7 +90,6 @@ abstract class MessageAdapter(context: Context, val role: Role) : RecyclerViewAd
                             tv_repsot_name.text = from.name
                             tv_repost_date.text = date.toDate()
                             loadAvatar(
-                                context,
                                 from.name,
                                 holder.itemView.tv_repost_image,
                                 holder.itemView.img_repost_avatar,

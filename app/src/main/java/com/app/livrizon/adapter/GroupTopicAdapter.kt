@@ -22,7 +22,7 @@ abstract class GroupTopicAdapter(context: Context) : RecyclerViewAdapterBase(con
             val adapter = object : TopicAdapter(context) {
                 override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
                     super.onBodyShortClick(holder, current, position)
-                    this@GroupTopicAdapter.onButtonClick(holder, current, position)
+                    this@GroupTopicAdapter.onButtonClick(holder, current)
                 }
             }
             adapter.initList(*groupInterest.topics)

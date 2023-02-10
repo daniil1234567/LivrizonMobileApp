@@ -21,10 +21,6 @@ import com.app.livrizon.request.WebSocketListener
 import com.app.livrizon.util.TextListener
 import com.app.livrizon.view_model.ViewModel
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 abstract class CustomFragment : Fragment() {
     val viewModel: ViewModel by activityViewModels()
@@ -47,7 +43,6 @@ abstract class CustomFragment : Fragment() {
         initVariable()
         initAdapter()
         initTabLayout()
-        setButtons()
         initButtons()
         initListener()
         request()
@@ -89,10 +84,6 @@ abstract class CustomFragment : Fragment() {
     }
 
     protected open fun initTabLayout() {
-
-    }
-
-    protected open fun setButtons() {
 
     }
 

@@ -1,19 +1,20 @@
 package com.app.livrizon.model.profile
 
 import com.app.livrizon.impl.ProfileImpl
+import com.app.livrizon.impl.ProfileImpl.Companion.profile
 import com.app.livrizon.security.Role
 
 class Account(
     val username: String,
-    last: Long? = null,
-    title: String? = null,
-    followers: Int,
-    city: String? = null,
-    my_sub: Boolean,
-    confirm: Boolean,
-    role: Role,
+    val title: String,
     profile_id: Int,
     avatar: String? = null,
     name: String,
+    confirm: Boolean,
+    role: Role,
     status: Int,
-) : Profile(last, title, followers, city, my_sub, confirm, role, profile_id, avatar, name, status)
+) : ProfileBase(profile_id, avatar, name, confirm, role, status) {
+    override fun layout(): Int {
+        return profile
+    }
+}

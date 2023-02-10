@@ -12,15 +12,16 @@ import com.app.livrizon.values.token
 
 class Message(
     var choose: Boolean = false,
+    val body: PublicationBody? = null,
     val reply: MessageReply? = null,
     val repost: Repost? = null,
     val statistic: MessageStatistic,
     publication_id: Int,
     type: PublicationType,
+    from: ProfileBase,
     date: Long,
-    override val from: ProfileBase,
-    override val body: PublicationBody? = null,
-) : PublicationBase(publication_id, type, date), ChooseImpl, Base {
+    status: Int
+) : PublicationBase(publication_id, type, from, date, status), ChooseImpl, Base {
 
     override fun id(): Int {
         return publication_id

@@ -1,4 +1,4 @@
-package com.app.livrizon.model.publication.option
+package com.app.livrizon.model.publication.body
 
 class Address(
     val address:String,

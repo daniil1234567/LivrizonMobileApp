@@ -10,11 +10,10 @@ import com.app.livrizon.function.findPosition
 import com.app.livrizon.function.log
 import com.app.livrizon.impl.Base
 import com.app.livrizon.util.DiffUtilCallBack
-import kotlinx.android.synthetic.main.item_profile_base_layout.view.*
-import kotlin.math.min
+import kotlinx.android.synthetic.main.item_profile_layout.view.btn_action
 
 abstract class RecyclerViewAdapterBase(val context: Context) :
-    RecyclerView.Adapter<CustomViewHolder>(), RecyclerViewAdapterImpl {
+    RecyclerView.Adapter<CustomViewHolder>(), MoveImpl {
     lateinit var mDiffUtil: DiffUtil.DiffResult
     var list: MutableList<Base> = mutableListOf()
 
@@ -34,7 +33,6 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
         val current = list[position]
         val next = if (position < list.size - 1) list[list.size - 1] else null
         with(holder.itemView) {
-            initBody(holder, position, previous, current, next)
             setBody(holder, position, previous, current, next)
             setOnClickListener {
                 log("short click $position")
@@ -45,9 +43,10 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
                 onBodyLongClick(holder, current, position)
                 true
             }
-            if (btn_action != null) {
+            if(btn_action!=null) {
+                setButton(holder,current)
                 btn_action.setOnClickListener {
-                    onButtonClick(holder, current, position)
+                    onButtonClick(holder, current)
                 }
             }
         }
@@ -59,38 +58,6 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
 
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
-
-    }
-
-    override fun onBodyLongClick(holder: CustomViewHolder, current: Base, position: Int) {
-
-    }
-
-    override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-
-    }
-
-    override fun setBody(
-        holder: CustomViewHolder,
-        position: Int,
-        previous: Base?,
-        current: Base,
-        next: Base?
-    ) {
-
-    }
-
-    protected open fun initBody(
-        holder: CustomViewHolder,
-        position: Int,
-        previous: Base?,
-        current: Base,
-        next: Base?
-    ) {
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -171,6 +138,32 @@ abstract class RecyclerViewAdapterBase(val context: Context) :
     }
 
     open fun deleteItem(item: Any) {
+
+    }
+
+    open fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
+
+    }
+
+    open fun onBodyLongClick(holder: CustomViewHolder, current: Base, position: Int) {
+
+    }
+
+    open fun setBody(
+        holder: CustomViewHolder,
+        position: Int,
+        previous: Base?,
+        current: Base,
+        next: Base?
+    ) {
+
+    }
+
+    open fun onButtonClick(holder: CustomViewHolder, current: Base) {
+
+    }
+
+    open fun setButton(holder: CustomViewHolder, current: Base) {
 
     }
 }

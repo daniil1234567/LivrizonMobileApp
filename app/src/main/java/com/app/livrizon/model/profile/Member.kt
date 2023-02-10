@@ -9,15 +9,15 @@ class Member(
     subscribe_id: Int,
     last: Long? = null,
     title: String? = null,
-    followers: Int,
+    followers: Int? = null,
     city: String? = null,
-    my_sub: Boolean,
-    confirm: Boolean,
-    role: Role,
+    my_sub: Int,
     profile_id: Int,
     avatar: String? = null,
     name: String,
-    status: Int,
+    confirm: Boolean,
+    role: Role,
+    status: Int
 ) : Subscribe(
     subscribe_id,
     last,
@@ -25,11 +25,11 @@ class Member(
     followers,
     city,
     my_sub,
-    confirm,
-    role,
     profile_id,
     avatar,
     name,
+    confirm,
+    role,
     status
 ) {
     override fun layout(): Int {

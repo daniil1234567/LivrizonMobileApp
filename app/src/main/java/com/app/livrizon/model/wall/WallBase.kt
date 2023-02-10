@@ -1,6 +1,5 @@
 package com.app.livrizon.model.wall
 
-import com.app.livrizon.model.profile.Owner
 import com.app.livrizon.model.profile.WallProfile
 import com.app.livrizon.model.wall.relation.WallRelationBase
 

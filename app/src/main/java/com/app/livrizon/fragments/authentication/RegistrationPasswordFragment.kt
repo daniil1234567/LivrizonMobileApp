@@ -28,7 +28,7 @@ class RegistrationPasswordFragment : CustomFragment() {
     }
 
     override fun request() {
-        homeRequest = homeRequest(requireActivity())
+        homeRequest = homeRequest(this)
         updatePasswordRequest = object : HttpListener(requireContext()) {
             override suspend fun body(): Jwt {
                 return AuthorizationRequest.updatePassword(password)

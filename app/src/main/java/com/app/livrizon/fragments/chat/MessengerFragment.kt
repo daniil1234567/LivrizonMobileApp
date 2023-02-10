@@ -13,6 +13,7 @@ import com.app.livrizon.function.findPosition
 import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.init.InitMessenger
 import com.app.livrizon.adapter.CustomViewHolder
+import com.app.livrizon.impl.Base
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.security.token.AccessToken
@@ -55,19 +56,26 @@ class MessengerFragment : MessengerFragmentBase() {
     override fun onBodyShortClick(holder: CustomViewHolder, position: Int) {
         val chat = recyclerViewAdapter.list[position] as Chat
         requireContext().startActivity(
-            Intent(context, ChatActivity::class.java)
-                .putExtra(Parameters.profile, chat.profile).apply {
-                    if (chat.statistic.unread <= 1) putExtra(
-                        Parameters.message,
-                        chat.message
-                    )
-                }
+            Intent(context, ChatActivity::class.java).apply {
+                putExtra(Parameters.profile, chat.profile)
+                if (chat.statistic.unread <= 1) putExtra(
+                    Parameters.message,
+                    chat.message
+                )
+            }
         )
     }
 
     override fun initAdapter() {
         super.initAdapter()
-        visitAdapter = object : ProfileAdapter(requireContext()) {}
+        visitAdapter = object : ProfileAdapter(requireContext()) {
+            override fun onButtonClick(holder: CustomViewHolder, current: Base) {
+                
+            }
+            override fun setButton(holder: CustomViewHolder, current: Base) {
+
+            }
+        }
     }
 
     override fun initButtons() {

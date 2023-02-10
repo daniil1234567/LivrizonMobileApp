@@ -10,7 +10,7 @@ import com.app.livrizon.values.Parameters
 
 class DeleteWallFragment : CustomFragment() {
     lateinit var binding: FragmentDeleteWallBinding
-    lateinit var wall:DeleteWall
+    lateinit var wall: DeleteWall
     override fun getBindingRoot(): View {
         return binding.root
     }
@@ -26,6 +26,6 @@ class DeleteWallFragment : CustomFragment() {
             Status.not_active -> "Аккаунт был удален по пожеланию его владельца"
             else -> "Аккаунт был заблоирован"
         }
-        loadAvatar(requireContext(), null, null, binding.imgAvatar, Parameters.deleted, 4)
+        loadAvatar(null, null, binding.imgAvatar, Parameters.deleted, 4)
     }
 }

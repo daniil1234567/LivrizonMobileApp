@@ -1,11 +1,10 @@
 package com.app.livrizon.fragments.profile
 
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.adapter.CustomViewHolder
+import com.app.livrizon.adapter.MoveImpl
 import com.app.livrizon.adapter.ProfileAdapter
-import com.app.livrizon.adapter.RecyclerViewAdapterImpl
 import com.app.livrizon.databinding.FragmentProfileSearchListBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.log
@@ -21,12 +20,11 @@ import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.Selection
 import com.app.livrizon.values.WebsocketsRoute
 import com.app.livrizon.values.gson
-import com.app.livrizon.view_model.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapterImpl) : CustomFragment() {
+class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl {
     lateinit var binding: FragmentProfileSearchListBinding
     lateinit var visitRecyclerView: RecyclerView
     lateinit var visitAdapter: ProfileAdapter
@@ -68,7 +66,14 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
 
     override fun initAdapter() {
         visitAdapter = object : ProfileAdapter(requireContext()) {
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
+            override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
+                move.moveToWall(current)
+            }
+            override fun setButton(holder: CustomViewHolder, current: Base) {
+
+            }
+
+            override fun onButtonClick(holder: CustomViewHolder, current: Base) {
                 current as Visit
                 object : HttpListener(requireContext()) {
                     override suspend fun body(): Response {
@@ -82,28 +87,10 @@ class SearchProfileListFragment(val recyclerViewAdapterImpl: RecyclerViewAdapter
                     }
                 }.request()
             }
-
-            override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapterImpl.onBodyShortClick(holder, current, position)
-            }
         }
         recyclerViewAdapter = object : ProfileAdapter(requireContext()) {
-            override fun setBody(
-                holder: CustomViewHolder,
-                position: Int,
-                previous: Base?,
-                current: Base,
-                next: Base?
-            ) {
-                recyclerViewAdapterImpl.setBody(holder, position, previous, current, next)
-            }
-
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapterImpl.onBodyShortClick(holder, current, position)
-            }
-
-            override fun onButtonClick(holder: CustomViewHolder, current: Base, position: Int) {
-                recyclerViewAdapterImpl.onButtonClick(holder, current, position)
+                move.moveToWall(current)
             }
         }
     }

@@ -6,12 +6,13 @@ import com.app.livrizon.model.publication.body.AuthorBody
 import com.app.livrizon.model.type.PublicationType
 
 class Author(
+    val body: AuthorBody,
     publication_id: Int,
     type: PublicationType,
+    from: ProfileBase,
     date: Long,
-    override val from: ProfileBase,
-    override val body: AuthorBody,
-) : PublicationBase(publication_id,type,date), Base {
+    status: Int
+) : PublicationBase(publication_id, type, from, date, status), Base {
     override fun id(): Int {
         return publication_id
     }

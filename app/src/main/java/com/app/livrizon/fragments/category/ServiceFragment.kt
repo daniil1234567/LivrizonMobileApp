@@ -1,19 +1,23 @@
 package com.app.livrizon.fragments.category
 
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.R
+import com.app.livrizon.adapter.MoveImpl
 import com.app.livrizon.adapter.RecommendationAdapter
 import com.app.livrizon.adapter.ServiceAdapter
 import com.app.livrizon.databinding.FragmentServiceBinding
 import com.app.livrizon.fragments.CustomFragment
+import com.app.livrizon.impl.Base
 import com.app.livrizon.model.Recommendation
 import com.app.livrizon.model.init.ServiceInit
 import com.app.livrizon.model.service.Service
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
+import com.app.livrizon.values.Parameters
 
-class ServiceFragment : CustomFragment() {
+class ServiceFragment : CustomFragment(), MoveImpl {
     lateinit var binding: FragmentServiceBinding
     lateinit var serviceAdapter: ServiceAdapter
     lateinit var serviceRecyclerView: RecyclerView
@@ -21,9 +25,16 @@ class ServiceFragment : CustomFragment() {
         return binding.root
     }
 
+    override fun moveToWall(current: Base) {
+        navController.navigate(R.id.action_categoryFragment_to_pageShimmer, Bundle().apply {
+            putInt(Parameters.profile_id, current.equals())
+        })
+    }
     override fun initAdapter() {
         recyclerViewAdapter = object : RecommendationAdapter(requireContext(), this) {
-
+            override fun moveToWall(current: Base) {
+                this@ServiceFragment.moveToWall(current)
+            }
         }
         serviceAdapter = object : ServiceAdapter(requireContext()) {
 
@@ -38,9 +49,27 @@ class ServiceFragment : CustomFragment() {
 
             override fun onSuccess(item: Any?) {
                 item as ServiceInit
-                if (item.companies.isNotEmpty()) recyclerViewAdapter.list.add(Recommendation(1,"Компании", item.companies))
-                if (item.communities.isNotEmpty()) recyclerViewAdapter.list.add(Recommendation(2,"Сообщества",  item.communities))
-                if (item.teams.isNotEmpty()) recyclerViewAdapter.list.add(Recommendation(3, "Команды", item.teams))
+                if (item.companies.isNotEmpty()) recyclerViewAdapter.list.add(
+                    Recommendation(
+                        1,
+                        "Компании",
+                        item.companies
+                    )
+                )
+                if (item.communities.isNotEmpty()) recyclerViewAdapter.list.add(
+                    Recommendation(
+                        2,
+                        "Сообщества",
+                        item.communities
+                    )
+                )
+                if (item.teams.isNotEmpty()) recyclerViewAdapter.list.add(
+                    Recommendation(
+                        3,
+                        "Команды",
+                        item.teams
+                    )
+                )
                 recyclerViewAdapter.updateList()
             }
         }

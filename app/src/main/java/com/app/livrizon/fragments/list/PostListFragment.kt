@@ -4,6 +4,7 @@ import android.view.View
 import com.app.livrizon.adapter.PostAdapter
 import com.app.livrizon.databinding.FragmentListBinding
 import com.app.livrizon.fragments.CustomFragment
+import com.app.livrizon.function.log
 import com.app.livrizon.model.publication.Post
 
 class PostListFragment(val posts: Array<Post>? = null) : CustomFragment() {

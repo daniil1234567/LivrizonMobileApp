@@ -6,12 +6,13 @@ import com.app.livrizon.model.publication.body.MessageReplyBody
 import com.app.livrizon.model.type.PublicationType
 
 class MessageLink (
-    type: PublicationType,
+    val body: MessageReplyBody,
     publication_id: Int,
+    type: PublicationType,
+    from: ProfileBase,
     date: Long,
-    override val from: ProfileBase,
-    override val body: MessageReplyBody,
-): PublicationBase(publication_id,type,date), Base {
+    status: Int
+): PublicationBase(publication_id, type, from, date, status), Base {
     override fun id(): Int {
         return publication_id
     }
