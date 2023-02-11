@@ -2,7 +2,7 @@ package com.app.livrizon.security.token
 
 import com.app.livrizon.model.type.ContactType
 import com.app.livrizon.model.type.TokenType
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.gson
 
 
 class ConfirmToken(jwt: String) : TokenBase(jwt) {

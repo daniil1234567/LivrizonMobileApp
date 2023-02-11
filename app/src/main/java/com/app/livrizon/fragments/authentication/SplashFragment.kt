@@ -23,9 +23,9 @@ import com.app.livrizon.request.InitRequest
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.account_pref
-import com.app.livrizon.values.connection
-import com.app.livrizon.values.token
+import com.app.livrizon.request.account_pref
+import com.app.livrizon.request.connection
+import com.app.livrizon.request.token
 import kotlinx.coroutines.*
 
 
@@ -110,26 +110,6 @@ class SplashFragment : CustomFragment() {
     lateinit var g: CoroutineScope
 
     override fun init() {
-        //CoroutineScope(Dispatchers.IO).launch {
-        //    g = this
-        //    val time = measureTimeMillis {
-        //        val a = async {
-        //            log(1, 1)
-        //            delay(3000)
-        //            log(1, 2)
-        //            1
-        //        }
-        //        val b = async {
-        //            log(2, 1)
-        //            delay(3000)
-        //            log(2, 2)
-        //            2
-        //        }
-        //        log(a.await())
-        //    }
-        //    log(time)
-//
-        //}
         CoroutineScope(Dispatchers.IO).launch {
             myAccounts = SqlRequest.getMyAccounts()
             if (currentUsername != null) {

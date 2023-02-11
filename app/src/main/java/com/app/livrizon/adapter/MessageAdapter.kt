@@ -15,7 +15,7 @@ import com.app.livrizon.model.publication.PublicationBase.Companion.profile_mess
 import com.app.livrizon.model.publication.PublicationBase.Companion.profile_message_full
 import com.app.livrizon.security.Role
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.values.token
+import com.app.livrizon.request.token
 import kotlinx.android.synthetic.main.fragment_chat.view.card_avatar
 import kotlinx.android.synthetic.main.item_my_message_layout.view.container_header
 import kotlinx.android.synthetic.main.item_my_message_layout.view.ic_view

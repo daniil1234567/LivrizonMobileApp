@@ -17,9 +17,9 @@ import com.app.livrizon.model.scroll.ProfileSearchScroll
 import com.app.livrizon.model.type.event.EventType
 import com.app.livrizon.request.*
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.Selection
+import com.app.livrizon.request.Sub
 import com.app.livrizon.values.WebsocketsRoute
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
     override fun initListener() {
         webSocketListener = object : WebSocketListener(requireContext(), WebsocketsRoute.profiles) {
 
-        }.addParam(Parameters.selection, Selection.search)
+        }.addParam(Parameters.selection, Filter.search)
             .addListener(EventType.response, object : WebSocketChanelListener() {
                 override fun inputMessage(text: String) {
                     val search = gson.fromJson(text, Array<Search>::class.java)

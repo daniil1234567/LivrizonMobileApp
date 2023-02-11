@@ -4,13 +4,10 @@ import android.view.View
 import com.app.livrizon.adapter.ArticleAdapter
 import com.app.livrizon.databinding.FragmentListBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.impl.Base
 import com.app.livrizon.model.publication.PreviewPost
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.min
 

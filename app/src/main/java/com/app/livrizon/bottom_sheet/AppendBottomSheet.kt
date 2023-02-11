@@ -1,19 +1,9 @@
 package com.app.livrizon.bottom_sheet
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.app.livrizon.R
-import com.app.livrizon.activities.SecondaryActivity.Companion.CREATE_ARTICLE
-import com.app.livrizon.activities.SecondaryActivity.Companion.CREATE_POST
 import com.app.livrizon.adapter.AppendPublicationAdapter
 import com.app.livrizon.databinding.BottomSheetAppendPublicationBinding
-import com.app.livrizon.function.initSecondaryActivity
-import com.app.livrizon.values.Parameters
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AppendBottomSheet : BottomSheetDialogFragment() {

@@ -4,7 +4,8 @@ import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.edit.publication.SaveMessage
 import com.app.livrizon.services.ChatRequestImpl
-import com.app.livrizon.values.*
+import com.app.livrizon.values.HttpRoutes
+import com.app.livrizon.values.Parameters
 import io.ktor.client.request.*
 
 object ChatRequest : ChatRequestImpl {

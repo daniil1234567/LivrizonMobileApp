@@ -22,10 +22,9 @@ import com.app.livrizon.model.wall.option.Button
 import com.app.livrizon.model.wall.option.Detail
 import com.app.livrizon.model.wall.option.Statistic
 import com.app.livrizon.model.wall.statistic.*
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.ProfileRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.values.*
+import com.app.livrizon.values.Parameters
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.item_profile_base_layout.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -83,7 +82,7 @@ class WallFragment : CustomFragment() {
                     WallFragment.followers,
                     followers,
                     "Подписчики",
-                    Selection.followers
+                    Sub.followers
                 )
             )
             if (this is AccountWallStatistic) {
@@ -92,7 +91,7 @@ class WallFragment : CustomFragment() {
                         WallFragment.subscriptions,
                         subscriptions,
                         "Подписки",
-                        Selection.subscriptions
+                        Sub.subscriptions
                     )
                 )
                 if (connections != null && (connections > 0 || myPage)) statisticAdapter.list.add(
@@ -100,7 +99,7 @@ class WallFragment : CustomFragment() {
                         WallFragment.connections,
                         connections,
                         "Связи",
-                        Selection.connections
+                        Sub.connections
                     )
                 )
             }
@@ -122,8 +121,8 @@ class WallFragment : CustomFragment() {
                         admins,
                         admins()!!,
                         "Администраторы",
-                        Selection.followers,
-                        Filter.admin
+                        Sub.followers,
+                        Filter.admins
                     )
                 )
             }
@@ -133,7 +132,7 @@ class WallFragment : CustomFragment() {
                         WallFragment.recruiters,
                         recruiters,
                         "Рекрутеры",
-                        Selection.followers
+                        Sub.followers
                     )
                 )
                 if (vacancies > 0) statisticAdapter.list.add(
@@ -264,10 +263,10 @@ class WallFragment : CustomFragment() {
         statisticAdapter = object : StatisticAdapter(requireContext()) {
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
                 val statistic = list[position] as Statistic
-                if (statistic.selection != null)
+                if (statistic.sub != null)
                     context.startActivity(
                         Intent(context, SubActivity::class.java).apply {
-                            putExtra(Parameters.selection, statistic.selection)
+                            putExtra(Parameters.selection, statistic.sub)
                             putExtra(Parameters.title, statistic.statistic)
                             putExtra(Parameters.filter, statistic.filter)
                             putExtra(Parameters.profile_id, wall.profile.profile_id)

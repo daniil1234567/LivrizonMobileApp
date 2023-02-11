@@ -5,18 +5,28 @@ import com.app.livrizon.model.init.*
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.publication.*
+import com.app.livrizon.security.Role
 import com.app.livrizon.services.InitRequestImpl
 import com.app.livrizon.values.*
 import io.ktor.client.request.*
 
 object InitRequest : InitRequestImpl {
-    override suspend fun services(): ServiceInit {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_services)
-            headers.append(Parameters.auth, token.jwt)
-        }, ServiceInit::class.java)
-    }
 
+    override suspend fun profiles(
+        role: Role?,
+        filter: Filter,
+        my_sub: Boolean?,
+        limit: Int
+    ): Array<Profile> {
+        return httpClient.put {
+            url(HttpRoutes.init_profiles)
+            parameter(Parameters.role,role)
+            parameter(Parameters.filter,filter)
+            parameter(Parameters.my_sub,my_sub)
+            parameter(Parameters.limit,limit)
+            headers.append(Parameters.auth, token.jwt)
+        }
+    }
     override suspend fun profileSearch(): InitProfileSearch {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.init_profile_search)
@@ -24,21 +34,13 @@ object InitRequest : InitRequestImpl {
         }, InitProfileSearch::class.java)
     }
 
-    override suspend fun profiles(selection: Selection, my_sub: Boolean?): Array<Profile> {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.initProfile(selection))
-            parameter(Parameters.my_sub, my_sub)
-            headers.append(Parameters.auth, token.jwt)
-        }, Array<Profile>::class.java)
-    }
-
     override suspend fun sub(
-        selection: Selection,
+        sub: Sub,
         profile_id: Int,
         filter: Filter?
     ): Array<Subscribe> {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.initSub(selection, profile_id))
+            url(HttpRoutes.initSub(sub, profile_id))
             if (filter != null) parameter(Parameters.filter, filter)
             headers.append(Parameters.auth, token.jwt)
         }, Array<Subscribe>::class.java)

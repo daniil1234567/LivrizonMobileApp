@@ -13,7 +13,7 @@ import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.security.Role
 import com.app.livrizon.security.Status
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.gson
 import kotlinx.coroutines.CoroutineScope
 
 class ShimmerWallFragment : CustomFragment() {

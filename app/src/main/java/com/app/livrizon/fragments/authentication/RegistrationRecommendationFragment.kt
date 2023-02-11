@@ -1,20 +1,13 @@
 package com.app.livrizon.fragments.authentication
 
 import android.view.View
-import com.app.livrizon.R
-import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.ProfileAdapter
 import com.app.livrizon.databinding.FragmentRegistrationRecommendationBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.homeRequest
-import com.app.livrizon.impl.Base
 import com.app.livrizon.model.profile.Profile
-import com.app.livrizon.model.response.Response
 import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.values.Parameters
-import kotlinx.android.synthetic.main.item_profile_base_layout.view.btn_action
-import kotlinx.android.synthetic.main.item_profile_layout.view.*
 
 
 class RegistrationRecommendationFragment : CustomFragment() {

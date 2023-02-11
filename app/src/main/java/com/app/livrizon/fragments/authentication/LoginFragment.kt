@@ -14,7 +14,7 @@ import com.app.livrizon.model.type.ContactType
 import com.app.livrizon.request.AuthorizationRequest
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.TemporaryToken
-import com.app.livrizon.values.token
+import com.app.livrizon.request.token
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.CoroutineScope
 

@@ -18,8 +18,8 @@ import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.account_pref
-import com.app.livrizon.values.token
+import com.app.livrizon.request.account_pref
+import com.app.livrizon.request.token
 import kotlinx.android.synthetic.main.item_profile_layout.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

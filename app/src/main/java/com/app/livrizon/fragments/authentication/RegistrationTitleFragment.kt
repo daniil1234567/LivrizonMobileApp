@@ -9,7 +9,7 @@ import com.app.livrizon.model.edit.profile.save.AccountInformationSave
 import com.app.livrizon.request.AuthorizationRequest
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.values.token
+import com.app.livrizon.request.token
 import kotlinx.coroutines.CoroutineScope
 
 class RegistrationTitleFragment : CustomFragment() {

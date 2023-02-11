@@ -6,7 +6,6 @@ import android.os.Looper
 import com.app.livrizon.function.log
 import com.app.livrizon.function.toast
 import com.app.livrizon.model.response.Response
-import com.app.livrizon.values.gson
 import io.ktor.client.features.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.CoroutineScope

@@ -13,6 +13,7 @@ object Parameters {
     const val key ="key"
     const val my_sub ="my_sub"
     const val role ="role"
+    const val limit ="limit"
     const val selection ="selection"
     const val favorite ="favorite"
     const val forward ="forward"

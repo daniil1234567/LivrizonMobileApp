@@ -2,7 +2,7 @@ package com.app.livrizon.security.token
 
 import com.app.livrizon.model.type.ContactType
 import com.app.livrizon.model.type.TokenType
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.gson
 
 class TemporaryToken(jwt: String) : TokenBase(jwt) {
     val username: String

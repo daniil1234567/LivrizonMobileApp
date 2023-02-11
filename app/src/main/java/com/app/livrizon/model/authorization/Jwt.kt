@@ -3,7 +3,7 @@ package com.app.livrizon.model.authorization
 import com.app.livrizon.function.Encrypt
 import com.app.livrizon.model.type.TokenType
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.gson
 import kotlinx.serialization.Serializable
 
 @Serializable

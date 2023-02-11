@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.app.livrizon.R
 import com.app.livrizon.databinding.ActivitySecondaryBinding
-import com.app.livrizon.function.log
 import com.app.livrizon.values.Parameters
 
 abstract class CustomActivity : AppCompatActivity() {

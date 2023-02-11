@@ -10,7 +10,7 @@ import com.app.livrizon.model.publication.repost.Repost
 import com.app.livrizon.model.publication.statistic.PublicationStatisticBase
 import com.app.livrizon.model.type.PublicationType
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.values.token
+import com.app.livrizon.request.token
 
 class Message(
     var choose: Boolean = false,

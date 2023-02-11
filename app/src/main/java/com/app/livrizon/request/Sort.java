@@ -1,4 +1,4 @@
-package com.app.livrizon.values;
+package com.app.livrizon.request;
 
 public enum Sort {
     all,

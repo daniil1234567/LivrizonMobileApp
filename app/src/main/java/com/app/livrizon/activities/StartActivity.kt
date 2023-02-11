@@ -3,9 +3,8 @@ package com.app.livrizon.activities
 import com.app.livrizon.R
 import com.app.livrizon.function.createPref
 import com.app.livrizon.function.lightStatusBar
-import com.app.livrizon.model.edit.profile.save.AccountSave
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.account_pref
+import com.app.livrizon.request.account_pref
 
 
 class StartActivity : CustomActivity() {

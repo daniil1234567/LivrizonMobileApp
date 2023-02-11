@@ -10,8 +10,9 @@ import com.app.livrizon.databinding.ActivityMainBinding
 import com.app.livrizon.fragments.ContainerFragment
 import com.app.livrizon.function.*
 import com.app.livrizon.model.publication.Post
+import com.app.livrizon.values.Parameters
+import com.app.livrizon.request.token
 import com.app.livrizon.security.token.AccessToken
-import com.app.livrizon.values.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MainActivity : AppCompatActivity() {

@@ -2,7 +2,6 @@ package com.app.livrizon.security.token
 
 import com.app.livrizon.function.Encrypt
 import com.app.livrizon.model.type.TokenType
-import com.app.livrizon.values.gson
 
 abstract class TokenBase(val jwt: String) : java.io.Serializable {
 

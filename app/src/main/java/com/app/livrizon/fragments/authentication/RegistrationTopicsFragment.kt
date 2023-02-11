@@ -14,11 +14,11 @@ import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.topics.GroupTopics
 import com.app.livrizon.model.topics.Topic
+import com.app.livrizon.request.Filter
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.Selection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +28,7 @@ class RegistrationTopicsFragment : CustomFragment() {
     lateinit var profileRequest: HttpListener
     lateinit var homeRequest: HttpListener
     lateinit var topicRequest: HttpListener
-    var selection: Selection? = null
+    var filter: Filter? = null
     var topics = mutableListOf<TopicEdit>()
     override fun getBindingRoot(): View {
         return binding.root
@@ -139,11 +139,13 @@ class RegistrationTopicsFragment : CustomFragment() {
         homeRequest = homeRequest(this)
         profileRequest = object : HttpListener(requireContext()) {
             override suspend fun body(block: CoroutineScope): Array<Profile> {
-                selection =
-                    if (topics.size > 0 && selection == null) Selection.recommendation else Selection.popular
+                filter =
+                    if (topics.size > 0 && filter == null) Filter.recommendation else Filter.popular
                 return InitRequest.profiles(
-                    selection!!,
-                    false
+                    null,
+                    filter!!,
+                    false,
+                    30
                 )
             }
 
@@ -155,8 +157,8 @@ class RegistrationTopicsFragment : CustomFragment() {
                             putSerializable(Parameters.profile, item)
                         }
                     )
-                else if (selection == Selection.recommendation) {
-                    selection = Selection.popular
+                else if (filter == Filter.recommendation) {
+                    filter = Filter.popular
                     profileRequest.request()
                 } else homeRequest.request()
             }

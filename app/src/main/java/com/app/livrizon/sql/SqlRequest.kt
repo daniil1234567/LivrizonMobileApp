@@ -3,8 +3,8 @@ package com.app.livrizon.sql
 import android.content.ContentValues
 import com.app.livrizon.function.query
 import com.app.livrizon.model.authorization.Authentication
+import com.app.livrizon.request.connection
 import com.app.livrizon.services.SqlRequestImpl
-import com.app.livrizon.values.*
 
 object SqlRequest : SqlRequestImpl {
     override fun saveAccount(account: Authentication) {

@@ -3,7 +3,7 @@ package com.app.livrizon.security.token
 import com.app.livrizon.model.type.GenderType
 import com.app.livrizon.model.type.TokenType
 import com.app.livrizon.security.Role
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.gson
 
 
 class AccessToken(jwt: String) : TokenBase(jwt) {

@@ -35,8 +35,8 @@ import com.app.livrizon.sql.DbHelper
 import com.app.livrizon.sql.DbItem
 import com.app.livrizon.values.HttpRoutes
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.values.connection
-import com.app.livrizon.values.gson
+import com.app.livrizon.request.connection
+import com.app.livrizon.request.gson
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
