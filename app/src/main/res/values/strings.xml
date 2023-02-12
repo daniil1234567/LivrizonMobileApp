@@ -10,9 +10,8 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Далее</string>
-    <string name="previous">Previous</string>
-
+    <string name="Next">Далее</string>
+    <string name="Previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="company_name">Livrizon</string>
@@ -64,4 +63,10 @@
     <string name="AboutYourself">О себе</string>
     <string name="GeneralInformation">Общие сведенья</string>
     <string name="Peoples">Люди</string>
+    <string name="User">Пользователь</string>
+    <string name="UserRegistrationDescription">Подходит для людий активно ищущих новые связи, работу, имеет перспек стартап идеи или же те кто просто хочет делиться своим мнением</string>
+    <string name="Recruiter">Рекрутор</string>
+    <string name="RecruiterRegistrationDescription">Подходит для специалист, который занимается подбором персонала на вакансии в компании</string>
+    <string name="Company">Компания</string>
+    <string name="CompanyRegistrationDescription">Подходит для компаний, котрые активтовно продвигают свою продукцию и ищят новых сотрудников и полездные свзяи</string>
 </resources>

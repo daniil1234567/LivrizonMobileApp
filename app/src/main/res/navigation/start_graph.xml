@@ -90,6 +90,13 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_registrationMainInformationFragment_to_registrationRoleFragment"
+            app:destination="@id/registrationRoleFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"  />
     </fragment>
     <fragment
         android:id="@+id/registrationTitleFragment"
@@ -241,4 +248,8 @@
         android:name="com.app.livrizon.fragments.authentication.RegistrationRecommendationFragment"
         android:label="fragment_registration_account_recommendation"
         tools:layout="@layout/fragment_registration_recommendation" />
+    <fragment
+        android:id="@+id/registrationRoleFragment"
+        android:name="com.app.livrizon.fragments.authentication.RegistrationRoleFragment"
+        android:label="RegistrationRoleFragment" />
 </navigation>

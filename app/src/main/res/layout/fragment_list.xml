@@ -13,5 +13,6 @@
         android:overScrollMode="never"
         android:paddingTop="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="100"
         tools:listitem="@layout/item_article_layout" />
 </FrameLayout>

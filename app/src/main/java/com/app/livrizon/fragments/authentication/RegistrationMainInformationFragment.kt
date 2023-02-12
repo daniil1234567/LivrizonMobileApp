@@ -76,6 +76,9 @@ class RegistrationMainInformationFragment : CustomFragment() {
             save.birthday = calendar.time.time.toDate("yyyy-MM-dd")
             registrationRequest.request()
         }
+        binding.btnRegistrationRole.setOnClickListener {
+            navController.navigate(R.id.action_registrationMainInformationFragment_to_registrationRoleFragment)
+        }
     }
 
 }

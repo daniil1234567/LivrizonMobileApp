@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.item_append_profile_layout.view.*
 import kotlinx.coroutines.CoroutineScope
 
 class AppendMembersFragment : CustomFragment() {
-    lateinit var observer: Observer<Boolean?>
     lateinit var save: TeamSave
     lateinit var binding: FragmentAppendMembersBinding
     lateinit var chooseRecyclerView: RecyclerView
@@ -99,7 +98,7 @@ class AppendMembersFragment : CustomFragment() {
                 previous as Append?
                 with(current as Append) {
                     with(holder.itemView) {
-                        viewModel.choose.observe(requireActivity()) {
+                        viewModel.choose.observe(this@AppendMembersFragment) {
                             if (it == id()) {
                                 choose = !choose
                                 if (choose) img_choose.visibility = View.VISIBLE

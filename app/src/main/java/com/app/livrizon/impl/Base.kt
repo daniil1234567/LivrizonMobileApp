@@ -5,7 +5,8 @@ interface Base : java.io.Serializable {
     fun equals(): Int {
         return id()!!
     }
-    fun layout(): Int{
+
+    fun layout(): Int {
         return 0
     }
 }

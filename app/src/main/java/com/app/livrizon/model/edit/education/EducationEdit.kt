@@ -11,4 +11,4 @@ class EducationEdit(
     var specialization: String? = null,
     var end: Int? = null,
     var status: Boolean,
-):java.io.Serializable
+) : java.io.Serializable
