@@ -2,11 +2,11 @@ package com.app.livrizon.model.publication
 
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.profile.ProfileBase
-import com.app.livrizon.model.publication.body.MessageReplyBody
+import com.app.livrizon.model.publication.body.LinkMessageBody
 import com.app.livrizon.model.type.PublicationType
 
-class MessageLink (
-    val body: MessageReplyBody,
+class LinkMessage (
+    val body: LinkMessageBody,
     publication_id: Int,
     type: PublicationType,
     from: ProfileBase,

@@ -3,8 +3,10 @@ package com.app.livrizon.request
 import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.init.*
 import com.app.livrizon.model.profile.Profile
+import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.publication.*
+import com.app.livrizon.model.type.PublicationType
 import com.app.livrizon.security.Role
 import com.app.livrizon.services.InitRequestImpl
 import com.app.livrizon.values.*
@@ -18,21 +20,16 @@ object InitRequest : InitRequestImpl {
         my_sub: Boolean?,
         limit: Int
     ): Array<Profile> {
-        return httpClient.put {
-            url(HttpRoutes.init_profiles)
-            parameter(Parameters.role,role)
-            parameter(Parameters.filter,filter)
-            parameter(Parameters.my_sub,my_sub)
-            parameter(Parameters.limit,limit)
-            headers.append(Parameters.auth, token.jwt)
-        }
-    }
-    override suspend fun profileSearch(): InitProfileSearch {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_profile_search)
+            url(HttpRoutes.init_profiles)
+            parameter(Parameters.role, role)
+            parameter(Parameters.filter, filter)
+            parameter(Parameters.my_sub, my_sub)
+            parameter(Parameters.limit, limit)
             headers.append(Parameters.auth, token.jwt)
-        }, InitProfileSearch::class.java)
+        },Array<Profile>::class.java)
     }
+
 
     override suspend fun sub(
         sub: Sub,
@@ -75,28 +72,42 @@ object InitRequest : InitRequestImpl {
         }, Array<Profile>::class.java)
     }
 
-    override suspend fun messenger(): InitMessenger {
+    override suspend fun visits(): Array<ProfileBase> {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_messenger)
+            url(HttpRoutes.init_visits)
             headers.append(Parameters.auth, token.jwt)
-        }, InitMessenger::class.java)
+        }, Array<ProfileBase>::class.java)
     }
 
-    override suspend fun articles(): Array<Article> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun authors(): Array<Author> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun popular(): Popular? {
-        TODO("Not yet implemented")
-    }
-    override suspend fun home(): Array<Post> {
+    override suspend fun articles(
+        filter: Filter,
+        limit: Int,
+        cl: Class<*>
+    ): Array<PreviewPublication> {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_home)
+            url(HttpRoutes.init_posts)
             headers.append(Parameters.auth, token.jwt)
+            parameter(Parameters.filter, filter)
+            parameter(Parameters.type, PublicationType.article)
+            parameter(Parameters.preview, true)
+            parameter(Parameters.limit, limit)
+        }, cl) as Array<PreviewPublication>
+    }
+
+    override suspend fun posts(
+        profile_id: Int?,
+        type: PublicationType?,
+        filter: Filter,
+        preview: Boolean,
+        limit: Int
+    ): Array<Post> {
+        return gson.fromJson(httpClient.get<String> {
+            url(HttpRoutes.init_posts)
+            headers.append(Parameters.auth, token.jwt)
+            parameter(Parameters.profile_id, profile_id)
+            parameter(Parameters.filter, filter)
+            parameter(Parameters.preview, preview)
+            parameter(Parameters.limit, limit)
         }, Array<Post>::class.java)
     }
 

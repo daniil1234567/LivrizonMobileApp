@@ -2,8 +2,8 @@ package com.app.livrizon.adapter
 
 import android.content.Context
 import com.app.livrizon.R
-import com.app.livrizon.model.chat.option.AttachmentBase
-import com.app.livrizon.model.chat.option.Forward
+import com.app.livrizon.model.chat.attachment.AttachmentBase
+import com.app.livrizon.model.chat.attachment.Forward
 import com.app.livrizon.model.type.PublicationType
 import kotlinx.android.synthetic.main.item_profile_message_layout.view.tv_description
 import kotlinx.android.synthetic.main.item_repost_attachment_layout.view.*

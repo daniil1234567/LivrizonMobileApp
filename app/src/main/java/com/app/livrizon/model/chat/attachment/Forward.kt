@@ -1,4 +1,4 @@
-package com.app.livrizon.model.chat.option
+package com.app.livrizon.model.chat.attachment
 
 import com.app.livrizon.model.type.PublicationType
 

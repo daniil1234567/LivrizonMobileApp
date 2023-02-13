@@ -6,7 +6,7 @@ import com.app.livrizon.model.publication.body.PreviewPublicationBody
 import com.app.livrizon.model.publication.statistic.PublicationStatisticBase
 import com.app.livrizon.model.type.PublicationType
 
-class Popular (
+class Auth (
     repost: Boolean,
     body: PreviewPublicationBody,
     statistic: PublicationStatisticBase? = null,
@@ -18,6 +18,6 @@ class Popular (
 ): PreviewPublication(repost, body, statistic, publication_id, type, from, date, status) {
 
     override fun layout(): Int {
-        return popular
+        return author
     }
 }

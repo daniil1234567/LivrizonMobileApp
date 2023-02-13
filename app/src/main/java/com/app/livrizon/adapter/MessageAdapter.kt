@@ -79,11 +79,9 @@ abstract class MessageAdapter(context: Context, val role: Role) : RecyclerViewAd
                     }
                     if (listOf(profile_message_full, my_message_full).contains(holder.id)) {
                         if (reply != null) {
-                            with(reply) {
-                                container_replay.visibility = View.VISIBLE
-                                tv_reply_name.text = from.name
-                                tv_replay_description.text = body.description
-                            }
+                            container_replay.visibility = View.VISIBLE
+                            tv_reply_name.text = from.name
+                            tv_replay_description.text = body.description
                         } else container_replay.visibility = View.GONE
                     } else if (repost != null) {
                         with(repost) {

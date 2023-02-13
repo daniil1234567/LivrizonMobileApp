@@ -38,7 +38,7 @@ class RepostFragment : MessengerFragmentBase() {
     }
 
     override fun request() {
-        object : HttpListener(requireContext()) {
+        initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(block: CoroutineScope): Array<Chat> {
                 return InitRequest.chats()
             }
@@ -47,6 +47,6 @@ class RepostFragment : MessengerFragmentBase() {
                 item as Array<Chat>
                 recyclerViewAdapter.initList(*item)
             }
-        }.request()
+        }
     }
 }

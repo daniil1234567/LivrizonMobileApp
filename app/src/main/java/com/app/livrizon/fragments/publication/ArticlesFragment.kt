@@ -4,7 +4,12 @@ import android.view.View
 import com.app.livrizon.adapter.ArticleAdapter
 import com.app.livrizon.databinding.FragmentListBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.model.publication.PreviewPost
+import com.app.livrizon.impl.Base
+import com.app.livrizon.model.publication.Article
+import com.app.livrizon.model.publication.Auth
+import com.app.livrizon.model.publication.Popular
+import com.app.livrizon.model.publication.PreviewPublication
+import com.app.livrizon.request.Filter
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
 import kotlinx.coroutines.CoroutineScope
@@ -21,20 +26,36 @@ class ArticlesFragment : CustomFragment() {
     override fun request() {
         initRequest =
             object : HttpListener(requireContext()) {
-                override suspend fun body(block: CoroutineScope): Array<PreviewPost> {
-                    val list = mutableListOf<PreviewPost>()
-                    val popular = withContext(block.coroutineContext) { InitRequest.popular() }
-                    if (popular != null) list.add(popular)
-                    list.addAll(withContext(block.coroutineContext) { InitRequest.articles() })
+                override suspend fun body(block: CoroutineScope): Array<Base> {
+                    val list = mutableListOf<Base>()
+                    list.addAll(withContext(block.coroutineContext) {
+                        InitRequest.articles(
+                            Filter.popular,
+                            1,
+                            Array<Popular>::class.java
+                        )
+                    })
+                    list.addAll(withContext(block.coroutineContext) {
+                        InitRequest.articles(
+                            Filter.recommendation,
+                            30,
+                            Array<Article>::class.java
+                        )
+                    })
                     list.addAll(
-                        min(6, list.size),
-                        withContext(block.coroutineContext) { InitRequest.authors() }.toList()
-                    )
+                        min(7, list.size),
+                        withContext(block.coroutineContext) {
+                            InitRequest.articles(
+                                Filter.author,
+                                5,
+                                Array<Auth>::class.java
+                            ).toList()
+                        })
                     return list.toTypedArray()
                 }
 
                 override fun onSuccess(item: Any?) {
-                    item as Array<PreviewPost>
+                    item as Array<Base>
                     recyclerViewAdapter.initList(*item)
                 }
 

@@ -17,7 +17,7 @@ import com.app.livrizon.databinding.FragmentChatBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.*
 import com.app.livrizon.impl.Base
-import com.app.livrizon.model.chat.option.Forward
+import com.app.livrizon.model.chat.attachment.Forward
 import com.app.livrizon.model.edit.publication.SaveMessage
 import com.app.livrizon.model.init.InitChat
 import com.app.livrizon.model.profile.ChatProfile

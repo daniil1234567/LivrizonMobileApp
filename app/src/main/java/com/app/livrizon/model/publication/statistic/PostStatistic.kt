@@ -1,8 +1,9 @@
 package com.app.livrizon.model.publication.statistic
 
 class PostStatistic(
-    val views: Int,
-    val forwards: Int,
+    val reposts: Int,
+    val replies: Int,
     val comments: Int,
-    reactions: Int
-) : PublicationStatisticBase(reactions)
+    reactions: Int,
+    views: Int,
+) : PublicationStatisticBase(reactions, views)

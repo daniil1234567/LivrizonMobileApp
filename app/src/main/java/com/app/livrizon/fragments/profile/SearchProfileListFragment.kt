@@ -9,20 +9,19 @@ import com.app.livrizon.databinding.FragmentProfileSearchListBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.log
 import com.app.livrizon.impl.Base
-import com.app.livrizon.model.init.InitProfileSearch
+import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.profile.Search
-import com.app.livrizon.model.profile.Visit
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.scroll.ProfileSearchScroll
 import com.app.livrizon.model.type.event.EventType
 import com.app.livrizon.request.*
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.Sub
 import com.app.livrizon.values.WebsocketsRoute
 import com.app.livrizon.request.gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl {
     lateinit var binding: FragmentProfileSearchListBinding
@@ -69,12 +68,13 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
                 move.moveToWall(current)
             }
+
             override fun setButton(holder: CustomViewHolder, current: Base) {
 
             }
 
             override fun onButtonClick(holder: CustomViewHolder, current: Base) {
-                current as Visit
+                current as ProfileBase
                 object : HttpListener(requireContext()) {
                     override suspend fun body(block: CoroutineScope): Response {
                         return ProfileRequest.hideRecent(current.profile_id)
@@ -103,14 +103,13 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(block: CoroutineScope): InitProfileSearch {
-                return InitRequest.profileSearch()
+            lateinit var visits: Array<ProfileBase>
+            override suspend fun body(block: CoroutineScope) {
+                visits = withContext(block.coroutineContext) { InitRequest.visits() }
             }
 
             override fun onSuccess(item: Any?) {
-                item as InitProfileSearch
-                visitAdapter.initList(*item.visits)
-                recyclerViewAdapter.initList(*item.profiles)
+                visitAdapter.initList(*visits)
             }
         }
     }

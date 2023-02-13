@@ -26,17 +26,13 @@ import com.app.livrizon.model.publication.Post
 import com.app.livrizon.model.response.WallResponse
 import com.app.livrizon.model.type.PublicationType
 import com.app.livrizon.model.wall.*
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.InitRequest
-import com.app.livrizon.request.ProfileRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.security.Role
 import com.app.livrizon.security.Status
 import com.app.livrizon.sql.DbHelper
 import com.app.livrizon.sql.DbItem
 import com.app.livrizon.values.HttpRoutes
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.connection
-import com.app.livrizon.request.gson
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -167,17 +163,19 @@ fun wallRequest(fragment: CustomFragment,profile_id: Int):HttpListener{
         }
     }
 }
-fun homeRequest(fragment: CustomFragment): HttpListener {
+fun homeRequest(fragment: Fragment): HttpListener {
     return object : HttpListener(fragment.requireContext()) {
         override suspend fun body(block: CoroutineScope): Array<Post> {
-            return InitRequest.home()
+            return InitRequest.posts(null,null, Filter.recommendation,false,30)
         }
 
         override fun onSuccess(item: Any?) {
             item as Array<Post>
-            context.startActivity(Intent(context, MainActivity::class.java).apply {
-                putExtra(Parameters.posts, item)
-            })
+            fragment.startActivity(
+                Intent(fragment.activity, MainActivity::class.java).apply {
+                    putExtra(Parameters.posts, item)
+                }
+            )
             fragment.requireActivity().finish()
         }
     }

@@ -13,19 +13,15 @@ import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.databinding.FragmentSplashBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.connection
+import com.app.livrizon.function.homeRequest
 import com.app.livrizon.model.authorization.Authentication
 import com.app.livrizon.model.authorization.Jwt
 import com.app.livrizon.model.profile.Account
 import com.app.livrizon.model.publication.Post
-import com.app.livrizon.request.AuthorizationRequest
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.InitRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.account_pref
-import com.app.livrizon.request.connection
-import com.app.livrizon.request.token
 import kotlinx.coroutines.*
 
 
@@ -67,21 +63,7 @@ class SplashFragment : CustomFragment() {
                 navController.navigate(R.id.enterFragment)
             }
         }
-        homeRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(block: CoroutineScope): Array<Post> {
-                return InitRequest.home()
-            }
-
-            override fun onSuccess(item: Any?) {
-                item as Array<Post>
-                startActivity(
-                    Intent(activity, MainActivity::class.java).apply {
-                        putExtra(Parameters.posts, item)
-                    }
-                )
-                requireActivity().finish()
-            }
-        }
+        homeRequest = homeRequest(this)
         authenticationRequest = object : HttpListener(requireContext()) {
             override suspend fun body(block: CoroutineScope): Jwt {
                 return AuthorizationRequest.authentication(currentAuthentication!!)

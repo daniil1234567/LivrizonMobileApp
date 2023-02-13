@@ -5,7 +5,6 @@ import com.app.livrizon.impl.ChooseImpl
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.publication.body.PublicationBody
 import com.app.livrizon.model.publication.relation.PublicationRelationBase
-import com.app.livrizon.model.publication.reply.MessageReply
 import com.app.livrizon.model.publication.repost.Repost
 import com.app.livrizon.model.publication.statistic.PublicationStatisticBase
 import com.app.livrizon.model.type.PublicationType
@@ -15,7 +14,7 @@ import com.app.livrizon.request.token
 class Message(
     var choose: Boolean = false,
     val body: PublicationBody? = null,
-    val reply: MessageReply? = null,
+    val reply: PreviewPublication? = null,
     val repost: Repost? = null,
     val relation: PublicationRelationBase,
     val statistic: PublicationStatisticBase,

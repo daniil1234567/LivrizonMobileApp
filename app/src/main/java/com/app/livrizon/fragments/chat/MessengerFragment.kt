@@ -7,25 +7,25 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.activities.ChatActivity
 import com.app.livrizon.activities.CreatePublic
+import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.ProfileAdapter
 import com.app.livrizon.databinding.FragmentMessengerBinding
 import com.app.livrizon.function.findPosition
-import com.app.livrizon.model.chat.Chat
-import com.app.livrizon.model.init.InitMessenger
-import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.impl.Base
+import com.app.livrizon.model.chat.Chat
+import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.InitRequest
+import com.app.livrizon.request.token
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.token
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 
 class MessengerFragment : MessengerFragmentBase() {
     lateinit var binding: FragmentMessengerBinding
     lateinit var visitAdapter: ProfileAdapter
     lateinit var visitRecyclerView: RecyclerView
-    lateinit var initMessenger: InitMessenger
 
     override fun getBindingRoot(): View {
         return binding.root
@@ -71,8 +71,9 @@ class MessengerFragment : MessengerFragmentBase() {
         super.initAdapter()
         visitAdapter = object : ProfileAdapter(requireContext()) {
             override fun onButtonClick(holder: CustomViewHolder, current: Base) {
-                
+
             }
+
             override fun setButton(holder: CustomViewHolder, current: Base) {
 
             }
@@ -87,15 +88,17 @@ class MessengerFragment : MessengerFragmentBase() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(block: CoroutineScope): InitMessenger {
-                return InitRequest.messenger()
+            lateinit var visits:Array<ProfileBase>
+            lateinit var chats:Array<Chat>
+            override suspend fun body(block: CoroutineScope) {
+                visits = withContext(block.coroutineContext) { InitRequest.visits() }
+                chats = withContext(block.coroutineContext) { InitRequest.chats() }
             }
 
             override fun onSuccess(item: Any?) {
-                initMessenger = item as InitMessenger
-                if (initMessenger.visits.isNotEmpty()) visitAdapter.initList(*initMessenger.visits)
+                if (visits.isNotEmpty()) visitAdapter.initList(*visits)
                 else binding.containerVisit.visibility = View.GONE
-                recyclerViewAdapter.initList(*initMessenger.chats)
+                recyclerViewAdapter.initList(*chats)
             }
         }
     }

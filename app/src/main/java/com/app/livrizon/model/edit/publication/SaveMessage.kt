@@ -1,6 +1,6 @@
 package com.app.livrizon.model.edit.publication
 
-import com.app.livrizon.model.chat.option.Forward
+import com.app.livrizon.model.chat.attachment.Forward
 import com.app.livrizon.model.publication.body.Address
 import com.app.livrizon.model.publication.body.Poll
 

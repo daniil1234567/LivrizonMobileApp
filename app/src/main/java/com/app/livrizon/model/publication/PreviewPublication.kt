@@ -6,18 +6,19 @@ import com.app.livrizon.model.publication.body.PreviewPublicationBody
 import com.app.livrizon.model.publication.statistic.PublicationStatisticBase
 import com.app.livrizon.model.type.PublicationType
 
-class Popular (
-    repost: Boolean,
-    body: PreviewPublicationBody,
-    statistic: PublicationStatisticBase? = null,
+
+open class PreviewPublication(
+    val repost: Boolean,
+    val body: PreviewPublicationBody,
+    val statistic: PublicationStatisticBase? = null,
     publication_id: Int,
     type: PublicationType,
     from: ProfileBase,
     date: Long,
     status: Int
-): PreviewPublication(repost, body, statistic, publication_id, type, from, date, status) {
+) : PublicationBase(publication_id, type, from, date, status),Base {
 
-    override fun layout(): Int {
-        return popular
+    override fun id(): Int {
+        return publication_id
     }
 }

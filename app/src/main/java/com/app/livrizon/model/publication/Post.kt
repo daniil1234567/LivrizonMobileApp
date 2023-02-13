@@ -15,7 +15,7 @@ class Post(
     val body: PublicationBody,
     val statistic: PostStatistic,
     val relation: PostRelation? = null,
-    val comment: PostComment? = null,
+    val comment: PreviewPublication? = null,
     publication_id: Int,
     type: PublicationType,
     from: ProfileBase,
