@@ -1,11 +1,9 @@
 package com.app.livrizon.request
 
 import com.app.livrizon.model.edit.topic.TopicEdit
-import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.response.Response
-import com.app.livrizon.model.response.WallResponse
-import com.app.livrizon.model.wall.option.WallInformation
-import com.app.livrizon.security.Role
+import com.app.livrizon.model.wall.Wall
+import com.app.livrizon.model.wall.WallInformation
 import com.app.livrizon.services.ProfileRequestImpl
 import com.app.livrizon.values.HttpRoutes
 import com.app.livrizon.values.Parameters
@@ -35,11 +33,11 @@ object ProfileRequest : ProfileRequestImpl {
         }, WallInformation::class.java)
     }
 
-    override suspend fun wall(profile_id: Int): WallResponse {
+    override suspend fun wall(profile_id: Int): Wall {
         return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.wall(profile_id))
             headers.append(Parameters.auth, token.jwt)
-        }, WallResponse::class.java)
+        }, Wall::class.java)
     }
 
     override suspend fun putInterest(append: List<Int>?, delete: List<Int>?) {

@@ -2,7 +2,7 @@ package com.app.livrizon.adapter
 
 import android.content.Context
 import com.app.livrizon.R
-import com.app.livrizon.model.wall.option.Detail
+import com.app.livrizon.model.wall.detail.Detail
 import kotlinx.android.synthetic.main.item_detail_layout.view.*
 
 abstract class DetailAdapter(context: Context) : RecyclerViewAdapterBase(context) {

@@ -1,16 +1,15 @@
 package com.app.livrizon.model.wall
 
-import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.profile.WallProfile
 import com.app.livrizon.model.wall.body.WallBody
+import com.app.livrizon.model.wall.relation.WallRelation
 import com.app.livrizon.model.wall.statistic.WallStatistic
 
-abstract class Wall(
-    val wallpaper: String? = null,
+
+class Wall(
+    val wallpaper:String?=null,
+    val profile: WallProfile,
+    val relation: WallRelation,
     val body: WallBody,
-    val mutual: Array<ProfileBase>? = null,
-    profile: WallProfile
-) : WallBase(profile) {
-    abstract val statistic: WallStatistic?
-    abstract val list: Array<*>?
-}
+    val statistic: WallStatistic? = null
+):java.io.Serializable

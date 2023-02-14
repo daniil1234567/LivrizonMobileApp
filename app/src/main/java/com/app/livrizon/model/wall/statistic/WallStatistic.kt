@@ -1,14 +1,15 @@
 package com.app.livrizon.model.wall.statistic
 
-abstract class WallStatistic(
+class WallStatistic(
     val followers: Int? = null,
-    val publications: Int
-) : WallStatisticImpl {
-    override fun followers(): Int? {
-        return followers
-    }
-
-    override fun publications(): Int {
-        return publications
-    }
-}
+    val subscriptions: Int? = null,
+    val connections: Int? = null,
+    val admins: Int? = null,
+    val publications: Int,
+    val media: Int,
+    val articles: Int,
+    val reviews: Int,
+    val services: Int,
+    val recruiters: Int,
+    val vacancies: Int,
+) : java.io.Serializable

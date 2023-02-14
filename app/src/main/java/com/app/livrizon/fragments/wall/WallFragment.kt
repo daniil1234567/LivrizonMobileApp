@@ -12,17 +12,19 @@ import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.fragments.publication.PostListFragment
 import com.app.livrizon.function.loadAvatar
 import com.app.livrizon.function.loadImage
-import com.app.livrizon.function.wallRequest
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.Tab
+import com.app.livrizon.model.profile.ProfileBase
+import com.app.livrizon.model.publication.Post
 import com.app.livrizon.model.response.Response
-import com.app.livrizon.model.wall.*
+import com.app.livrizon.model.wall.Wall
 import com.app.livrizon.model.wall.body.WallBody
-import com.app.livrizon.model.wall.option.Button
-import com.app.livrizon.model.wall.option.Detail
-import com.app.livrizon.model.wall.option.Statistic
-import com.app.livrizon.model.wall.statistic.*
+import com.app.livrizon.model.wall.detail.Button
+import com.app.livrizon.model.wall.detail.Detail
+import com.app.livrizon.model.wall.detail.Statistic
+import com.app.livrizon.model.wall.statistic.WallStatistic
 import com.app.livrizon.request.*
+import com.app.livrizon.security.Role
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
 import com.google.android.material.tabs.TabLayoutMediator
@@ -38,6 +40,8 @@ class WallFragment : CustomFragment() {
     lateinit var detailRecyclerView: RecyclerView
     lateinit var buttonRecyclerView: RecyclerView
     lateinit var wall: Wall
+    lateinit var list: Array<Base>
+    var mutual: Array<ProfileBase>? = null
     lateinit var subscribeRequest: HttpListener
     lateinit var wallRequest: HttpListener
     private var myPage = false
@@ -55,7 +59,6 @@ class WallFragment : CustomFragment() {
     }
 
     override fun initListener() {
-        wallRequest = wallRequest(this, wall.profile.profile_id)
         subscribeRequest = object : HttpListener(requireContext()) {
             var subscribe = wall.relation.my_sub
             override suspend fun body(block: CoroutineScope): Response {
@@ -65,8 +68,6 @@ class WallFragment : CustomFragment() {
             override fun onSuccess(item: Any?) {
                 subscribe = !subscribe
                 wall.relation.my_sub = subscribe
-                buttonAdapter.list.clear()
-                wallRequest.request()
             }
         }
     }
@@ -82,67 +83,59 @@ class WallFragment : CustomFragment() {
                     WallFragment.followers,
                     followers,
                     "Подписчики",
-                    Sub.followers
+                    Selection.followers
                 )
             )
-            if (this is AccountWallStatistic) {
-                if (subscriptions != null && (subscriptions > 0 || myPage)) statisticAdapter.list.add(
-                    Statistic(
-                        WallFragment.subscriptions,
-                        subscriptions,
-                        "Подписки",
-                        Sub.subscriptions
-                    )
+            if (subscriptions != null && (subscriptions > 0 || myPage)) statisticAdapter.list.add(
+                Statistic(
+                    WallFragment.subscriptions,
+                    subscriptions,
+                    "Подписки",
+                    Selection.subscriptions
                 )
-                if (connections != null && (connections > 0 || myPage)) statisticAdapter.list.add(
-                    Statistic(
-                        WallFragment.connections,
-                        connections,
-                        "Связи",
-                        Sub.connections
-                    )
+            )
+            if (connections != null && (connections > 0 || myPage)) statisticAdapter.list.add(
+                Statistic(
+                    WallFragment.connections,
+                    connections,
+                    "Связи",
+                    Selection.connections
                 )
-            }
-            if (this is PageWallStatisticImpl) {
-                if (this.publications > 0 || myPage) statisticAdapter.list.add(
-                    Statistic(
-                        WallFragment.publications,
-                        this.publications,
-                        "Публикации",
-                    )
+            )
+            if (publications > 0) statisticAdapter.list.add(
+                Statistic(
+                    WallFragment.publications,
+                    publications,
+                    "Публикации",
                 )
-                if (articles() > 0) statisticAdapter.list.add(
-                    Statistic(articles, this.articles(), "Статьи")
+            )
+            if (articles > 0) statisticAdapter.list.add(
+                Statistic(articles, this.articles, "Статьи")
+            )
+            if (admins != null && admins > 0) statisticAdapter.list.add(
+                Statistic(
+                    admins,
+                    admins,
+                    "Администраторы",
+                    Selection.followers,
+                    Filter.admins
                 )
-            }
-            if (this is PublicWallStatisticImpl) {
-                if (admins() != null) statisticAdapter.list.add(
-                    Statistic(
-                        admins,
-                        admins()!!,
-                        "Администраторы",
-                        Sub.followers,
-                        Filter.admins
-                    )
+            )
+            if (recruiters > 0) statisticAdapter.list.add(
+                Statistic(
+                    WallFragment.recruiters,
+                    recruiters,
+                    "Рекрутеры",
+                    Selection.followers
                 )
-            }
-            if (this is CompanyWallStatistic) {
-                if (recruiters > 0) statisticAdapter.list.add(
-                    Statistic(
-                        WallFragment.recruiters,
-                        recruiters,
-                        "Рекрутеры",
-                        Sub.followers
-                    )
+            )
+            if (vacancies > 0) statisticAdapter.list.add(
+                Statistic(
+                    WallFragment.vacancies,
+                    vacancies,
+                    "Вакансии"
                 )
-                if (vacancies > 0) statisticAdapter.list.add(
-                    Statistic(
-                        WallFragment.vacancies,
-                        vacancies,
-                        "Вакансии"
-                    )
-                )
-            }
+            )
         }
     }
 
@@ -216,27 +209,27 @@ class WallFragment : CustomFragment() {
             }
             if (statistic != null) {
                 binding.rvStatistic.visibility = View.VISIBLE
-                initStatistic(statistic!!)
+                initStatistic(statistic)
             } else binding.rvStatistic.visibility = View.GONE
             initBody(body)
-            if (this is PageWallImpl) {
+            if (profile.role!=Role.team) {
                 viewPagerAdapter.list.add(
                     Tab(
                         1,
-                        PostListFragment(list()),
+                        PostListFragment(list as Array<Post>),
                         "Публикации"
                     )
                 )
                 viewPagerAdapter.list.add(
                     Tab(
                         2,
-                        PostListFragment(list()),
+                        PostListFragment(list as Array<Post>),
                         "Посты"
                     )
                 )
             }
-            if (mutual != null && mutual.isNotEmpty()) {
-                recyclerViewAdapter.initList(*mutual)
+            if (mutual != null && mutual!!.isNotEmpty()) {
+                recyclerViewAdapter.initList(*mutual!!)
                 binding.containerMutual.visibility = View.VISIBLE
             } else binding.containerMutual.visibility = View.GONE
 
@@ -257,16 +250,16 @@ class WallFragment : CustomFragment() {
     override fun initAdapter() {
         recyclerViewAdapter = object : ProfileAdapter(requireContext()) {
             override fun setButton(holder: CustomViewHolder, current: Base) {
-                holder.itemView.crd_action.visibility=View.GONE
+                holder.itemView.crd_action.visibility = View.GONE
             }
         }
         statisticAdapter = object : StatisticAdapter(requireContext()) {
             override fun onBodyShortClick(holder: CustomViewHolder, current: Base, position: Int) {
                 val statistic = list[position] as Statistic
-                if (statistic.sub != null)
+                if (statistic.selection != null)
                     context.startActivity(
                         Intent(context, SubActivity::class.java).apply {
-                            putExtra(Parameters.selection, statistic.sub)
+                            putExtra(Parameters.selection, statistic.selection)
                             putExtra(Parameters.title, statistic.statistic)
                             putExtra(Parameters.filter, statistic.filter)
                             putExtra(Parameters.profile_id, wall.profile.profile_id)
@@ -296,7 +289,9 @@ class WallFragment : CustomFragment() {
 
     override fun initVariable() {
         binding = FragmentWallBinding.inflate(layoutInflater)
-        wall = requireArguments().getSerializable(Parameters.posts) as Wall
+        wall = requireArguments().getSerializable(Parameters.wall) as Wall
+        list = requireArguments().getSerializable(Parameters.list) as Array<Base>
+        mutual = requireArguments().getSerializable(Parameters.mutual) as Array<ProfileBase>?
         myPage = wall.profile.profile_id == (token as AccessToken).id
         recyclerView = binding.rvMutual
         statisticRecyclerView = binding.rvStatistic

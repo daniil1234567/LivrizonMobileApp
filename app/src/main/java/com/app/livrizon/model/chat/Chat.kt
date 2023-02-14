@@ -4,12 +4,13 @@ import com.app.livrizon.impl.Base
 import com.app.livrizon.model.chat.statistic.ChatStatistic
 import com.app.livrizon.model.profile.ChatProfile
 import com.app.livrizon.model.profile.WallProfile
+import com.app.livrizon.model.profile.relation.ProfileRelation
 import com.app.livrizon.model.publication.Message
 
 data class Chat(
-    val statistic: ChatStatistic,
-    val relation: ChatRelation,
     val profile: WallProfile,
+    val statistic: ChatStatistic,
+    val relation: ProfileRelation,
     var message: Message? = null
 ) : Base {
     override fun id(): Int? {

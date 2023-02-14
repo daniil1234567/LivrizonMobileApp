@@ -21,7 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 class SubFragment : CustomFragment() {
     lateinit var binding: FragmentSubBinding
     lateinit var title: String
-    lateinit var sub: Sub
+    lateinit var selection: Selection
     var filter: Filter? = null
     var profileId: Int = 0
     override fun getBindingRoot(): View {
@@ -53,7 +53,7 @@ class SubFragment : CustomFragment() {
         webSocketListener = object : WebSocketListener(requireContext(), WebsocketsRoute.sub) {
 
         }.addParam(Parameters.id, profileId)
-            .addParam(Parameters.selection, sub)
+            .addParam(Parameters.selection, selection)
             .addParam(Parameters.filter, filter)
             .addParam(Parameters.sort, Sort.def)
             .addListener(EventType.delete, object : WebSocketChanelListener() {
@@ -68,7 +68,7 @@ class SubFragment : CustomFragment() {
         binding = FragmentSubBinding.inflate(layoutInflater)
         with(requireArguments()) {
             title = getString(Parameters.title)!!
-            sub = getSerializable(Parameters.selection) as Sub
+            selection = getSerializable(Parameters.selection) as Selection
             filter = getSerializable(Parameters.filter) as Filter?
             profileId = requireArguments().getInt(Parameters.profile_id)
         }
@@ -78,7 +78,7 @@ class SubFragment : CustomFragment() {
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(block: CoroutineScope): Array<Subscribe> {
-                return InitRequest.sub(sub, profileId, filter)
+                return InitRequest.sub(selection, profileId, filter)
             }
 
             override fun onSuccess(item: Any?) {

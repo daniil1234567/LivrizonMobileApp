@@ -6,15 +6,16 @@ import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R
 import com.app.livrizon.databinding.FragmentShimmerWallBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.model.response.WallResponse
+import com.app.livrizon.function.log
+import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.wall.*
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.ProfileRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.security.Role
 import com.app.livrizon.security.Status
+import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.gson
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 
 class ShimmerWallFragment : CustomFragment() {
     lateinit var binding: FragmentShimmerWallBinding
@@ -25,36 +26,55 @@ class ShimmerWallFragment : CustomFragment() {
 
     override fun initVariable() {
         binding = FragmentShimmerWallBinding.inflate(layoutInflater)
-        navController=findNavController()
+        navController = findNavController()
         profileId = requireArguments().getInt(Parameters.profile_id)
     }
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(block: CoroutineScope): WallResponse {
-                return ProfileRequest.wall(profileId)
+            var mutual: Array<ProfileBase>? = null
+            var list: Array<*>? = null
+            override suspend fun body(block: CoroutineScope): Wall {
+                val wall = ProfileRequest.wall(profileId)
+                if (wall.relation.available) {
+                    if (wall.statistic != null && (wall.statistic.followers
+                            ?: 0) > 0 && wall.profile.profile_id != (token as AccessToken).id
+                    ) mutual =
+                        withContext(block.coroutineContext) {
+                            InitRequest.profilesSub(
+                                Selection.connections,
+                                Filter.mutual,
+                                profileId,
+                                Array<ProfileBase>::class.java
+                            )
+                        }
+                    if (wall.profile.role == Role.team && wall.profile.open) {
+
+                    } else if (wall.profile.role != Role.team) list =
+                        withContext(block.coroutineContext) {
+                            InitRequest.posts(
+                                profileId,
+                                null,
+                                Filter.wall,
+                                false,
+                                30
+                            )
+                        }
+                }
+                return wall
             }
 
             override fun onSuccess(item: Any?) {
-                item as WallResponse
-                val bundle = Bundle().apply {
-                    putSerializable(
-                        Parameters.posts, gson.fromJson(
-                            item.body,
-                            if (item.status!=Status.active)
-                                DeleteWall::class.java
-                            else if (item.role == Role.user) UserWall::class.java
-                            else if (item.role == Role.company) CompanyWall::class.java
-                            else if (item.role == Role.community) CommunityWall::class.java
-                            else TeamWall::class.java
-                        )
-                    )
-                }
+                item as Wall
                 navController.popBackStack()
                 navController.navigate(
-                    if (item.status!=Status.active) R.id.deleteWallFragment
-                    else if (!item.available) R.id.restrictWallFragment
-                    else R.id.wallFragment, bundle
+                    if (item.profile.status != Status.active) R.id.deleteWallFragment
+                    else if (!item.relation.available) R.id.restrictWallFragment
+                    else R.id.wallFragment, Bundle().apply {
+                        putSerializable(Parameters.wall, item)
+                        putSerializable(Parameters.list, list)
+                        putSerializable(Parameters.mutual, mutual)
+                    }
                 )
 
             }

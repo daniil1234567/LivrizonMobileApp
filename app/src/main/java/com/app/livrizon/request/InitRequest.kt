@@ -14,6 +14,19 @@ import io.ktor.client.request.*
 
 object InitRequest : InitRequestImpl {
 
+    override suspend fun profilesSub(
+        selection: Selection,
+        filter: Filter?,
+        profile_id: Int,
+        cl: Class<*>
+    ): Array<ProfileBase> {
+        return gson.fromJson(httpClient.get<String> {
+            url(HttpRoutes.initProfilesSub(selection))
+            headers.append(Parameters.auth, token.jwt)
+            parameter(Parameters.profile_id, profile_id)
+            parameter(Parameters.filter, filter)
+        }, cl) as Array<ProfileBase>
+    }
     override suspend fun profiles(
         role: Role?,
         filter: Filter,
@@ -32,13 +45,14 @@ object InitRequest : InitRequestImpl {
 
 
     override suspend fun sub(
-        sub: Sub,
+        selection: Selection,
         profile_id: Int,
         filter: Filter?
     ): Array<Subscribe> {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.initSub(sub, profile_id))
-            if (filter != null) parameter(Parameters.filter, filter)
+            url(HttpRoutes.initProfilesSub(selection))
+            parameter(Parameters.filter, filter)
+            parameter(Parameters.profile_id, profile_id)
             headers.append(Parameters.auth, token.jwt)
         }, Array<Subscribe>::class.java)
     }

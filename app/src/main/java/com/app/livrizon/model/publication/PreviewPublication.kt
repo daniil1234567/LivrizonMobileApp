@@ -8,7 +8,7 @@ import com.app.livrizon.model.type.PublicationType
 
 
 open class PreviewPublication(
-    val repost: Boolean,
+    val forward: Boolean,
     val body: PreviewPublicationBody,
     val statistic: PublicationStatisticBase? = null,
     publication_id: Int,
@@ -17,7 +17,6 @@ open class PreviewPublication(
     date: Long,
     status: Int
 ) : PublicationBase(publication_id, type, from, date, status),Base {
-
     override fun id(): Int {
         return publication_id
     }

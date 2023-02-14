@@ -1,14 +1,14 @@
-package com.app.livrizon.model.wall.option
+package com.app.livrizon.model.wall.detail
 
 import com.app.livrizon.impl.Base
 import com.app.livrizon.request.Filter
-import com.app.livrizon.request.Sub
+import com.app.livrizon.request.Selection
 
 class Statistic(
     val statistic_id: Int,
     val number: Int,
     val statistic: String,
-    val sub: Sub? = null,
+    val selection: Selection? = null,
     val filter: Filter? = null,
 ) : Base {
     override fun id(): Int {

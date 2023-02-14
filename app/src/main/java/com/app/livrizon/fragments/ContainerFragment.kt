@@ -10,9 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R.id.*
 import com.app.livrizon.R.navigation.main_graph
 import com.app.livrizon.activities.MainActivity
-import com.app.livrizon.activities.MainActivity.Companion.CATEGORY
-import com.app.livrizon.activities.MainActivity.Companion.HOME
+import com.app.livrizon.activities.MainActivity.Companion.category
+import com.app.livrizon.activities.MainActivity.Companion.home
 import com.app.livrizon.databinding.FragmentContainerBinding
+import com.app.livrizon.function.log
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
 import com.app.livrizon.request.token
@@ -41,14 +42,14 @@ class ContainerFragment(val key: Int) : Fragment() {
         val bundle = Bundle()
         graph.setStartDestination(
             when (key) {
-                HOME -> {
+                home -> {
                     bundle.putSerializable(
                         Parameters.posts,
                         (requireActivity() as MainActivity).posts
                     )
                     homeFragment
                 }
-                CATEGORY -> {
+                category -> {
                     categoryFragment
                 }
                 else -> {

@@ -1,6 +1,6 @@
 package com.app.livrizon.values
 
-import com.app.livrizon.request.Sub
+import com.app.livrizon.request.Selection
 
 object HttpRoutes {
     const val host = "89.223.68.211"
@@ -34,23 +34,25 @@ object HttpRoutes {
     const val topics = "$BASE_URL/topics"
     const val init_profiles = "$BASE_URL/init/profiles"
 
-    fun initProfile(sub: Sub): String {
-        return "$BASE_URL/init/profile/$sub"
+    fun initProfile(selection: Selection): String {
+        return "$BASE_URL/init/profile/$selection"
     }
 
-    fun visit(profile_id: Int):String {
+    fun visit(profile_id: Int): String {
         return "$BASE_URL/visit/$profile_id"
     }
+
     fun sub(profile_id: Int): String {
         return "$BASE_URL/sub/$profile_id"
     }
+
 
     fun wall(profile_id: Int): String {
         return "$BASE_URL/wall/$profile_id"
     }
 
-    fun initSub(sub: Sub, profile_id: Int): String {
-        return "$BASE_URL/init/sub/$sub/$profile_id"
+    fun initProfilesSub(selection: Selection): String {
+        return "$BASE_URL/init/profiles/$selection"
     }
 
     fun information(profile_id: Int): String {

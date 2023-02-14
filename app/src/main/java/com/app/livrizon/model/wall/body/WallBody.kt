@@ -1,6 +1,6 @@
 package com.app.livrizon.model.wall.body
 
-import com.app.livrizon.model.wall.option.Contact
+import com.app.livrizon.model.wall.detail.Contact
 
 class WallBody(
     val title: String? = null,

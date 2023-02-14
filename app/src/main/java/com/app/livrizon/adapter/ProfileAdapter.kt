@@ -9,7 +9,6 @@ import com.app.livrizon.function.minuteToMillisecond
 import com.app.livrizon.function.loadAvatar
 import com.app.livrizon.impl.Base
 import com.app.livrizon.impl.ProfileImpl
-import com.app.livrizon.model.profile.ChatProfile
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.response.Response
@@ -91,7 +90,7 @@ abstract class ProfileAdapter(context: Context) : RecyclerViewAdapterBase(contex
             }.request()
         } else context.startActivity(
             Intent(context, ChatActivity::class.java)
-                .putExtra(Parameters.profile, ChatProfile(current))
+                .putExtra(Parameters.profile, ProfileBase(current))
         )
     }
 

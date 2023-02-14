@@ -23,7 +23,6 @@ import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.activities.SecondaryActivity
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.model.publication.Post
-import com.app.livrizon.model.response.WallResponse
 import com.app.livrizon.model.type.PublicationType
 import com.app.livrizon.model.wall.*
 import com.app.livrizon.request.*
@@ -132,41 +131,11 @@ fun <T> List<T>.first(): T? {
         return null
     return this[0]
 }
-fun wallRequest(fragment: CustomFragment,profile_id: Int):HttpListener{
-    return object : HttpListener(fragment.requireContext()) {
-        override suspend fun body(block: CoroutineScope): WallResponse {
-            return ProfileRequest.wall(profile_id)
-        }
 
-        override fun onSuccess(item: Any?) {
-            item as WallResponse
-            val bundle = Bundle().apply {
-                putSerializable(
-                    Parameters.posts, gson.fromJson(
-                        item.body,
-                        if (item.status!= Status.active)
-                            DeleteWall::class.java
-                        else if (item.role == Role.user) UserWall::class.java
-                        else if (item.role == Role.company) CompanyWall::class.java
-                        else if (item.role == Role.community) CommunityWall::class.java
-                        else TeamWall::class.java
-                    )
-                )
-            }
-            fragment.navController.popBackStack()
-            fragment.navController.navigate(
-                if (item.status!= Status.active) R.id.deleteWallFragment
-                else if (!item.available) R.id.restrictWallFragment
-                else R.id.wallFragment, bundle
-            )
-
-        }
-    }
-}
 fun homeRequest(fragment: Fragment): HttpListener {
     return object : HttpListener(fragment.requireContext()) {
         override suspend fun body(block: CoroutineScope): Array<Post> {
-            return InitRequest.posts(null,null, Filter.recommendation,false,30)
+            return InitRequest.posts(null, null, Filter.recommendation, false, 30)
         }
 
         override fun onSuccess(item: Any?) {
@@ -212,7 +181,7 @@ fun log(vararg items: Any?) {
 
 fun toast(context: Context, text: Any?) {
     Toast.makeText(
-        context, gson.toJson(text),
+        context, text.toString(),
         Toast.LENGTH_LONG
     ).show()
 }

@@ -4,9 +4,9 @@ import android.view.View
 import com.app.livrizon.adapter.InformationAdapter
 import com.app.livrizon.databinding.FragmentInformationBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.model.wall.Description
-import com.app.livrizon.model.wall.option.Title
-import com.app.livrizon.model.wall.option.WallInformation
+import com.app.livrizon.model.wall.WallInformation
+import com.app.livrizon.model.wall.detail.Description
+import com.app.livrizon.model.wall.detail.Title
 import com.app.livrizon.request.HttpListener
 import com.app.livrizon.request.ProfileRequest
 import com.app.livrizon.values.Parameters

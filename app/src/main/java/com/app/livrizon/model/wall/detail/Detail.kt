@@ -1,4 +1,4 @@
-package com.app.livrizon.model.wall.option
+package com.app.livrizon.model.wall.detail
 
 import com.app.livrizon.impl.Base
 

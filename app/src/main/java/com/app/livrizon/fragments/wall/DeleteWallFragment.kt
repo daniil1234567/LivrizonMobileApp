@@ -4,20 +4,20 @@ import android.view.View
 import com.app.livrizon.databinding.FragmentDeleteWallBinding
 import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.loadAvatar
-import com.app.livrizon.model.wall.DeleteWall
+import com.app.livrizon.model.wall.Wall
 import com.app.livrizon.security.Status
 import com.app.livrizon.values.Parameters
 
 class DeleteWallFragment : CustomFragment() {
     lateinit var binding: FragmentDeleteWallBinding
-    lateinit var wall: DeleteWall
+    lateinit var wall: Wall
     override fun getBindingRoot(): View {
         return binding.root
     }
 
     override fun initVariable() {
         binding = FragmentDeleteWallBinding.inflate(layoutInflater)
-        wall = requireArguments().getSerializable(Parameters.posts) as DeleteWall
+        wall = requireArguments().getSerializable(Parameters.posts) as Wall
     }
 
     override fun init() {

@@ -1,15 +1,16 @@
-package com.app.livrizon.model.wall.option
+package com.app.livrizon.model.wall.detail
 
+import com.app.livrizon.impl.Base
 import com.app.livrizon.model.type.ContactType
-import com.app.livrizon.model.wall.InformationImpl
+import com.app.livrizon.model.wall.WallInformation
 
 class Contact(
     val contact_id: Int,
     val type: ContactType,
     val contact: String
-) : InformationImpl {
+) : Base {
     override fun layout(): Int {
-        return InformationImpl.contact
+        return WallInformation.contact
     }
     override fun id(): Int {
         return contact_id

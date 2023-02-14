@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var createBottomSheet: BottomSheetDialogFragment
     lateinit var posts: Array<Post>
     val fragments: Array<Fragment> = arrayOf(
-        ContainerFragment(HOME),
-        ContainerFragment(CATEGORY),
-        ContainerFragment(MY_PAGE)
+        ContainerFragment(home),
+        ContainerFragment(category),
+        ContainerFragment(wall)
     )
     private var currentSelectItemId: Int? = null
 
@@ -50,12 +50,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavigation() {
-        swapFragments(HOME)
+        swapFragments(home)
         binding.btnHome.setOnClickListener {
-            swapFragments(HOME)
+            swapFragments(home)
         }
         binding.btnCategory.setOnClickListener {
-            swapFragments(CATEGORY)
+            swapFragments(category)
         }
         binding.btnCreate.setOnClickListener {
             val fragment =
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.btnProfile.setOnClickListener {
-            swapFragments(MY_PAGE)
+            swapFragments(wall)
         }
     }
 
@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val HOME = 0
-        const val CATEGORY = 1
-        const val MY_PAGE = 2
+        const val home = 0
+        const val category = 1
+        const val wall = 2
     }
 }

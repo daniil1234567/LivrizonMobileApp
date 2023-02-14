@@ -1,6 +1,6 @@
 package com.app.livrizon.request;
 
-public enum Sub {
+public enum Selection {
     connections,
     followers,
     subscriptions,

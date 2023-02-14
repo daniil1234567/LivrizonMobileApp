@@ -2,7 +2,7 @@ package com.app.livrizon.adapter
 
 import android.content.Context
 import com.app.livrizon.R
-import com.app.livrizon.model.wall.option.Statistic
+import com.app.livrizon.model.wall.detail.Statistic
 import kotlinx.android.synthetic.main.item_statistic_layout.view.*
 
 abstract class StatisticAdapter(context: Context) : RecyclerViewAdapterBase(context) {

@@ -1,19 +1,19 @@
-package com.app.livrizon.model.wall.option
+package com.app.livrizon.model.wall.detail
 
-import com.app.livrizon.model.wall.InformationImpl
-import com.app.livrizon.model.wall.InformationImpl.Companion.education
+import com.app.livrizon.impl.Base
+import com.app.livrizon.model.wall.WallInformation
 
 class Education(
     val education_id: Int,
     val faculty: String,
     val specialization: String,
     val end: Int,
-) : InformationImpl {
+) : Base {
     override fun id(): Int {
         return education_id
     }
 
     override fun layout(): Int {
-        return education
+        return WallInformation.education
     }
 }

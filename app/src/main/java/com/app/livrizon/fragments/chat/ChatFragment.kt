@@ -21,6 +21,7 @@ import com.app.livrizon.model.chat.attachment.Forward
 import com.app.livrizon.model.edit.publication.SaveMessage
 import com.app.livrizon.model.init.InitChat
 import com.app.livrizon.model.profile.ChatProfile
+import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.publication.Message
 import com.app.livrizon.model.publication.PublicationBase
 import com.app.livrizon.model.response.Response
@@ -40,7 +41,7 @@ import kotlinx.coroutines.launch
 
 class ChatFragment : CustomFragment() {
     lateinit var binding: FragmentChatBinding
-    lateinit var profile: ChatProfile
+    lateinit var profile: ProfileBase
     lateinit var attachmentAdapter: AttachmentAdapter
     lateinit var attachmentRecyclerView: RecyclerView
     var message_id: Int? = null
@@ -313,31 +314,32 @@ class ChatFragment : CustomFragment() {
         attachmentRecyclerView = binding.rvAttachment
         forward = requireArguments().getSerializable(Parameters.repost) as Forward?
         last = requireArguments().getSerializable(Parameters.message) as Message?
-        profile = requireArguments().getSerializable(Parameters.profile) as ChatProfile
+        profile = requireArguments().getSerializable(Parameters.profile) as ProfileBase
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initSecondary() {
+    private fun initSecondary(last: Long?, followers: Int?) {
         val now = System.currentTimeMillis()
-        if (profile.last != null) {
-            if (now - profile.last!! < 5 * minute) binding.tvSecondary.text =
+        if (last != null) {
+            if (now - last < 5 * minute) binding.tvSecondary.text =
                 getString(R.string.onlin)
-            else if (now - profile.last!! < 10 * minute) binding.tvSecondary.text =
+            else if (now - last < 10 * minute) binding.tvSecondary.text =
                 "в сети недавно"
-            else if (now - profile.last!! < 0.5 * hour) binding.tvSecondary.text =
-                "в сети ${(now - profile.last!!) / minute} минут назад"
-            else if (now - profile.last!! < 2 * hour) binding.tvSecondary.text =
+            else if (now - last < 0.5 * hour) binding.tvSecondary.text =
+                "в сети ${(now - last) / minute} минут назад"
+            else if (now - last < 2 * hour) binding.tvSecondary.text =
                 "в сети час назад"
-            else if (now - profile.last!! < day) binding.tvSecondary.text =
-                "сегодня в ${profile.last!!.toDate("HH:mm")}"
-            else if (now - profile.last!! < 2 * day) binding.tvSecondary.text =
-                "вчера в ${profile.last!!.toDate("HH:mm")}"
-            else if (now - profile.last!! < week) binding.tvSecondary.text =
-                "в сети ${(now - profile.last!!) / day} дней назад"
-            else if (now - profile.last!! < year) binding.tvSecondary.text =
-                "в сети ${profile.last!!.toDate("dd.MM")}"
-            else if (now - profile.last!! < year) binding.tvSecondary.text = "давно"
-        } else binding.tvSecondary.text = "${profile.followers} участника"
+            else if (now - last < day) binding.tvSecondary.text =
+                "сегодня в ${last.toDate("HH:mm")}"
+            else if (now - last < 2 * day) binding.tvSecondary.text =
+                "вчера в ${last.toDate("HH:mm")}"
+            else if (now - last < week) binding.tvSecondary.text =
+                "в сети ${(now - last) / day} дней назад"
+            else if (now - last < year) binding.tvSecondary.text =
+                "в сети ${last.toDate("dd.MM")}"
+            else if (now - last < year) binding.tvSecondary.text = "давно"
+        } else if (followers != null) binding.tvSecondary.text = "$followers участника"
+        else binding.tvSecondary.text = "Групповй чат"
     }
 
     @SuppressLint("SetTextI18n")

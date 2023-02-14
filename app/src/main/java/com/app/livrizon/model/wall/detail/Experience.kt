@@ -1,7 +1,7 @@
-package com.app.livrizon.model.wall.option
+package com.app.livrizon.model.wall.detail
 
 import com.app.livrizon.impl.Base
-import com.app.livrizon.model.wall.InformationImpl
+import com.app.livrizon.model.wall.WallInformation
 
 class Experience(
     val experience_id: Int,
@@ -16,6 +16,6 @@ class Experience(
     }
 
     override fun layout(): Int {
-        return InformationImpl.education
+        return WallInformation.education
     }
 }
