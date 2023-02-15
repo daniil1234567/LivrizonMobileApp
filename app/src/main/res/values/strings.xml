@@ -76,4 +76,7 @@
     <string name="ProfileEditInformationGender">Ваш пол</string>
     <string name="MaleGenderVerb">Мужской</string>
     <string name="FemaleGenderVerb">Женский</string>
+    <string name="TellDetails">Расскажите подробности о себе</string>
+    <string name="AccountDescription">Описание аккаунта</string>
+    <string name="TellStudy">Укажите, где вы учились</string>
 </resources>

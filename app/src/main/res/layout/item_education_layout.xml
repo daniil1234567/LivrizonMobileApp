@@ -16,7 +16,8 @@
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/Education"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_institution"
