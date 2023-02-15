@@ -1,4 +1,4 @@
-package com.app.livrizon.request
+package com.app.livrizon.values
 
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase

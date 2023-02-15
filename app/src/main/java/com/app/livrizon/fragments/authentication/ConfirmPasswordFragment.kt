@@ -14,8 +14,8 @@ import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.security.token.RestoreToken
 import com.app.livrizon.sql.SqlRequest
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.account_pref
-import com.app.livrizon.request.token
+import com.app.livrizon.values.account_pref
+import com.app.livrizon.values.token
 import kotlinx.coroutines.CoroutineScope
 
 class ConfirmPasswordFragment : CustomFragment() {

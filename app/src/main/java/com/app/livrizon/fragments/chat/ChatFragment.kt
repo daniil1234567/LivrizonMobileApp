@@ -20,7 +20,6 @@ import com.app.livrizon.impl.Base
 import com.app.livrizon.model.chat.attachment.Forward
 import com.app.livrizon.model.edit.publication.SaveMessage
 import com.app.livrizon.model.init.InitChat
-import com.app.livrizon.model.profile.ChatProfile
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.publication.Message
 import com.app.livrizon.model.publication.PublicationBase
@@ -48,7 +47,9 @@ class ChatFragment : CustomFragment() {
     var unread = 0
     var forward: Forward? = null
     var last: Message? = null
+    var write: Boolean = true
     var ids = mutableListOf<Int>()
+
     override fun getBindingRoot(): View {
         return binding.root
     }
@@ -246,7 +247,7 @@ class ChatFragment : CustomFragment() {
                     recyclerViewAdapter.addListToBottom(*messages)
                 } else if (from == (token as AccessToken).id) {
                     message_id = null
-                    initRequest!!.request()
+                    //initRequest!!.request()
                 } else openArrowDown()
             }
 
@@ -290,17 +291,21 @@ class ChatFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            val message_id = this@ChatFragment.message_id
             override suspend fun body(block: CoroutineScope): InitChat {
                 return InitRequest.chat(profile.profile_id)
             }
 
             override fun onSuccess(item: Any?) {
                 item as InitChat
+                if (write != item.relation.write) {
+                    binding.cnSend.visibility = if (binding.cnSend.visibility==View.VISIBLE ) View.GONE else View.VISIBLE
+                    binding.cnRestrict.visibility = if (binding.cnSend.visibility==View.VISIBLE ) View.GONE else View.VISIBLE
+                    write = item.relation.write
+                }
                 recyclerViewAdapter.initList(*item.messages)
                 recyclerView.scrollToPosition(
-                    if (message_id != null) recyclerViewAdapter.toPosition(message_id)
-                    else recyclerViewAdapter.itemCount
+                    if (message_id != null) recyclerViewAdapter.toPosition(message_id!!)
+                    else recyclerViewAdapter.itemCount - 1
                 )
             }
 
@@ -312,9 +317,10 @@ class ChatFragment : CustomFragment() {
         offset = 15
         recyclerView = binding.rvMessage
         attachmentRecyclerView = binding.rvAttachment
-        forward = requireArguments().getSerializable(Parameters.repost) as Forward?
-        last = requireArguments().getSerializable(Parameters.message) as Message?
-        profile = requireArguments().getSerializable(Parameters.profile) as ProfileBase
+        this.write = requireArguments().getBoolean(Parameters.write)
+        this.forward = requireArguments().getSerializable(Parameters.repost) as Forward?
+        this.last = requireArguments().getSerializable(Parameters.message) as Message?
+        this.profile = requireArguments().getSerializable(Parameters.profile) as ProfileBase
     }
 
     @SuppressLint("SetTextI18n")
@@ -322,7 +328,7 @@ class ChatFragment : CustomFragment() {
         val now = System.currentTimeMillis()
         if (last != null) {
             if (now - last < 5 * minute) binding.tvSecondary.text =
-                getString(R.string.onlin)
+                getString(R.string.online)
             else if (now - last < 10 * minute) binding.tvSecondary.text =
                 "в сети недавно"
             else if (now - last < 0.5 * hour) binding.tvSecondary.text =
@@ -372,6 +378,13 @@ class ChatFragment : CustomFragment() {
             )
             binding.tvName.text = profile.name
 
+        }
+        if (write) {
+            binding.cnSend.visibility = View.VISIBLE
+            binding.cnRestrict.visibility = View.GONE
+        } else {
+            binding.cnSend.visibility = View.GONE
+            binding.cnRestrict.visibility = View.VISIBLE
         }
         scrollListener.addScrollListener(recyclerView)
     }

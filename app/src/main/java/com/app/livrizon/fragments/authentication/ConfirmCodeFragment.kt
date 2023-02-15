@@ -15,7 +15,7 @@ import com.app.livrizon.security.token.ConfirmToken
 import com.app.livrizon.security.token.RestoreToken
 import com.app.livrizon.util.TextListener
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.token
+import com.app.livrizon.values.token
 import kotlinx.coroutines.CoroutineScope
 
 class ConfirmCodeFragment : CustomFragment() {

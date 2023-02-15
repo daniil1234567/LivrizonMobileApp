@@ -13,10 +13,9 @@ import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.activities.MainActivity.Companion.category
 import com.app.livrizon.activities.MainActivity.Companion.home
 import com.app.livrizon.databinding.FragmentContainerBinding
-import com.app.livrizon.function.log
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.token
+import com.app.livrizon.values.token
 
 class ContainerFragment(val key: Int) : Fragment() {
     lateinit var binding: FragmentContainerBinding

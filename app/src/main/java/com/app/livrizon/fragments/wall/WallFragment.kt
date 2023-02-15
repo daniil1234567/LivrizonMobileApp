@@ -27,6 +27,7 @@ import com.app.livrizon.request.*
 import com.app.livrizon.security.Role
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.token
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.item_profile_base_layout.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -118,7 +119,7 @@ class WallFragment : CustomFragment() {
                     admins,
                     "Администраторы",
                     Selection.followers,
-                    Filter.admins
+                    Filter.privileged
                 )
             )
             if (recruiters > 0) statisticAdapter.list.add(
@@ -212,22 +213,25 @@ class WallFragment : CustomFragment() {
                 initStatistic(statistic)
             } else binding.rvStatistic.visibility = View.GONE
             initBody(body)
-            if (profile.role!=Role.team) {
-                viewPagerAdapter.list.add(
-                    Tab(
-                        1,
-                        PostListFragment(list as Array<Post>),
-                        "Публикации"
+            if (profile.role != Role.team) {
+                if (list.isNotEmpty()) {
+                    viewPagerAdapter.list.add(
+                        Tab(
+                            1,
+                            PostListFragment(list as Array<Post>),
+                            "Публикации"
+                        )
                     )
-                )
+                }
+            }
+            if (statistic.articles>0)
                 viewPagerAdapter.list.add(
                     Tab(
                         2,
                         PostListFragment(list as Array<Post>),
-                        "Посты"
+                        "Статьи"
                     )
                 )
-            }
             if (mutual != null && mutual!!.isNotEmpty()) {
                 recyclerViewAdapter.initList(*mutual!!)
                 binding.containerMutual.visibility = View.VISIBLE

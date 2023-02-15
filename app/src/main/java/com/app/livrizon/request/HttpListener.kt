@@ -6,6 +6,7 @@ import android.os.Looper
 import com.app.livrizon.function.log
 import com.app.livrizon.function.toast
 import com.app.livrizon.model.response.Response
+import com.app.livrizon.values.gson
 import io.ktor.client.features.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.CoroutineScope
@@ -33,22 +34,22 @@ abstract class HttpListener(val context: Context) {
     fun request() {
         onLoading()
         CoroutineScope(Dispatchers.IO).launch {
-            try {
+            //try {
                 val result = body(this)
                 Handler(Looper.getMainLooper()).post {
                     onSuccess(result)
                 }
 
-            } catch (e: ClientRequestException) {
-                val response=e.response.readText()
-                Handler(Looper.getMainLooper()).post {
-                    onError(gson.fromJson(response, Response::class.java).response)
-                }
-            } catch (e: Exception) {
-                Handler(Looper.getMainLooper()).post {
-                    onError(e)
-                }
-            }
+            //} catch (e: ClientRequestException) {
+            //    val response=e.response.readText()
+            //    Handler(Looper.getMainLooper()).post {
+            //        onError(gson.fromJson(response, Response::class.java).response)
+            //    }
+            //} catch (e: Exception) {
+            //    Handler(Looper.getMainLooper()).post {
+            //        onError(e)
+            //    }
+            //}
         }
     }
 }

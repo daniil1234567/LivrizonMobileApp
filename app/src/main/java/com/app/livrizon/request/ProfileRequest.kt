@@ -5,8 +5,7 @@ import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.wall.Wall
 import com.app.livrizon.model.wall.WallInformation
 import com.app.livrizon.services.ProfileRequestImpl
-import com.app.livrizon.values.HttpRoutes
-import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.*
 import io.ktor.client.request.*
 
 object ProfileRequest : ProfileRequestImpl {

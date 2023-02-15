@@ -10,14 +10,10 @@ import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.function.log
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.profile.ProfileBase
-import com.app.livrizon.model.profile.Search
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.scroll.ProfileSearchScroll
-import com.app.livrizon.model.type.event.EventType
 import com.app.livrizon.request.*
-import com.app.livrizon.values.Parameters
 import com.app.livrizon.values.WebsocketsRoute
-import com.app.livrizon.request.gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,19 +31,19 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
     override fun initListener() {
         webSocketListener = object : WebSocketListener(requireContext(), WebsocketsRoute.profiles) {
 
-        }.addParam(Parameters.selection, Filter.search)
-            .addListener(EventType.response, object : WebSocketChanelListener() {
-                override fun inputMessage(text: String) {
-                    val search = gson.fromJson(text, Array<Search>::class.java)
-                    if (this@SearchProfileListFragment.text == viewModel.search.value) recyclerViewAdapter.addListToBottom(
-                        *search
-                    )
-                    else {
-                        this@SearchProfileListFragment.text = viewModel.search.value!!
-                        recyclerViewAdapter.setList(*search)
-                    }
-                }
-            })
+        }
+            //.addListener(EventType.response, object : WebSocketChanelListener() {
+            //    override fun inputMessage(text: String) {
+            //        val search = gson.fromJson(text, Array<Search>::class.java)
+            //        if (this@SearchProfileListFragment.text == viewModel.search.value) recyclerViewAdapter.addListToBottom(
+            //            *search
+            //        )
+            //        else {
+            //            this@SearchProfileListFragment.text = viewModel.search.value!!
+            //            recyclerViewAdapter.setList(*search)
+            //        }
+            //    }
+            //})
         viewModel.search.observe(this) {
             if (it != null) {
                 CoroutineScope(Dispatchers.IO).launch {
@@ -105,7 +101,18 @@ class SearchProfileListFragment(val move: MoveImpl) : CustomFragment(), MoveImpl
         initRequest = object : HttpListener(requireContext()) {
             lateinit var visits: Array<ProfileBase>
             override suspend fun body(block: CoroutineScope) {
-                visits = withContext(block.coroutineContext) { InitRequest.visits() }
+                visits = withContext(block.coroutineContext) {
+                    InitRequest.profiles(
+                        Selection.visits,
+                        null,
+                        null,
+                        Filter.recent,
+                        true,
+                        Sort.resent,
+                        30,
+                        ProfileBase::class.java,
+                    )
+                }
             }
 
             override fun onSuccess(item: Any?) {

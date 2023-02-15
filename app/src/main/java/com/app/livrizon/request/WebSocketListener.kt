@@ -10,6 +10,8 @@ import com.app.livrizon.model.response.WebSocketResponse
 import com.app.livrizon.model.type.event.EventType
 import com.app.livrizon.values.HttpRoutes
 import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.gson
+import com.app.livrizon.values.token
 import io.ktor.client.*
 import io.ktor.client.features.websocket.*
 import io.ktor.client.request.*

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
@@ -21,17 +20,14 @@ import androidx.fragment.app.FragmentActivity
 import com.app.livrizon.R
 import com.app.livrizon.activities.MainActivity
 import com.app.livrizon.activities.SecondaryActivity
-import com.app.livrizon.fragments.CustomFragment
 import com.app.livrizon.model.publication.Post
 import com.app.livrizon.model.type.PublicationType
-import com.app.livrizon.model.wall.*
 import com.app.livrizon.request.*
-import com.app.livrizon.security.Role
-import com.app.livrizon.security.Status
 import com.app.livrizon.sql.DbHelper
 import com.app.livrizon.sql.DbItem
 import com.app.livrizon.values.HttpRoutes
 import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.gson
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -233,7 +229,7 @@ fun query(
     orderBy: String? = null,
     limit: String? = null
 ): Cursor {
-    return connection.query(
+    return com.app.livrizon.values.connection.query(
         table,
         columns,
         DbItem.Statement.Where.findBy(selection),

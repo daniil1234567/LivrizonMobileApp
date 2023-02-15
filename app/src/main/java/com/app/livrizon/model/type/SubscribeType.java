@@ -1,5 +1,5 @@
 package com.app.livrizon.model.type;
 
-public enum MemberType {
+public enum SubscribeType {
     usual,admin,owner
 }

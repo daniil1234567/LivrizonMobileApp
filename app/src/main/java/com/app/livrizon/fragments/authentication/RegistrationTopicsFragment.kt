@@ -14,10 +14,7 @@ import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.topics.GroupTopics
 import com.app.livrizon.model.topics.Topic
-import com.app.livrizon.request.Filter
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.InitRequest
-import com.app.livrizon.request.ProfileRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.values.Parameters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -142,11 +139,15 @@ class RegistrationTopicsFragment : CustomFragment() {
                 filter =
                     if (topics.size > 0 && filter == null) Filter.recommendation else Filter.popular
                 return InitRequest.profiles(
+                    Selection.possible,
                     null,
-                    filter!!,
+                    null,
+                    filter,
                     false,
-                    30
-                )
+                    Sort.popularity,
+                    30,
+                    Profile::class.java,
+                ) as Array<Profile>
             }
 
             override fun onSuccess(item: Any?) {

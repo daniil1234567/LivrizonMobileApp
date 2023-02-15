@@ -1,7 +1,6 @@
 package com.app.livrizon.fragments.profile
 
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.app.livrizon.R
 import com.app.livrizon.adapter.CustomViewHolder
@@ -16,12 +15,12 @@ import com.app.livrizon.model.profile.Append
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.response.Response
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.InitRequest
-import com.app.livrizon.request.TeamRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.token
 import kotlinx.android.synthetic.main.item_append_profile_layout.view.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 
 class AppendMembersFragment : CustomFragment() {
     lateinit var save: TeamSave
@@ -60,6 +59,7 @@ class AppendMembersFragment : CustomFragment() {
             override fun setButton(holder: CustomViewHolder, current: Base) {
 
             }
+
             override fun onButtonClick(holder: CustomViewHolder, current: Base) {
                 current as ProfileBase
                 removeItem {
@@ -88,6 +88,7 @@ class AppendMembersFragment : CustomFragment() {
             override fun setButton(holder: CustomViewHolder, current: Base) {
 
             }
+
             override fun setBody(
                 holder: CustomViewHolder,
                 position: Int,
@@ -147,17 +148,41 @@ class AppendMembersFragment : CustomFragment() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(block: CoroutineScope): Array<Profile> {
-                return InitRequest.append()
+            override suspend fun body(block: CoroutineScope): Array<Append> {
+                val list = mutableListOf<Append>()
+                val important = withContext(block.coroutineContext) {
+                    InitRequest.profiles(
+                        Selection.connections,
+                        token.id(),
+                        null,
+                        Filter.append,
+                        false,
+                        Sort.important,
+                        5,
+                        Append::class.java,
+                    ) as Array<Append>
+                }
+                important.map { it.important=true }
+                val profiles = withContext(block.coroutineContext) {
+                    InitRequest.profiles(
+                        Selection.connections,
+                        token.id(),
+                        null,
+                        Filter.append,
+                        false,
+                        Sort.name,
+                        25,
+                        Append::class.java,
+                    ) as Array<Append>
+                }
+                list.addAll(important)
+                list.addAll(profiles)
+                return list.toTypedArray()
             }
 
             override fun onSuccess(item: Any?) {
-                item as Array<Profile>
-                val profiles = mutableListOf<Append>()
-                for ((index, value) in item.withIndex()) {
-                    profiles.add(Append(index < 5, value))
-                }
-                recyclerViewAdapter.initList(*profiles.toTypedArray())
+                item as Array<Append>
+                recyclerViewAdapter.initList(*item)
             }
         }
     }

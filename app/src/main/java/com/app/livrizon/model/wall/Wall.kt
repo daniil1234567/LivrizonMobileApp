@@ -11,5 +11,5 @@ class Wall(
     val profile: WallProfile,
     val relation: WallRelation,
     val body: WallBody,
-    val statistic: WallStatistic? = null
+    val statistic: WallStatistic
 ):java.io.Serializable

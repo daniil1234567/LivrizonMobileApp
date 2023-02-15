@@ -16,14 +16,10 @@ import com.app.livrizon.impl.Base
 import com.app.livrizon.model.Recommendation
 import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.service.Service
-import com.app.livrizon.request.Filter
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.InitRequest
-import com.app.livrizon.request.ProfileRequest
+import com.app.livrizon.request.*
 import com.app.livrizon.security.Role
 import com.app.livrizon.values.Parameters
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 class ServiceFragment : CustomFragment(), MoveImpl {
@@ -59,33 +55,61 @@ class ServiceFragment : CustomFragment(), MoveImpl {
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
             lateinit var companies: Array<Profile>
+            lateinit var users: Array<Profile>
             lateinit var communities: Array<Profile>
             lateinit var teams: Array<Profile>
             override suspend fun body(block: CoroutineScope) {
                 companies =
                     withContext(block.coroutineContext) {
                         InitRequest.profiles(
+                            Selection.possible,
+                            null,
                             Role.company,
                             Filter.popular,
                             false,
-                            9
-                        )
+                            Sort.popularity,
+                            30,
+                            Profile::class.java,
+                        ) as Array<Profile>
+                    }
+                users =
+                    withContext(block.coroutineContext) {
+                        InitRequest.profiles(
+                            Selection.possible,
+                            null,
+                            Role.user,
+                            Filter.popular,
+                            false,
+                            Sort.popularity,
+                            30,
+                            Profile::class.java,
+                        ) as Array<Profile>
                     }
                 communities = withContext(block.coroutineContext) {
-                    InitRequest.profiles(
-                        Role.community,
-                        Filter.popular,
-                        false,
-                        9
-                    )
+                    withContext(block.coroutineContext) {
+                        InitRequest.profiles(
+                            Selection.possible,
+                            null,
+                            Role.community,
+                            Filter.popular,
+                            false,
+                            Sort.popularity,
+                            30,
+                            Profile::class.java,
+                        ) as Array<Profile>
+                    }
                 }
                 teams = withContext(block.coroutineContext) {
                     InitRequest.profiles(
+                        Selection.possible,
+                        null,
                         Role.team,
                         Filter.popular,
                         false,
-                        9
-                    )
+                        Sort.popularity,
+                        30,
+                        Profile::class.java,
+                    ) as Array<Profile>
                 }
             }
 
@@ -95,6 +119,13 @@ class ServiceFragment : CustomFragment(), MoveImpl {
                         1,
                         "Компании",
                         companies
+                    )
+                )
+                if (users.isNotEmpty()) recyclerViewAdapter.list.add(
+                    Recommendation(
+                        2,
+                        "Люди",
+                        users
                     )
                 )
                 if (communities.isNotEmpty()) recyclerViewAdapter.list.add(

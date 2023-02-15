@@ -78,7 +78,16 @@ class SubFragment : CustomFragment() {
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
             override suspend fun body(block: CoroutineScope): Array<Subscribe> {
-                return InitRequest.sub(selection, profileId, filter)
+                return InitRequest.profiles(
+                    selection,
+                    profileId,
+                    null,
+                    null,
+                    false,
+                    Sort.resent,
+                    30,
+                    Subscribe::class.java
+                ) as Array<Subscribe>
             }
 
             override fun onSuccess(item: Any?) {
@@ -89,7 +98,6 @@ class SubFragment : CustomFragment() {
     }
 
     override fun init() {
-        navController = findNavController()
         recyclerView.adapter = recyclerViewAdapter
         binding.tvToolbat.text = title
     }

@@ -11,7 +11,7 @@ import com.app.livrizon.model.publication.Message
 import com.app.livrizon.model.type.event.EventType
 import com.app.livrizon.request.*
 import com.app.livrizon.values.WebsocketsRoute
-import com.app.livrizon.request.gson
+import com.app.livrizon.values.gson
 import kotlinx.coroutines.CoroutineScope
 
 abstract class MessengerFragmentBase : CustomFragment() {

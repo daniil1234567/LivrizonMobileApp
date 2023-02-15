@@ -1,22 +1,15 @@
 package com.app.livrizon.model.file
 
-import com.app.livrizon.impl.ScrollImpl
+import com.app.livrizon.impl.Base
 import com.app.livrizon.model.file.statistic.MediaStatistic
 
 class Media(
     val update_id: Int,
     val body: Photo,
-    val statistic:MediaStatistic
-) : ScrollImpl {
-    override fun id(): Number {
+    val statistic: MediaStatistic
+) : Base {
+    override fun id(): Int {
         return update_id
     }
 
-    override fun body(): Any {
-        return body
-    }
-
-    override fun order(): Boolean {
-        return true
-    }
 }

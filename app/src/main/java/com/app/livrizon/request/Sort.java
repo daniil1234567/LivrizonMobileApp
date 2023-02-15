@@ -1,10 +1,10 @@
 package com.app.livrizon.request;
 
 public enum Sort {
-    all,
     old,
+    resent,
     important,
-    name,
-    followers,
     def,
+    name,
+    popularity,
 }

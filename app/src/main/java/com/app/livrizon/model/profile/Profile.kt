@@ -10,6 +10,9 @@ open class Profile(
     val followers: Int? = null,
     val city: String? = null,
     var my_sub: Int,
+    var my_res: Boolean,
+    var write: Boolean,
+    var gen: Int? = null,
     profile_id: Int,
     avatar: String? = null,
     name: String,
@@ -17,6 +20,7 @@ open class Profile(
     role: Role,
     status: Int,
 ) : ProfileBase(profile_id, avatar, name, confirm, role, status), Base {
+
     override fun id(): Int {
         return profile_id
     }

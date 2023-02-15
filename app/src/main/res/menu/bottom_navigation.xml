@@ -4,24 +4,24 @@
     <item
         android:id="@+id/nav_new"
         android:icon="@drawable/ic_launcher_background"
-        android:title="@string/new_text"/>
+        android:title="@string/Fresh"/>
 
     <item
         android:id="@+id/nav_category"
         android:icon="@drawable/ic_launcher_background"
-        android:title="@string/category"/>
+        android:title="@string/Category"/>
 
     <item
         android:id="@+id/nav_append"
         android:icon="@drawable/ic_launcher_background"
-        android:title="@string/append"/>
+        android:title="@string/Append"/>
     <item
         android:id="@+id/nav_messenger"
         android:icon="@drawable/ic_launcher_background"
-        android:title="@string/messenger"/>
+        android:title="@string/Messenger"/>
     <item
         android:id="@+id/nav_prof"
         android:icon="@drawable/ic_launcher_background"
-        android:title="@string/profile"/>
+        android:title="@string/Profile"/>
 
 </menu>

@@ -6,7 +6,6 @@ import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R
 import com.app.livrizon.databinding.FragmentShimmerWallBinding
 import com.app.livrizon.fragments.CustomFragment
-import com.app.livrizon.function.log
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.wall.*
 import com.app.livrizon.request.*
@@ -14,6 +13,7 @@ import com.app.livrizon.security.Role
 import com.app.livrizon.security.Status
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
+import com.app.livrizon.values.token
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
 
@@ -37,15 +37,19 @@ class ShimmerWallFragment : CustomFragment() {
             override suspend fun body(block: CoroutineScope): Wall {
                 val wall = ProfileRequest.wall(profileId)
                 if (wall.relation.available) {
-                    if (wall.statistic != null && (wall.statistic.followers
+                    if ((wall.statistic.followers
                             ?: 0) > 0 && wall.profile.profile_id != (token as AccessToken).id
                     ) mutual =
                         withContext(block.coroutineContext) {
-                            InitRequest.profilesSub(
+                            InitRequest.profiles(
                                 Selection.connections,
+                                wall.profile.profile_id,
+                                null,
                                 Filter.mutual,
-                                profileId,
-                                Array<ProfileBase>::class.java
+                                true,
+                                Sort.important,
+                                30,
+                                ProfileBase::class.java
                             )
                         }
                     if (wall.profile.role == Role.team && wall.profile.open) {

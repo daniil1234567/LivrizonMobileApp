@@ -11,12 +11,12 @@ import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.ProfileAdapter
 import com.app.livrizon.databinding.FragmentMessengerBinding
 import com.app.livrizon.function.findPosition
+import com.app.livrizon.function.log
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.profile.ProfileBase
-import com.app.livrizon.request.HttpListener
-import com.app.livrizon.request.InitRequest
-import com.app.livrizon.request.token
+import com.app.livrizon.request.*
+import com.app.livrizon.values.token
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
 import kotlinx.coroutines.CoroutineScope
@@ -63,6 +63,7 @@ class MessengerFragment : MessengerFragmentBase() {
                     Parameters.message,
                     chat.message
                 )
+                putExtra(Parameters.write, chat.relation.write)
             }
         )
     }
@@ -88,17 +89,39 @@ class MessengerFragment : MessengerFragmentBase() {
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            lateinit var visits:Array<ProfileBase>
-            lateinit var chats:Array<Chat>
+            lateinit var visits: Array<ProfileBase>
+            lateinit var chats: Array<Chat>
             override suspend fun body(block: CoroutineScope) {
-                visits = withContext(block.coroutineContext) { InitRequest.visits() }
-                chats = withContext(block.coroutineContext) { InitRequest.chats() }
+                val a=System.currentTimeMillis()
+                log(1,1,System.currentTimeMillis()-a)
+                visits = withContext(block.coroutineContext) {
+                    log(1,2,System.currentTimeMillis()-a)
+                    InitRequest.profiles(
+                        Selection.visits,
+                        null,
+                        null,
+                        Filter.recent,
+                        true,
+                        Sort.resent,
+                        30,
+                        Array<ProfileBase>::class.java,
+                    )
+                }
+                log(1,3,System.currentTimeMillis()-a)
+                log(2,1,System.currentTimeMillis()-a)
+                chats = withContext(block.coroutineContext) {
+                    log(2,2,System.currentTimeMillis()-a)
+                    InitRequest.chats()
+                }
+                log(3,3,System.currentTimeMillis()-a)
             }
 
             override fun onSuccess(item: Any?) {
                 if (visits.isNotEmpty()) visitAdapter.initList(*visits)
                 else binding.containerVisit.visibility = View.GONE
+                visitAdapter.initList(*visits)
                 recyclerViewAdapter.initList(*chats)
+                log(visits.size,chats.size)
             }
         }
     }

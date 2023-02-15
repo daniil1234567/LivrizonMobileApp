@@ -2,9 +2,7 @@ package com.app.livrizon.request
 
 import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.model.init.*
-import com.app.livrizon.model.profile.Profile
 import com.app.livrizon.model.profile.ProfileBase
-import com.app.livrizon.model.profile.Subscribe
 import com.app.livrizon.model.publication.*
 import com.app.livrizon.model.type.PublicationType
 import com.app.livrizon.security.Role
@@ -13,48 +11,25 @@ import com.app.livrizon.values.*
 import io.ktor.client.request.*
 
 object InitRequest : InitRequestImpl {
-
-    override suspend fun profilesSub(
-        selection: Selection,
+    override suspend fun profiles(
+        selection: Selection?,
+        profile_id: Int?,
+        role: Role?,
         filter: Filter?,
-        profile_id: Int,
+        preview: Boolean,
+        sort: Sort,
+        limit: Int,
         cl: Class<*>
     ): Array<ProfileBase> {
         return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.initProfilesSub(selection))
-            headers.append(Parameters.auth, token.jwt)
-            parameter(Parameters.profile_id, profile_id)
-            parameter(Parameters.filter, filter)
-        }, cl) as Array<ProfileBase>
-    }
-    override suspend fun profiles(
-        role: Role?,
-        filter: Filter,
-        my_sub: Boolean?,
-        limit: Int
-    ): Array<Profile> {
-        return gson.fromJson(httpClient.get<String> {
             url(HttpRoutes.init_profiles)
+            parameter(Parameters.selection, selection)
             parameter(Parameters.role, role)
             parameter(Parameters.filter, filter)
-            parameter(Parameters.my_sub, my_sub)
+            parameter(Parameters.sort, sort)
             parameter(Parameters.limit, limit)
             headers.append(Parameters.auth, token.jwt)
-        },Array<Profile>::class.java)
-    }
-
-
-    override suspend fun sub(
-        selection: Selection,
-        profile_id: Int,
-        filter: Filter?
-    ): Array<Subscribe> {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.initProfilesSub(selection))
-            parameter(Parameters.filter, filter)
-            parameter(Parameters.profile_id, profile_id)
-            headers.append(Parameters.auth, token.jwt)
-        }, Array<Subscribe>::class.java)
+        }, cl) as Array<ProfileBase>
     }
 
     override suspend fun messages(profile_id: Int, message_id: Int?): Array<Message> {
@@ -77,20 +52,6 @@ object InitRequest : InitRequestImpl {
             url(HttpRoutes.init_chats)
             headers.append(Parameters.auth, token.jwt)
         }, Array<Chat>::class.java)
-    }
-
-    override suspend fun append(): Array<Profile> {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_append)
-            headers.append(Parameters.auth, token.jwt)
-        }, Array<Profile>::class.java)
-    }
-
-    override suspend fun visits(): Array<ProfileBase> {
-        return gson.fromJson(httpClient.get<String> {
-            url(HttpRoutes.init_visits)
-            headers.append(Parameters.auth, token.jwt)
-        }, Array<ProfileBase>::class.java)
     }
 
     override suspend fun articles(

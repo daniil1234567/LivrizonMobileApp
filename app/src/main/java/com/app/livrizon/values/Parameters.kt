@@ -14,6 +14,7 @@ object Parameters {
     const val my_sub ="my_sub"
     const val role ="role"
     const val mutual ="mutual"
+    const val write ="write"
     const val limit ="limit"
     const val selection ="selection"
     const val favorite ="favorite"

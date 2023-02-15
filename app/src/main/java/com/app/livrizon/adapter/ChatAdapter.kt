@@ -7,7 +7,7 @@ import com.app.livrizon.function.loadAvatar
 import com.app.livrizon.model.chat.Chat
 import com.app.livrizon.security.token.AccessToken
 import com.app.livrizon.values.Parameters
-import com.app.livrizon.request.token
+import com.app.livrizon.values.token
 import kotlinx.android.synthetic.main.item_chat_layout.view.*
 
 open class ChatAdapter(context: Context) : RecyclerViewAdapterBase(context) {

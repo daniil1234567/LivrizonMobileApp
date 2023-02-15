@@ -5,12 +5,10 @@ public enum Filter {
     recommendation,
     possible,
     recent,
+    wall,
     append,
     privileged,
     link,
     mutual,
-    search,
     author,
-    admins,
-    wall,
 }
