@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="38dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/ProfileEditInformationHeader"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_header_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/ProfileEditInformationHeaderDescription"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/ed_title2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/light_single_r10_with_s"
+                    android:ems="10"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:hint="@string/ProfileEditInformationChooseCity"
+                    android:inputType="textMultiLine|textPersonName"
+                    android:maxLength="140"
+                    android:paddingStart="14dp"
+                    android:paddingTop="13dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="13dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint"
+                    android:textSize="12sp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="140"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/ProfileEditInformationGender"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:elevation="0dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView27"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="0"
+                            android:autoSizeTextType="none"
+                            android:background="@drawable/button_r_16_with_s_blue"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:gravity="center"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="16dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/DoNotChoose"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/textView32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="0"
+                            android:autoSizeTextType="none"
+                            android:background="@drawable/button_r_16_with_s_blue"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:gravity="center"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="16dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/MaleGenderVerb"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:autoSizeTextType="none"
+                            android:background="@drawable/button_r_16_with_s_blue"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:gravity="center"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="16dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/FemaleGenderVerb"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:elevation="0dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/TellDetails"
+                        android:textSize="10sp" />
+
+                    <EditText
+                        android:id="@+id/ed_title3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/light_single_r10_with_s"
+                        android:ems="10"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="@string/AccountDescription"
+                        android:inputType="textMultiLine|textPersonName"
+                        android:maxLength="140"
+                        android:paddingStart="14dp"
+                        android:paddingTop="13dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="13dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hint"
+                        android:textSize="12sp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="140"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/Education"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="11dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/TellStudy"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="-25dp"
+                android:layout_marginTop="11dp"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_education_layout">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="103dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:autoSizeTextType="none"
+                android:background="@drawable/button_r_16_with_s_blue"
+                android:fontFamily="@font/montserrat_regular"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingTop="10dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="10dp"
+                android:text="@string/append"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
