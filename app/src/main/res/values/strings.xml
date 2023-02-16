@@ -72,4 +72,5 @@
     <string name="ProfileEditInformationHeaderDescription">Это поможет вашим знакомым и гостям вашей страницы лучше узнать вас</string>
     <string name="MaleGenderVerb">Мужской</string>
     <string name="FemaleGenderVerb">Женский</string>
+    <string name="TellJob">Расскажите где вы работали</string>
 </resources>

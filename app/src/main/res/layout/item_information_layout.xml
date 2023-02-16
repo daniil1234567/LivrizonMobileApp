@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="11dp"
     android:orientation="vertical">
 
     <TextView
@@ -20,14 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="11dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="@string/TellStudy"
         android:textSize="12sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="11dp"
+        android:layout_height="186dp"
+        android:layout_marginBottom="11dp"
         tools:itemCount="2"
         tools:listitem="@layout/item_education_layout">
 
@@ -37,6 +38,51 @@
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0"
+        android:autoSizeTextType="none"
+        android:background="@drawable/button_r_18_with_s_blue_2"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
+        android:text="@string/Append"
+        android:textColor="@color/blue_2"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/Experience"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/TellJob"
+        android:textSize="12sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_experience_layout" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="0"
         android:autoSizeTextType="none"
         android:background="@drawable/button_r_18_with_s_blue_2"
