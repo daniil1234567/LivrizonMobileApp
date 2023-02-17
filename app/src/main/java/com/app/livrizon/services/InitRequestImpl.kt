@@ -13,15 +13,15 @@ import com.app.livrizon.security.Role
 
 interface InitRequestImpl {
     suspend fun profiles(
-        selection: Selection?,
+        selection: Selection,
         profile_id: Int?,
-        role: Role?,
         filter: Filter?,
         preview: Boolean,
         sort: Sort,
         limit: Int,
-        cl: Class<*>
+        vararg roles: Role
     ): Array<ProfileBase>
+
     suspend fun messages(profile_id: Int, message_id: Int?): Array<Message>
     suspend fun chat(profile_id: Int): InitChat
     suspend fun chats(): Array<Chat>

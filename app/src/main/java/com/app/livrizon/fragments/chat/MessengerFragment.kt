@@ -92,28 +92,19 @@ class MessengerFragment : MessengerFragmentBase() {
             lateinit var visits: Array<ProfileBase>
             lateinit var chats: Array<Chat>
             override suspend fun body(block: CoroutineScope) {
-                val a=System.currentTimeMillis()
-                log(1,1,System.currentTimeMillis()-a)
                 visits = withContext(block.coroutineContext) {
-                    log(1,2,System.currentTimeMillis()-a)
                     InitRequest.profiles(
                         Selection.visits,
                         null,
-                        null,
                         Filter.recent,
                         true,
-                        Sort.resent,
+                        Sort.def,
                         30,
-                        Array<ProfileBase>::class.java,
                     )
                 }
-                log(1,3,System.currentTimeMillis()-a)
-                log(2,1,System.currentTimeMillis()-a)
                 chats = withContext(block.coroutineContext) {
-                    log(2,2,System.currentTimeMillis()-a)
                     InitRequest.chats()
                 }
-                log(3,3,System.currentTimeMillis()-a)
             }
 
             override fun onSuccess(item: Any?) {

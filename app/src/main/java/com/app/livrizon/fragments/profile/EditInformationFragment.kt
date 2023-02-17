@@ -14,6 +14,5 @@ class EditInformationFragment : CustomFragment() {
 
     override fun initVariable() {
         binding = FragmentProfileEditInformationBinding.inflate(layoutInflater)
-        val tvHeader = binding.tvHeader.text.toString()
     }
 }

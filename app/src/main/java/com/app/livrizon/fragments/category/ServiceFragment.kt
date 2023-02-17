@@ -64,12 +64,11 @@ class ServiceFragment : CustomFragment(), MoveImpl {
                         InitRequest.profiles(
                             Selection.possible,
                             null,
-                            Role.company,
                             Filter.popular,
                             false,
                             Sort.popularity,
-                            30,
-                            Profile::class.java,
+                            9,
+                            Role.company,
                         ) as Array<Profile>
                     }
                 users =
@@ -77,12 +76,11 @@ class ServiceFragment : CustomFragment(), MoveImpl {
                         InitRequest.profiles(
                             Selection.possible,
                             null,
-                            Role.user,
                             Filter.popular,
                             false,
                             Sort.popularity,
-                            30,
-                            Profile::class.java,
+                            9,
+                            Role.user,
                         ) as Array<Profile>
                     }
                 communities = withContext(block.coroutineContext) {
@@ -90,12 +88,11 @@ class ServiceFragment : CustomFragment(), MoveImpl {
                         InitRequest.profiles(
                             Selection.possible,
                             null,
-                            Role.community,
                             Filter.popular,
                             false,
                             Sort.popularity,
-                            30,
-                            Profile::class.java,
+                            9,
+                            Role.community,
                         ) as Array<Profile>
                     }
                 }
@@ -103,12 +100,11 @@ class ServiceFragment : CustomFragment(), MoveImpl {
                     InitRequest.profiles(
                         Selection.possible,
                         null,
-                        Role.team,
                         Filter.popular,
                         false,
                         Sort.popularity,
-                        30,
-                        Profile::class.java,
+                        9,
+                        Role.team,
                     ) as Array<Profile>
                 }
             }

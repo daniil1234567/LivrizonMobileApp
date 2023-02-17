@@ -15,6 +15,7 @@ import com.app.livrizon.model.response.Response
 import com.app.livrizon.model.topics.GroupTopics
 import com.app.livrizon.model.topics.Topic
 import com.app.livrizon.request.*
+import com.app.livrizon.security.Role
 import com.app.livrizon.values.Parameters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -141,12 +142,12 @@ class RegistrationTopicsFragment : CustomFragment() {
                 return InitRequest.profiles(
                     Selection.possible,
                     null,
-                    null,
                     filter,
                     false,
                     Sort.popularity,
                     30,
-                    Profile::class.java,
+                    Role.user,
+                    Role.company
                 ) as Array<Profile>
             }
 

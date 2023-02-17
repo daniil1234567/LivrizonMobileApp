@@ -2,12 +2,12 @@ package com.app.livrizon.fragments.profile
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import com.app.livrizon.R
 import com.app.livrizon.adapter.CustomViewHolder
 import com.app.livrizon.adapter.ProfileAdapter
 import com.app.livrizon.databinding.FragmentSubBinding
 import com.app.livrizon.fragments.CustomFragment
+import com.app.livrizon.function.log
 import com.app.livrizon.impl.Base
 import com.app.livrizon.model.profile.ProfileBase
 import com.app.livrizon.model.profile.Subscribe
@@ -71,23 +71,22 @@ class SubFragment : CustomFragment() {
             selection = getSerializable(Parameters.selection) as Selection
             filter = getSerializable(Parameters.filter) as Filter?
             profileId = requireArguments().getInt(Parameters.profile_id)
+            log(profileId)
         }
         recyclerView = binding.rvProfile
     }
 
     override fun request() {
         initRequest = object : HttpListener(requireContext()) {
-            override suspend fun body(block: CoroutineScope): Array<Subscribe> {
+            override suspend fun body(block: CoroutineScope): Array<ProfileBase> {
                 return InitRequest.profiles(
                     selection,
                     profileId,
                     null,
-                    null,
                     false,
-                    Sort.resent,
+                    Sort.def,
                     30,
-                    Subscribe::class.java
-                ) as Array<Subscribe>
+                )
             }
 
             override fun onSuccess(item: Any?) {

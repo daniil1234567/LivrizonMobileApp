@@ -36,34 +36,45 @@ class ShimmerWallFragment : CustomFragment() {
             var list: Array<*>? = null
             override suspend fun body(block: CoroutineScope): Wall {
                 val wall = ProfileRequest.wall(profileId)
-                if (wall.relation.available) {
-                    if ((wall.statistic.followers
-                            ?: 0) > 0 && wall.profile.profile_id != (token as AccessToken).id
-                    ) mutual =
-                        withContext(block.coroutineContext) {
-                            InitRequest.profiles(
-                                Selection.connections,
-                                wall.profile.profile_id,
+                with(wall) {
+                    if (relation.available) {
+                        if ((profile.role != Role.team || profile.open) &&
+                            statistic.followers != null && statistic.followers > 0 &&
+                            profile.profile_id != (token as AccessToken).id
+                        ) mutual =
+                            withContext(block.coroutineContext) {
+                                InitRequest.profiles(
+                                    Selection.mutual,
+                                    profile.profile_id,
+                                    null,
+                                    true,
+                                    Sort.important,
+                                    30,
+                                    Role.user,
+                                    Role.company,
+                                    Role.community
+                                )
+                            }
+                        if (profile.role == Role.team && profile.open)
+                            list = InitRequest.profiles(
+                                Selection.followers,
+                                profile.profile_id,
                                 null,
-                                Filter.mutual,
-                                true,
-                                Sort.important,
-                                30,
-                                ProfileBase::class.java
-                            )
-                        }
-                    if (wall.profile.role == Role.team && wall.profile.open) {
-
-                    } else if (wall.profile.role != Role.team) list =
-                        withContext(block.coroutineContext) {
-                            InitRequest.posts(
-                                profileId,
-                                null,
-                                Filter.wall,
                                 false,
+                                Sort.def,
                                 30
                             )
-                        }
+                        else if (profile.role != Role.team) list =
+                            withContext(block.coroutineContext) {
+                                InitRequest.posts(
+                                    profileId,
+                                    null,
+                                    Filter.wall,
+                                    false,
+                                    30
+                                )
+                            }
+                    }
                 }
                 return wall
             }

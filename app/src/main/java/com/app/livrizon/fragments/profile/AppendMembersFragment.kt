@@ -154,12 +154,10 @@ class AppendMembersFragment : CustomFragment() {
                     InitRequest.profiles(
                         Selection.connections,
                         token.id(),
-                        null,
                         Filter.append,
                         false,
                         Sort.important,
                         5,
-                        Append::class.java,
                     ) as Array<Append>
                 }
                 important.map { it.important=true }
@@ -167,12 +165,10 @@ class AppendMembersFragment : CustomFragment() {
                     InitRequest.profiles(
                         Selection.connections,
                         token.id(),
-                        null,
                         Filter.append,
                         false,
                         Sort.name,
                         25,
-                        Append::class.java,
                     ) as Array<Append>
                 }
                 list.addAll(important)
